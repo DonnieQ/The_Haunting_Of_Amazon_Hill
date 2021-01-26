@@ -1,14 +1,14 @@
 import java.util.HashMap;
 import java.util.Map;
 
-class Rooms {
+class Room {
     private String roomTitle;
     private String description;
-    private Ghosts roomEvidence;
-    Map<String, Rooms> roomExits = new HashMap<>();
+    private Ghost roomEvidence;
+    Map<String, Room> roomExits = new HashMap<>();
     String roomItems;
 
-    public Rooms(String title) {
+    public Room(String title) {
         this.roomTitle = title;
     }
 
@@ -28,15 +28,15 @@ class Rooms {
         this.description = description;
     }
 
-    public Ghosts getRoomEvidence() {
+    public Ghost getRoomEvidence() {
         return roomEvidence;
     }
 
-    public void setRoomEvidence(Ghosts roomEvidence) {
+    public void setRoomEvidence(Ghost roomEvidence) {
         this.roomEvidence = roomEvidence;
     }
 
-    public Rooms(String description, String ghostTracks) {
+    public Room(String description, String ghostTracks) {
         this.description = description;
 
     }

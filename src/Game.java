@@ -3,17 +3,17 @@ import java.util.List;
 import java.util.Scanner;
 
 class Game {
-    Ghosts currentGhost;
+    Ghost currentGhost;
 
-    List<Rooms> gameMap = new ArrayList<>();
+    List<Room> gameMap = new ArrayList<>();
 
-    Rooms lobby = new Rooms("Treasure Room");
-    Rooms dungeon = new Rooms("Dungeon");
-    Rooms diningRoom = new Rooms("Dining Room");
-    Rooms balcony = new Rooms("Balcony");
-    Rooms furnaceRoom = new Rooms("Furnace Room");
+    Room lobby = new Room("Treasure Room");
+    Room dungeon = new Room("Dungeon");
+    Room diningRoom = new Room("Dining Room");
+    Room balcony = new Room("Balcony");
+    Room furnaceRoom = new Room("Furnace Room");
 
-    Rooms currentRoom = dungeon;
+    Room currentRoom = dungeon;
 
     public Game() {
 
@@ -21,7 +21,7 @@ class Game {
         lobby.roomExits.put("west", diningRoom);
         lobby.roomExits.put("north", balcony);
         lobby.roomExits.put("south", furnaceRoom);
-        lobby.roomItems = Ghosts.SAMCA.getEvidence()[0];
+        lobby.roomItems = Ghost.SAMCA.getEvidence()[0];
 
         gameMap.add(lobby);
 
@@ -30,7 +30,7 @@ class Game {
         dungeon.roomExits.put("west", diningRoom);
         //    dungeon.roomExits.put("north", balcony);
         //    dungeon.roomExits.put("south", furnaceRoom);
-        dungeon.roomItems = Ghosts.SAMCA.getEvidence()[1];
+        dungeon.roomItems = Ghost.SAMCA.getEvidence()[1];
 
         gameMap.add(dungeon);
 
