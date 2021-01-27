@@ -17,8 +17,8 @@ class Player {
         return journal;
     }
 
-     void setJournal(List<String> journal) {
-        this.journal = journal;
+     void setJournal(String journal) {
+        this.journal.add(journal);
     }
 
     @Override

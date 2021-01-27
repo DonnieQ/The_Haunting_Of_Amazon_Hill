@@ -94,6 +94,7 @@ class Game {
 
             input = scanner.nextLine().strip().toLowerCase().split(" ");
 
+
             switch (input[0]) {
                 case "read":
                     System.out.println("****************************");
