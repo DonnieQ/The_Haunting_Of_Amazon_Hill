@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-class Game {
+class Map {
     Ghost currentGhost;
 
     List<Room> gameMap = new ArrayList<>();
@@ -15,7 +15,7 @@ class Game {
 
     Room currentRoom = lobby;
 
-    public Game() {
+    public Map() {
 
 
         lobby.roomExits.put("east", dungeon);
@@ -143,8 +143,5 @@ class Game {
 
     }
 
-    public static void main(String[] args) {
-        Game g = new Game();
-        g.start();
-    }
+
 }
