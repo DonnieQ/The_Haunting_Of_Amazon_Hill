@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 class World {
     Ghost currentGhost;
-
+    List<Ghost> ghosts = new ArrayList<>();
     List<Room> gameMap = new ArrayList<>();
 
     Room lobby = new Room("Lobby");
