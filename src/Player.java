@@ -1,6 +1,9 @@
+import java.util.ArrayList;
+import java.util.List;
+
 class Player {
    private final String name;
-   private String evidenceBag;
+   private List<String> journal = new ArrayList<>();
 
     Player(String name) {
         this.name = name;
@@ -10,20 +13,17 @@ class Player {
         return name;
     }
 
-     String getEvidence() {
-        return evidenceBag;
+     List<String> getJournal() {
+        return journal;
     }
 
-     void setEvidence(String evidence) {
-        this.evidenceBag = evidence;
+     void setJournal(List<String> journal) {
+        this.journal = journal;
     }
 
     @Override
     public String toString() {
-        return "Player{" +
-                "name='" + name + '\'' +
-                ", evidenceBag='" + evidenceBag + '\'' +
-                '}';
+        return getName() + "\'s" + " journal currently shows these items: " + getJournal();
     }
 
 }

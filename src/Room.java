@@ -41,4 +41,17 @@ class Room {
 
     }
 
+    public String getRoomItems() {
+        String result = "";
+
+        if(roomItems.length() == 0){
+            result = "There are no items in this room. ";
+        }else {
+            result = roomItems;
+        }return result;
+    }
+
+    public void setRoomItems(String roomItems) {
+        this.roomItems = roomItems;
+    }
 }
