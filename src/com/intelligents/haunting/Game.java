@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+package com.intelligents.haunting;
+
 import java.util.Scanner;
 
 class Game {

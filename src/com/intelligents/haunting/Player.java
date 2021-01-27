@@ -1,3 +1,5 @@
+package com.intelligents.haunting;
+
 import java.util.ArrayList;
 import java.util.List;
 

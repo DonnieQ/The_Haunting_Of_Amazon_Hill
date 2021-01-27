@@ -1,3 +1,7 @@
+package com.intelligents.client;
+
+import com.intelligents.haunting.SplashScreen;
+
 import java.io.IOException;
 
 public class Main {
