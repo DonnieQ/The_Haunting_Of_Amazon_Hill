@@ -107,6 +107,8 @@ class Map {
                     System.out.println(currentRoom.getRoomItems());
                     System.out.println("****************************");
                     break;
+                case "exit":
+                case "quit":
                 case "q":
                     isGameRunning = false;
                     break;
