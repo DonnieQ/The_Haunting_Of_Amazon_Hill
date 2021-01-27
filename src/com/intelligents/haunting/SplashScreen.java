@@ -32,14 +32,11 @@ public class SplashScreen {
         String banner = Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "splashScreen"));
         System.out.println(banner);
         System.out.println("Press Enter key to continue...");
-        try
-        {
+        try {
             System.in.read();
+        } catch (Exception e) {
         }
-        catch(Exception e)
-        {}
     }
-
 
 
     public static String getUserInput() {

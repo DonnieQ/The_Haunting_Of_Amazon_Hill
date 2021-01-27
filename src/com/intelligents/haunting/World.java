@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 class World {
-    Ghost currentGhost;
-
     List<Room> gameMap = new ArrayList<>();
 
     Room lobby = new Room("Lobby");
@@ -23,7 +21,6 @@ class World {
         lobby.roomExits.put("west", diningRoom);
         lobby.roomExits.put("north", balcony);
         lobby.roomExits.put("south", furnaceRoom);
-        lobby.setRoomItems(Ghost.SAMCA.getEvidence()[0]);
 
         gameMap.add(lobby);
 
@@ -32,7 +29,6 @@ class World {
         dungeon.roomExits.put("west", lobby);
         //    dungeon.roomExits.put("north", balcony);
         //    dungeon.roomExits.put("south", furnaceRoom);
-        dungeon.roomItems = Ghost.SAMCA.getEvidence()[1];
 
         gameMap.add(dungeon);
 
@@ -64,8 +60,6 @@ class World {
         gameMap.add(furnaceRoom);
 
     }
-
-
 
 
 }
