@@ -45,7 +45,6 @@ class World {
         diningRoom.roomExits.put("east", lobby);
         //   diningRoom.roomExits.put("north", balcony);
         //  diningRoom.roomExits.put("south", furnaceRoom);
-        diningRoom.setRoomItems("");
 
         gameMap.add(diningRoom);
 
@@ -54,7 +53,6 @@ class World {
         //   balcony.roomExits.put("west", diningRoom);
         //   balcony.roomExits.put("north", balcony);
         balcony.roomExits.put("south", lobby);
-        balcony.setRoomItems("");
 
         gameMap.add(balcony);
 
@@ -63,7 +61,6 @@ class World {
         //    furnaceRoom.roomExits.put("west", diningRoom);
         furnaceRoom.roomExits.put("north", lobby);
         // furnaceRoom.roomExits.put("south", furnaceRoom);
-        furnaceRoom.setRoomItems("");
 
         gameMap.add(furnaceRoom);
 

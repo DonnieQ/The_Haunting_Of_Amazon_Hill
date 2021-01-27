@@ -14,7 +14,7 @@ public class Game {
 
     private Random r = new Random();
 
-    public Game() {
+    public Game() throws IOException {
         populateGhostList();
         setCurrentGhost(getRandomGhost());
     }
@@ -60,7 +60,13 @@ public class Game {
                 case "show":
                     System.out.println("****************************");
                     System.out.println("Your location is " + world.currentRoom.getRoomTitle());
-                    System.out.println(world.currentRoom.getRoomItems());
+                    if (world.currentRoom.getRoomItems().isEmpty()) {
+                        System.out.println("Currently there are no items in "
+                                + world.currentRoom.getRoomTitle());
+                    }
+                    else {
+                        System.out.println(world.currentRoom.getRoomItems());
+                    }
                     System.out.println("****************************");
                     break;
                 case "exit":

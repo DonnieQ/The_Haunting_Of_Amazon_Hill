@@ -1,14 +1,16 @@
 package com.intelligents.haunting;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 class Room {
     private String roomTitle;
     private String description;
-    private Ghost roomEvidence;
+    private String roomEvidence;
     Map<String, Room> roomExits = new HashMap<>();
-    String roomItems;
+    private List<String> roomItems = new ArrayList<>();
 
     public Room(String title) {
         this.roomTitle = title;
@@ -30,11 +32,11 @@ class Room {
         this.description = description;
     }
 
-    public Ghost getRoomEvidence() {
+    public String getRoomEvidence() {
         return roomEvidence;
     }
 
-    public void setRoomEvidence(Ghost roomEvidence) {
+    public void setRoomEvidence(String roomEvidence) {
         this.roomEvidence = roomEvidence;
     }
 
@@ -43,18 +45,18 @@ class Room {
 
     }
 
-    public String getRoomItems() {
-        String result = "";
-
-        if (roomItems.length() == 0) {
-            result = "There are no items in this room. ";
-        } else if (roomItems.length() > 0) {
-            result = roomItems;
-        }
-        return result;
+    public void addItemToRoom(String item) {
+        roomItems.add(item);
     }
 
-    public void setRoomItems(String roomItems) {
+    public List<String> getRoomItems() {
+        List<String> results = new ArrayList<>();
+        if (roomItems.size() == 0) {
+            return results;
+        }
+        return roomItems;
+    }
+    public void setRoomItems(List<String> roomItems) {
         this.roomItems = roomItems;
     }
 }
