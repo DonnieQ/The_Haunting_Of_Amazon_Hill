@@ -1,5 +1,6 @@
 package com.intelligents.haunting;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,6 +8,9 @@ public class Game {
     World world = new World();
     private ArrayList<Ghost> ghosts = new ArrayList<>();
     private Ghost currentGhost;
+
+    public Game() throws IOException {
+    }
 
     void start() {
         boolean isValidInput;
@@ -22,18 +26,19 @@ public class Game {
 
         Player player = new Player(input[0]);
 
-        System.out.println(player);
-        System.out.println("Good luck to you, " + player.getName());
+        //System.out.println(player);
+        System.out.println("Good luck to you, Detective " + player.getName());
         System.out.println("---------------------------");
 
 
         while (isGameRunning) {
             isValidInput = true;
 
+            System.out.println("Your location is " + world.currentRoom.getRoomTitle());
+            System.out.println(world.currentRoom.getDescription());
             System.out.println("To move type: Go North, Go East, Go South, or Go West");
             System.out.println("---------------------------");
-            System.out.println("Your location is " + world.currentRoom.getRoomTitle());
-            System.out.println("****************************");
+                        System.out.println("****************************");
             System.out.println(">>");
 
             input = scanner.nextLine().strip().toLowerCase().split(" ");

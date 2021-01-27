@@ -19,7 +19,9 @@ public class SplashScreen {
         if (gameType.matches("1")) {
             Game g = new Game();
             String banner = Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "introText"));
+            String intro = Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "settingTheScene"));
             System.out.println(banner);
+            System.out.println(intro);
             g.start();
 
         } else {
