@@ -15,7 +15,7 @@ public class SplashScreen {
                 "Please enter a number for Chapter:");
         String gameType = getUserInput();
         if (gameType.matches("1")) {
-            Map g = new Map();
+            Game g = new Game();
             String banner = Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "introText"));
             System.out.println(banner);
             g.start();

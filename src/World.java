@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-class Map {
+class World {
     Ghost currentGhost;
 
     List<Room> gameMap = new ArrayList<>();
@@ -15,7 +15,7 @@ class Map {
 
     Room currentRoom = lobby;
 
-    public Map() {
+    public World() {
 
 
         lobby.roomExits.put("east", dungeon);
@@ -64,86 +64,7 @@ class Map {
 
     }
 
-    void start() {
-        boolean isValidInput;
-        boolean isGameRunning = true;
-        String[] input;
-        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Thank you for choosing to play The Haunting on Amazon Hill. " +
-                "What would you like your name to be? ");
-        System.out.println(">>");
-
-        input = scanner.nextLine().strip().toLowerCase().split(" ");
-
-        Player player = new Player(input[0]);
-
-        System.out.println(player);
-        System.out.println("Good luck to you, " + player.getName());
-        System.out.println("---------------------------");
-
-
-        while (isGameRunning) {
-            isValidInput = true;
-
-            System.out.println("To move type: Go North, Go East, Go South, or Go West");
-            System.out.println("---------------------------");
-            System.out.println("Your location is " + currentRoom.getRoomTitle());
-            System.out.println("****************************");
-            System.out.println(">>");
-
-            input = scanner.nextLine().strip().toLowerCase().split(" ");
-
-
-            switch (input[0]) {
-                case "read":
-                    System.out.println("****************************");
-                    System.out.println(player);
-                    System.out.println("****************************");
-                    break;
-                case "show":
-                    System.out.println("****************************");
-                    System.out.println("Your location is " + currentRoom.getRoomTitle());
-                    System.out.println(currentRoom.getRoomItems());
-                    System.out.println("****************************");
-                    break;
-                case "exit":
-                case "quit":
-                case "q":
-                    isGameRunning = false;
-                    break;
-                case "move":
-                case "go":
-
-                    while (isValidInput) {
-
-                        switch (input[1]) {
-
-                            case "north":
-                            case "east":
-                            case "south":
-                            case "west":
-                                if (currentRoom.roomExits.containsKey(input[1])) {
-                                    currentRoom = currentRoom.roomExits.get(input[1]);
-                                    isValidInput = false;
-
-                                    break;
-                                }
-                            default:
-                                System.out.println("You hit wall. Try again: ");
-                                System.out.println(">>");
-                                input = scanner.nextLine().strip().toLowerCase().split(" ");
-                                break;
-
-                        }
-
-                    }
-
-            }
-        }
-        System.out.println("Thank you for playing our game!!");
-
-    }
 
 
 }
