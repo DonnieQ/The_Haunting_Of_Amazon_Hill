@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
@@ -10,8 +11,8 @@ import org.w3c.dom.Element;
  class XMLParser {
 
 
-     public void readGhosts() {
-
+     public static NodeList readGhosts() {
+         NodeList results = null;
          try {
              // class.xml is place in the folder data within the package structure
 
@@ -31,39 +32,39 @@ import org.w3c.dom.Element;
              root.normalize();
 
              // print out the root node of the XML document
-             System.out.println("Root is " + root.getNodeName());
+             // System.out.println("Root is " + root.getNodeName());
 
-             // read the ghost attribute
-             NodeList nList = doc.getElementsByTagName("ghost");
+             // Get all "ghost" elements by tag name
+             results = doc.getElementsByTagName("ghost");
 
-             for (int i = 0; i < nList.getLength(); i++) {
-                 //
-                 Node nNode = nList.item(i);
-                 System.out.println("\nCurrent Element :" + nNode.getNodeName());
-
-                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                     Element ghost = (Element) nNode;
-                     System.out.println("Ghost Name : "
-                             + ghost.getElementsByTagName("name").item(0).getTextContent());
-                     System.out.println("Ghost Type : "
-                             + ghost.getElementsByTagName("type").item(0).getTextContent());
-                     System.out.println("Background : "
-                             + ghost.getElementsByTagName("background").item(0).getTextContent());
-                     System.out.println("Evidence : "
-                             + ghost
-                             .getElementsByTagName("evidence")
-                             .item(0)
-                             .getTextContent());
-                     System.out.println("Evidence : "
-                             + ghost
-                             .getElementsByTagName("evidence")
-                             .item(1)
-                             .getTextContent());
-                 }
-             }
-
+             // Call populateGhosts to create ghosts for game
          } catch (Exception e) {
              e.printStackTrace();
          }
+         return results;
+     }
+     public static ArrayList<Ghost> populateGhosts(NodeList nList){
+         //Instantiate new Ghost list
+         ArrayList<Ghost> ghosts = new ArrayList<>();
+         // With node list find each element and construct ghost object
+         for (int i = 0; i < nList.getLength(); i++) {
+             // Iterate through each node in nodeList
+             Node nNode = nList.item(i);
+             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                 // Generate local variables from each "ghost" element in XML
+                 Element ghost = (Element) nNode;
+                 String name = ghost.getElementsByTagName("name").item(0).getTextContent();
+                 String type = ghost.getElementsByTagName("type").item(0).getTextContent();
+                 String background = ghost.getElementsByTagName("background").item(0).getTextContent();
+                 ArrayList<String> evidence = new ArrayList<>();
+                 String evidence1 = ghost.getElementsByTagName("evidence").item(0).getTextContent();
+                 String evidence2 = ghost.getElementsByTagName("evidence").item(1).getTextContent();
+                 evidence.add(evidence1);
+                 evidence.add(evidence2);
+                 // Construct new ghost and add to ghost list
+                 ghosts.add(new Ghost(name, type, background, evidence));
+             }
+         }
+         return ghosts;
      }
 }

@@ -1,7 +1,10 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 class Game {
     World world = new World();
+    private ArrayList<Ghost> ghosts = new ArrayList<>();
+    private Ghost currentGhost;
 
     void start() {
         boolean isValidInput;
@@ -81,6 +84,14 @@ class Game {
             }
         }
         System.out.println("Thank you for playing our game!!");
+    }
 
+    public void populateGhostList(){
+        ghosts.addAll(XMLParser.populateGhosts(XMLParser.readGhosts()));
+    }
+    public void print(){
+        for (Ghost ghost : ghosts) {
+            System.out.println(ghost);
+        }
     }
 }
