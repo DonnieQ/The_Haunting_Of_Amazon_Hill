@@ -4,22 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Player {
-   private final String name;
-   private List<String> journal = new ArrayList<>();
+    private final String name;
+    private List<String> journal = new ArrayList<>();
 
     Player(String name) {
         this.name = name;
     }
 
-     String getName() {
+    String getName() {
         return name;
     }
 
-     List<String> getJournal() {
+    List<String> getJournal() {
         return journal;
     }
 
-     void setJournal(String journal) {
+    void setJournal(String journal) {
         this.journal.add(journal);
     }
 

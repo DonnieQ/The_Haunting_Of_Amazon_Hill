@@ -1,5 +1,6 @@
 package com.intelligents.client;
 
+import com.intelligents.haunting.Game;
 import com.intelligents.haunting.SplashScreen;
 
 import java.io.IOException;

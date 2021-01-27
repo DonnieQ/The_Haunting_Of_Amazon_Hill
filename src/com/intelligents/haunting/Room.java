@@ -46,11 +46,12 @@ class Room {
     public String getRoomItems() {
         String result = "";
 
-        if(roomItems.length() == 0){
+        if (roomItems.length() == 0) {
             result = "There are no items in this room. ";
-        }else if (roomItems.length() > 0) {
+        } else if (roomItems.length() > 0) {
             result = roomItems;
-        }return result;
+        }
+        return result;
     }
 
     public void setRoomItems(String roomItems) {

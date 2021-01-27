@@ -1,7 +1,8 @@
+package com.intelligents.haunting;
+
 import java.util.ArrayList;
 
 public class Ghost {
-
 
 
     private String name;
