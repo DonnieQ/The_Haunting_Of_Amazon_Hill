@@ -2,14 +2,21 @@ package com.intelligents.haunting;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
     World world = new World();
-    private ArrayList<Ghost> ghosts = new ArrayList<>();
+    private List<Ghost> ghosts = new ArrayList<>();
+
     private Ghost currentGhost;
 
-    public Game() throws IOException {
+    private Random r = new Random();
+
+    public Game() {
+        populateGhostList();
+        setCurrentGhost(getRandomGhost());
     }
 
     void start() {
@@ -94,12 +101,34 @@ public class Game {
     }
 
     public void populateGhostList() {
-        ghosts.addAll(XMLParser.populateGhosts(XMLParser.readGhosts()));
+        this.setGhosts(XMLParser.populateGhosts(XMLParser.readGhosts()));
     }
 
-    public void print() {
+    public void printGhosts() {
         for (Ghost ghost : ghosts) {
             System.out.println(ghost);
         }
     }
+    public Ghost getRandomGhost() {
+        int index = r.nextInt(ghosts.size());
+        return ghosts.get(index);
+    }
+
+    // Getters / Setters
+
+    public List<Ghost> getGhosts() {
+        return ghosts;
+    }
+
+    public void setGhosts(List<Ghost> ghosts) {
+        this.ghosts = ghosts;
+    }
+    public Ghost getCurrentGhost() {
+        return currentGhost;
+    }
+    public void setCurrentGhost(Ghost ghost) {
+        this.currentGhost = ghost;
+    }
+
+
 }

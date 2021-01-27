@@ -8,7 +8,7 @@ public class Ghost {
     private String name;
     private String type;
     private String background;
-    private ArrayList<String> evidence = new ArrayList<>();
+    private ArrayList<String> evidence;
 
     // Single constructor
 
