@@ -1,3 +1,5 @@
+package com.intelligents.haunting;
+
 enum Ghost {
     SAMCA("an evil spirit, said to curse children and pregnant women with illness", new String[]{"Sulfuric Scent", "Moldy Cheese"});
 

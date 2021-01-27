@@ -1,6 +1,7 @@
+package com.intelligents.haunting;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 class World {
     Ghost currentGhost;
@@ -11,7 +12,7 @@ class World {
     Room dungeon = new Room("Dungeon");
     Room diningRoom = new Room("Dining Room");
     Room balcony = new Room("Balcony");
-    Room furnaceRoom = new Room("Furnace Room");
+    Room furnaceRoom = new Room("Furnace");
 
     Room currentRoom = lobby;
 

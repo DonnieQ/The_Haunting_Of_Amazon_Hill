@@ -1,3 +1,5 @@
+package com.intelligents.haunting;
+
 import java.util.HashMap;
 import java.util.Map;
 
