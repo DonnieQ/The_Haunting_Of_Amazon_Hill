@@ -46,7 +46,7 @@ class Room {
 
         if(roomItems.length() == 0){
             result = "There are no items in this room. ";
-        }else {
+        }else if (roomItems.length() > 0) {
             result = roomItems;
         }return result;
     }

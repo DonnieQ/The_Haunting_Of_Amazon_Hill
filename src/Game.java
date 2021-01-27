@@ -22,7 +22,7 @@ class Game {
         lobby.roomExits.put("west", diningRoom);
         lobby.roomExits.put("north", balcony);
         lobby.roomExits.put("south", furnaceRoom);
-        lobby.roomItems = Ghost.SAMCA.getEvidence()[0];
+        lobby.setRoomItems(Ghost.SAMCA.getEvidence()[0]);
 
         gameMap.add(lobby);
 
@@ -40,6 +40,7 @@ class Game {
         diningRoom.roomExits.put("east", lobby);
         //   diningRoom.roomExits.put("north", balcony);
         //  diningRoom.roomExits.put("south", furnaceRoom);
+        diningRoom.setRoomItems("");
 
         gameMap.add(diningRoom);
 
@@ -48,6 +49,7 @@ class Game {
         //   balcony.roomExits.put("west", diningRoom);
         //   balcony.roomExits.put("north", balcony);
         balcony.roomExits.put("south", lobby);
+        balcony.setRoomItems("");
 
         gameMap.add(balcony);
 
@@ -56,6 +58,7 @@ class Game {
         //    furnaceRoom.roomExits.put("west", diningRoom);
         furnaceRoom.roomExits.put("north", lobby);
         // furnaceRoom.roomExits.put("south", furnaceRoom);
+        furnaceRoom.setRoomItems("");
 
         gameMap.add(furnaceRoom);
 
@@ -100,7 +103,7 @@ class Game {
                 case "show":
                     System.out.println("****************************");
                     System.out.println("Your location is " + currentRoom.getRoomTitle());
-                    System.out.println(currentRoom.roomItems);
+                    System.out.println(currentRoom.getRoomItems());
                     System.out.println("****************************");
                     break;
                 case "q":
