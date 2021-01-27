@@ -13,7 +13,6 @@ import org.w3c.dom.Element;
 
 class XMLParser {
 
-
     public static NodeList readGhosts() {
         NodeList results = null;
         try {
