@@ -56,6 +56,8 @@ public class Game {
                     System.out.println("****************************");
                     System.out.println(player);
                     System.out.println("****************************");
+                    printGhostsDesc();
+                    System.out.println("****************************");
                     break;
                 case "look":
                 case "show":
@@ -73,7 +75,7 @@ public class Game {
                         player.setJournal(journalEntry);
                     }
                     else{
-                        System.out.println("You look and notice an" + world.currentRoom.getRoomEvidence());
+                        System.out.println("You look and notice: " + world.currentRoom.getRoomEvidence());
                             System.out.println("Would you like to document anything about this room? " +
                                     ">>>");
                             String journalEntry = scanner.nextLine().strip().toLowerCase();
@@ -83,7 +85,7 @@ public class Game {
                             player.setJournal(journalEntry);
                        // System.out.println(world.currentRoom.getRoomItems());
 
-                        System.out.println(world.currentRoom.getRoomItems());
+                        System.out.println(world.currentRoom.getRoomEvidence());
                     }
                     System.out.println("****************************");
                     break;
@@ -172,7 +174,9 @@ public class Game {
             System.out.println(room.toString());
         }
     }
-
+    public void printGhostsDesc() {
+        ghosts.forEach(ghost -> System.out.println(ghost.toString()));
+    }
     // Getters / Setters
 
     public List<Ghost> getGhosts() {

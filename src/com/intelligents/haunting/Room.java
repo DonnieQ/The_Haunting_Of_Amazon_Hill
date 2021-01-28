@@ -33,7 +33,12 @@ class Room {
     }
 
     public String getRoomEvidence() {
+        try {
         return roomEvidence;
+        }
+        catch (NullPointerException e) {
+            return "";
+        }
     }
 
     public void setRoomEvidence(String roomEvidence) {
