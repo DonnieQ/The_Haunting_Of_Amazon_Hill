@@ -1,12 +1,14 @@
 package com.intelligents.haunting;
 
+import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
-    World world = new World();
+    private World world = new World();
     private List<Ghost> ghosts = new ArrayList<>();
 
     private Ghost currentGhost;
@@ -16,6 +18,11 @@ public class Game {
     public Game() {
         populateGhostList();
         setCurrentGhost(getRandomGhost());
+        assignRandomEvidenceToMap();
+        for (Room room : world.gameMap) {
+            System.out.println(room.getRoomTitle());
+            System.out.println(room.getRoomEvidence());
+        }
     }
 
     void start() {
@@ -136,13 +143,40 @@ public class Game {
         int index = r.nextInt(ghosts.size());
         return ghosts.get(index);
     }
+    public void assignRandomEvidenceToMap() {
+        try {
+            //for each evidence from monster, get rooms from world.gamemap equivalent to the number of evidences.
+            for (int i = 0; i < currentGhost.getEvidence().size(); i++) {
+                // Success condition
+                boolean addedEvidence = false;
+
+                // Loop while no success
+                while (!addedEvidence) {
+                    Room x = getRandomRoomFromWorld();
+                    // System.out.println("random room chosen is " + x.getRoomTitle());
+                    if (x.getRoomEvidence() == null) {
+                        x.setRoomEvidence(currentGhost.getEvidence().get(i));
+                        // System.out.println("added " + currentGhost.getEvidence().get(i) + " to " + x.getRoomTitle());
+                        addedEvidence = true;
+                    }
+                }
+
+            }
+        }
+        catch (NullPointerException e){
+            System.out.println("The data given is empty, cannot perform function");
+        }
+    }
+    public Room getRandomRoomFromWorld() {
+        int index = r.nextInt(world.gameMap.size());
+        return world.gameMap.get(index);
+    }
 
     // Getters / Setters
 
     public List<Ghost> getGhosts() {
         return ghosts;
     }
-
     public void setGhosts(List<Ghost> ghosts) {
         this.ghosts = ghosts;
     }
@@ -152,6 +186,8 @@ public class Game {
     public void setCurrentGhost(Ghost ghost) {
         this.currentGhost = ghost;
     }
-
+    public World getWorld() {
+        return world;
+    }
 
 }

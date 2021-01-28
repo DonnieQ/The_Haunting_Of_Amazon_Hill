@@ -33,7 +33,7 @@ public class SplashScreen {
         }
     }
 
-    public void pressAnyKeyToContinue() {
+    public void pressEnterToContinue() {
         p.print("splashScreen");
         System.out.println("Press Enter key to continue...");
         try {
