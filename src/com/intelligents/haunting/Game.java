@@ -1,7 +1,5 @@
 package com.intelligents.haunting;
 
-import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -63,7 +61,7 @@ public class Game {
                 case "show":
                     System.out.println("****************************");
                     System.out.println("Your location is " + world.currentRoom.getRoomTitle());
-                    if (world.currentRoom.getRoomItems().isEmpty()) {
+                    if (world.currentRoom.getRoomEvidence().isEmpty()) {
                         System.out.println("Currently there are no items in "
                                 + world.currentRoom.getRoomTitle());
                         System.out.println("Would you like to document anything about this room? " +
@@ -75,7 +73,7 @@ public class Game {
                         player.setJournal(journalEntry);
                     }
                     else{
-                        System.out.println("You look and notice an" + world.currentRoom.getRoomItems());
+                        System.out.println("You look and notice an" + world.currentRoom.getRoomEvidence());
                             System.out.println("Would you like to document anything about this room? " +
                                     ">>>");
                             String journalEntry = scanner.nextLine().strip().toLowerCase();
@@ -115,6 +113,7 @@ public class Game {
                                 System.out.println("You hit wall. Try again: ");
                                 System.out.println(">>");
                                 input = scanner.nextLine().strip().toLowerCase().split(" ");
+
                                 break;
 
                         }
@@ -150,7 +149,7 @@ public class Game {
                 while (!addedEvidence) {
                     Room x = getRandomRoomFromWorld();
                     // System.out.println("random room chosen is " + x.getRoomTitle());
-                    if (x.getRoomEvidence() == null) {
+                    if (x.getRoomEvidence().equals("")) {
                         x.setRoomEvidence(currentGhost.getEvidence().get(i));
                         // System.out.println("added " + currentGhost.getEvidence().get(i) + " to " + x.getRoomTitle());
                         addedEvidence = true;
