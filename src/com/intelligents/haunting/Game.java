@@ -64,7 +64,14 @@ public class Game {
                         System.out.println("Currently there are no items in "
                                 + world.currentRoom.getRoomTitle());
                     }
-                    else {
+                    else{
+                        System.out.println("You look and notice an" + world.currentRoom.getRoomItems());
+                            System.out.println("Would you like to document anything about this room? " +
+                                    ">>>");
+                            String journalEntry = scanner.nextLine().strip().toLowerCase();
+                            player.setJournal(journalEntry);
+                       // System.out.println(world.currentRoom.getRoomItems());
+
                         System.out.println(world.currentRoom.getRoomItems());
                     }
                     System.out.println("****************************");
