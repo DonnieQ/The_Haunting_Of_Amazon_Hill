@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import com.intelligents.gamesave.saveGame;
 
-public class Game {
+public class Game implements java.io.Serializable{
     private World world = new World();
     private List<Ghost> ghosts = new ArrayList<>();
-
+    private saveGame saveGame = new saveGame();
     private Ghost currentGhost;
 
     private Random r = new Random();
@@ -59,6 +60,9 @@ public class Game {
                     System.out.println(ConsoleColors.BLACK_BACKGROUND + "Possible Ghosts: " + ConsoleColors.RESET);
                     printGhostsDesc();
                     System.out.println("****************************");
+                    break;
+                case "save":
+                    saveGame.save();
                     break;
                 case "look":
                 case "show":

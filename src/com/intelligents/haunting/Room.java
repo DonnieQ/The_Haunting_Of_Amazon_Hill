@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class Room {
+class Room implements java.io.Serializable{
     private String roomTitle;
     private String description;
     private String roomEvidence = "";

@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
 
-public class SplashScreen {
+public class SplashScreen implements java.io.Serializable{
     public static Scanner scanner = new Scanner(System.in);
     printFiles p = new printFiles();
 

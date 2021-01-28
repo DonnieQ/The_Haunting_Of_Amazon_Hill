@@ -3,7 +3,7 @@ package com.intelligents.haunting;
 import java.util.ArrayList;
 import java.util.List;
 
-class Player {
+class Player implements java.io.Serializable{
     private final String name;
     private List<String> journal = new ArrayList<>();
 
