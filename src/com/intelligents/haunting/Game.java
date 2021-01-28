@@ -58,6 +58,8 @@ public class Game {
                     System.out.println("****************************");
                     System.out.println(player);
                     System.out.println("****************************");
+                    printGhostsDesc();
+                    System.out.println("****************************");
                     break;
                 case "look":
                 case "show":
@@ -173,7 +175,9 @@ public class Game {
             System.out.println(room.toString());
         }
     }
-
+    public void printGhostsDesc() {
+        ghosts.forEach(ghost -> System.out.println(ghost.toString()));
+    }
     // Getters / Setters
 
     public List<Ghost> getGhosts() {

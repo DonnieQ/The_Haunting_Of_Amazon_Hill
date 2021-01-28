@@ -55,11 +55,8 @@ public class Ghost {
 
     @Override
     public String toString() {
-        return "Ghost{" +
-                "name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", background='" + background + '\'' +
-                ", evidence=" + evidence +
-                '}';
+        return getType() + ":\n" +
+                "\tBackground: " + getBackground() + "\n" +
+                "\tEvidence: " +  getEvidence();
     }
 }
