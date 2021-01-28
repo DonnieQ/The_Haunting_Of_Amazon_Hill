@@ -56,7 +56,7 @@ public class Game {
                     System.out.println("****************************");
                     System.out.println(ConsoleColors.BLACK_BACKGROUND + player + ConsoleColors.RESET);
                     System.out.println("****************************");
-                    System.out.println(ConsoleColors.BLACK_BACKGROUND + "Possible Ghosts: " + ConsoleColors.RESET);
+                    System.out.println(ConsoleColors.BLACK_BACKGROUND + "Possible Ghosts: " + "\uD83D\uDC7B" + ConsoleColors.RESET);
                     printGhostsDesc();
                     System.out.println("****************************");
                     break;
