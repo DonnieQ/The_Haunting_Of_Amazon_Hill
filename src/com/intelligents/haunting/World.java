@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 class World {
+
+    readFiles r = new readFiles();
+
     List<Room> gameMap = new ArrayList<>();
 
     Room lobby = new Room("Lobby");
@@ -17,7 +20,7 @@ class World {
 
     Room currentRoom = lobby;
 
-    public World() throws IOException {
+    public World() {
 
 
         lobby.roomExits.put("east", dungeon);
@@ -25,11 +28,11 @@ class World {
         lobby.roomExits.put("north", balcony);
         lobby.roomExits.put("south", furnaceRoom);
 
-        lobby.setDescription(Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "Lobby")));
-        dungeon.setDescription(Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "Dungeon")));
-        diningRoom.setDescription(Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "DinningRoom")));
-        balcony.setDescription(Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "Balcony")));
-        furnaceRoom.setDescription(Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "FurnaceRoom")));
+        lobby.setDescription(r.read("Lobby"));
+        dungeon.setDescription(r.read("Dungeon"));
+        diningRoom.setDescription(r.read("DinningRoom"));
+        balcony.setDescription(r.read("Balcony"));
+        furnaceRoom.setDescription(r.read("FurnaceRoom"));
         gameMap.add(lobby);
 
 

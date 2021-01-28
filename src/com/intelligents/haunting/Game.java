@@ -14,7 +14,7 @@ public class Game {
 
     private Random r = new Random();
 
-    public Game() throws IOException {
+    public Game() {
         populateGhostList();
         setCurrentGhost(getRandomGhost());
     }
