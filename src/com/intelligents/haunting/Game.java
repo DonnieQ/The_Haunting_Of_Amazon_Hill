@@ -131,7 +131,7 @@ public class Game implements java.io.Serializable{
 
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Please say \'Move\' or \'Go\' before choosing a direction");
+                System.out.println("Please say \'Move\' or \'Go\' before choosing a direction!");
             }
         }
         System.out.println("Thank you for playing our game!!");
