@@ -14,9 +14,7 @@ public class Game {
 
     private Random r = new Random();
 
-    //TODO: Handle Exception
-
-    public Game() throws IOException {
+    public Game() {
         populateGhostList();
         setCurrentGhost(getRandomGhost());
     }
@@ -47,38 +45,27 @@ public class Game {
             System.out.println(world.currentRoom.getDescription());
             System.out.println("To move type: Go North, Go East, Go South, or Go West");
             System.out.println("---------------------------");
-            System.out.println("****************************");
+                        System.out.println("****************************");
             System.out.println(">>");
 
             input = scanner.nextLine().strip().toLowerCase().split(" ");
 
 
             switch (input[0]) {
-                case "view":
                 case "read":
                     System.out.println("****************************");
                     System.out.println(player);
                     System.out.println("****************************");
                     break;
-                case "look":
                 case "show":
                     System.out.println("****************************");
                     System.out.println("Your location is " + world.currentRoom.getRoomTitle());
                     if (world.currentRoom.getRoomItems().isEmpty()) {
                         System.out.println("Currently there are no items in "
                                 + world.currentRoom.getRoomTitle());
-                        System.out.println("Would you like to document anything about this room? " +
-                                ">>");
-                        String journalEntry = scanner.nextLine().strip();
-                        player.setJournal(journalEntry);
                     }
                     else {
-                        System.out.println("You look and notice an" + world.currentRoom.getRoomItems());
-                            System.out.println("Would you like to document anything about this room? " +
-                                    ">>");
-                            String journalEntry = scanner.nextLine().strip().toLowerCase();
-                            player.setJournal(journalEntry);
-                       // System.out.println(world.currentRoom.getRoomItems());
+                        System.out.println(world.currentRoom.getRoomItems());
                     }
                     System.out.println("****************************");
                     break;
@@ -92,8 +79,6 @@ public class Game {
 
                     while (isValidInput) {
 
-
-
                         switch (input[1]) {
 
                             case "north":
@@ -103,6 +88,7 @@ public class Game {
                                 if (world.currentRoom.roomExits.containsKey(input[1])) {
                                     world.currentRoom = world.currentRoom.roomExits.get(input[1]);
                                     isValidInput = false;
+
                                     break;
                                 }
                             default:
@@ -111,11 +97,9 @@ public class Game {
                                 input = scanner.nextLine().strip().toLowerCase().split(" ");
                                 break;
 
-
                         }
 
                     }
-
 
             }
         }
@@ -131,7 +115,6 @@ public class Game {
             System.out.println(ghost);
         }
     }
-
     public Ghost getRandomGhost() {
         int index = r.nextInt(ghosts.size());
         return ghosts.get(index);
@@ -146,11 +129,9 @@ public class Game {
     public void setGhosts(List<Ghost> ghosts) {
         this.ghosts = ghosts;
     }
-
     public Ghost getCurrentGhost() {
         return currentGhost;
     }
-
     public void setCurrentGhost(Ghost ghost) {
         this.currentGhost = ghost;
     }
