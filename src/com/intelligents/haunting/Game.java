@@ -143,14 +143,14 @@ public class Game implements java.io.Serializable{
 
     public void printGhosts() {
         for (Ghost ghost : ghosts) {
-            System.out.println(ghost);
+            System.out.println(ghost.toString());
         }
     }
     public Ghost getRandomGhost() {
         int index = r.nextInt(ghosts.size());
         return ghosts.get(index);
     }
-    public void assignRandomEvidenceToMap() {
+    private void assignRandomEvidenceToMap() {
         try {
             //for each evidence from monster, get rooms from world.gamemap equivalent to the number of evidences.
             for (int i = 0; i < currentGhost.getEvidence().size(); i++) {
