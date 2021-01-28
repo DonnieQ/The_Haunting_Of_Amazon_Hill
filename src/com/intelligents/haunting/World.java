@@ -1,8 +1,5 @@
 package com.intelligents.haunting;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +24,7 @@ class World {
         lobby.roomExits.put("west", diningRoom);
         lobby.roomExits.put("north", balcony);
         lobby.roomExits.put("south", furnaceRoom);
+        lobby.addItemToRoom("apple");
 
         lobby.setDescription(r.read("Lobby"));
         dungeon.setDescription(r.read("Dungeon"));
