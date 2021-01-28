@@ -21,7 +21,7 @@ import java.nio.file.Path;
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println(results);
+            System.out.println(ConsoleColors.BLACK_BACKGROUND + results + ConsoleColors.RESET);
         }else{
             System.out.println("Sorry that file is not in the Path.");
         }
