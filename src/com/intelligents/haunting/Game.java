@@ -7,7 +7,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
-    World world = new World();
+    private World world = new World();
     private List<Ghost> ghosts = new ArrayList<>();
 
     private Ghost currentGhost;
@@ -17,6 +17,11 @@ public class Game {
     public Game() {
         populateGhostList();
         setCurrentGhost(getRandomGhost());
+        assignRandomEvidenceToMap();
+        for (Room room : world.gameMap) {
+            System.out.println(room.getRoomTitle());
+            System.out.println(room.getRoomEvidence());
+        }
     }
 
     void start() {
@@ -119,13 +124,35 @@ public class Game {
         int index = r.nextInt(ghosts.size());
         return ghosts.get(index);
     }
+    public void assignRandomEvidenceToMap() {
+        //for each evidence from monster, get rooms from world.gamemap equivalent to the number of evidences.
+        for (int i = 0; i < currentGhost.getEvidence().size(); i++) {
+            // Success condition
+            boolean addedEvidence = false;
+
+            // Loop while no success
+            while(!addedEvidence) {
+                Room x = getRandomRoomFromWorld();
+                System.out.println(x.getRoomTitle());
+                if (x.getRoomEvidence() == null) {
+                    x.setRoomEvidence(currentGhost.getEvidence().get(i));
+                    System.out.println("added " + currentGhost.getEvidence().get(i) + " to " + x.getRoomTitle());
+                    addedEvidence = true;
+                }
+            }
+
+        }
+    }
+    public Room getRandomRoomFromWorld() {
+        int index = r.nextInt(ghosts.size());
+        return world.gameMap.get(index);
+    }
 
     // Getters / Setters
 
     public List<Ghost> getGhosts() {
         return ghosts;
     }
-
     public void setGhosts(List<Ghost> ghosts) {
         this.ghosts = ghosts;
     }
@@ -135,6 +162,8 @@ public class Game {
     public void setCurrentGhost(Ghost ghost) {
         this.currentGhost = ghost;
     }
-
+    public World getWorld() {
+        return world;
+    }
 
 }
