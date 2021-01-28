@@ -1,5 +1,6 @@
 package com.intelligents.haunting;
 
+import java.io.Console;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,11 +12,12 @@ public class SplashScreen implements java.io.Serializable{
 
 
     public void splash(){
-        System.out.println("What game would you like to play?\n " +
+        System.out.println(ConsoleColors.YELLOW_BRIGHT + "What game would you like to play?\n " +
                 "Chapter 1. The Haunting on Amazon Hill\n " +
                 "Chapter 2. Chasing Ghosts\n " +
                 "Chapter 3. Hangman's Gallows\n " +
-                "Please enter a number for Chapter:");
+                "Please enter a number for Chapter:" +
+                ConsoleColors.RESET);
         String gameType = getUserInput();
         if (gameType.matches("1")) {
             Game g = new Game();
@@ -35,7 +37,7 @@ public class SplashScreen implements java.io.Serializable{
 
     public void pressEnterToContinue() {
         p.print("splashScreen");
-        System.out.println("Press Enter key to continue...");
+        System.out.println(ConsoleColors.YELLOW + "Press Enter key to continue..." + ConsoleColors.RESET);
         try {
             System.in.read();
         } catch (Exception e) {

@@ -26,8 +26,8 @@ public class Game implements java.io.Serializable{
         String[] input;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Thank you for choosing to play The Haunting on Amazon Hill. " +
-                "What would you like your name to be? ");
+        System.out.println(ConsoleColors.GREEN_BOLD+ "Thank you for choosing to play The Haunting on Amazon Hill. " +
+                "What would you like your name to be? " + ConsoleColors.RESET);
         System.out.println(">>");
 
         input = scanner.nextLine().strip().toLowerCase().split(" ");
@@ -42,9 +42,9 @@ public class Game implements java.io.Serializable{
         while (isGameRunning) {
             isValidInput = true;
 
-            System.out.println("Your location is " + world.currentRoom.getRoomTitle());
-            System.out.println(world.currentRoom.getDescription());
-            System.out.println("To move type: Go North, Go East, Go South, or Go West");
+            System.out.println(ConsoleColors.RED + "Your location is " + world.currentRoom.getRoomTitle() + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.RED + world.currentRoom.getDescription() + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.YELLOW + "To move type: Go North, Go East, Go South, or Go West" + ConsoleColors.RESET);
             System.out.println("---------------------------");
                         System.out.println("****************************");
             System.out.println(">>");
@@ -55,8 +55,9 @@ public class Game implements java.io.Serializable{
             switch (input[0]) {
                 case "read":
                     System.out.println("****************************");
-                    System.out.println(player);
+                    System.out.println(ConsoleColors.BLACK_BACKGROUND + player + ConsoleColors.RESET);
                     System.out.println("****************************");
+                    System.out.println(ConsoleColors.BLACK_BACKGROUND + "Possible Ghosts: " + ConsoleColors.RESET);
                     printGhostsDesc();
                     System.out.println("****************************");
                     break;
@@ -179,7 +180,7 @@ public class Game implements java.io.Serializable{
         }
     }
     public void printGhostsDesc() {
-        ghosts.forEach(ghost -> System.out.println(ghost.toString()));
+        ghosts.forEach(ghost -> System.out.println(ConsoleColors.BLACK_BACKGROUND_BRIGHT + ConsoleColors.GREEN_BRIGHT + ghost.toString() + ConsoleColors.RESET));
     }
     // Getters / Setters
 
