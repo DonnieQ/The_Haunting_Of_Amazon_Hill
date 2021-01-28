@@ -75,7 +75,7 @@ public class Game {
                     else {
                         System.out.println("You look and notice an" + world.currentRoom.getRoomItems());
                             System.out.println("Would you like to document anything about this room? " +
-                                    ">>");
+                                    ">>>");
                             String journalEntry = scanner.nextLine().strip().toLowerCase();
                             player.setJournal(journalEntry);
                        // System.out.println(world.currentRoom.getRoomItems());
