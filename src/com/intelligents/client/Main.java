@@ -6,7 +6,7 @@ import com.intelligents.haunting.SplashScreen;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args)  {
         Game g = new Game();
 
         SplashScreen s = new SplashScreen();

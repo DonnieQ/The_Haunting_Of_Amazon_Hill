@@ -7,9 +7,10 @@ import java.util.Scanner;
 
 public class SplashScreen {
     public static Scanner scanner = new Scanner(System.in);
+    printFiles p = new printFiles();
 
 
-    public void splash() throws IOException {
+    public void splash(){
         System.out.println("What game would you like to play?\n " +
                 "Chapter 1. The Haunting on Amazon Hill\n " +
                 "Chapter 2. Chasing Ghosts\n " +
@@ -18,10 +19,12 @@ public class SplashScreen {
         String gameType = getUserInput();
         if (gameType.matches("1")) {
             Game g = new Game();
-            String banner = Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "introText"));
-            String intro = Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "settingTheScene"));
-            System.out.println(banner);
-            System.out.println(intro);
+           // String banner = Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "introText"));
+            p.print("introText");
+            //String intro = Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "settingTheScene"));
+            p.print("settingTheScene");
+           // System.out.println(banner);
+            //System.out.println(intro);
             g.start();
 
         } else {
@@ -30,9 +33,8 @@ public class SplashScreen {
         }
     }
 
-    public void pressAnyKeyToContinue() throws IOException {
-        String banner = Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "splashScreen"));
-        System.out.println(banner);
+    public void pressAnyKeyToContinue() {
+        p.print("splashScreen");
         System.out.println("Press Enter key to continue...");
         try {
             System.in.read();
