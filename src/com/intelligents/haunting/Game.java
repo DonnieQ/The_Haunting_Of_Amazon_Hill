@@ -14,6 +14,8 @@ public class Game {
 
     private Random r = new Random();
 
+    //TODO: Handle Exception
+
     public Game() throws IOException {
         populateGhostList();
         setCurrentGhost(getRandomGhost());
@@ -45,18 +47,20 @@ public class Game {
             System.out.println(world.currentRoom.getDescription());
             System.out.println("To move type: Go North, Go East, Go South, or Go West");
             System.out.println("---------------------------");
-                        System.out.println("****************************");
+            System.out.println("****************************");
             System.out.println(">>");
 
             input = scanner.nextLine().strip().toLowerCase().split(" ");
 
 
             switch (input[0]) {
+                case "view":
                 case "read":
                     System.out.println("****************************");
                     System.out.println(player);
                     System.out.println("****************************");
                     break;
+                case "look":
                 case "show":
                     System.out.println("****************************");
                     System.out.println("Your location is " + world.currentRoom.getRoomTitle());
@@ -88,7 +92,6 @@ public class Game {
                                 if (world.currentRoom.roomExits.containsKey(input[1])) {
                                     world.currentRoom = world.currentRoom.roomExits.get(input[1]);
                                     isValidInput = false;
-
                                     break;
                                 }
                             default:
@@ -115,6 +118,7 @@ public class Game {
             System.out.println(ghost);
         }
     }
+
     public Ghost getRandomGhost() {
         int index = r.nextInt(ghosts.size());
         return ghosts.get(index);
@@ -129,9 +133,11 @@ public class Game {
     public void setGhosts(List<Ghost> ghosts) {
         this.ghosts = ghosts;
     }
+
     public Ghost getCurrentGhost() {
         return currentGhost;
     }
+
     public void setCurrentGhost(Ghost ghost) {
         this.currentGhost = ghost;
     }

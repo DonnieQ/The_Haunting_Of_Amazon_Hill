@@ -25,6 +25,7 @@ class World {
         lobby.roomExits.put("north", balcony);
         lobby.roomExits.put("south", furnaceRoom);
 
+
         lobby.setDescription(Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "Lobby")));
         dungeon.setDescription(Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "Dungeon")));
         diningRoom.setDescription(Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "DinningRoom")));
