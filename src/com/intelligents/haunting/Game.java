@@ -1,6 +1,7 @@
 package com.intelligents.haunting;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -132,26 +133,31 @@ public class Game {
         return ghosts.get(index);
     }
     public void assignRandomEvidenceToMap() {
-        //for each evidence from monster, get rooms from world.gamemap equivalent to the number of evidences.
-        for (int i = 0; i < currentGhost.getEvidence().size(); i++) {
-            // Success condition
-            boolean addedEvidence = false;
+        try {
+            //for each evidence from monster, get rooms from world.gamemap equivalent to the number of evidences.
+            for (int i = 0; i < currentGhost.getEvidence().size(); i++) {
+                // Success condition
+                boolean addedEvidence = false;
 
-            // Loop while no success
-            while(!addedEvidence) {
-                Room x = getRandomRoomFromWorld();
-                System.out.println(x.getRoomTitle());
-                if (x.getRoomEvidence() == null) {
-                    x.setRoomEvidence(currentGhost.getEvidence().get(i));
-                    System.out.println("added " + currentGhost.getEvidence().get(i) + " to " + x.getRoomTitle());
-                    addedEvidence = true;
+                // Loop while no success
+                while (!addedEvidence) {
+                    Room x = getRandomRoomFromWorld();
+                    System.out.println("random room chosen is " + x.getRoomTitle());
+                    if (x.getRoomEvidence() == null) {
+                        x.setRoomEvidence(currentGhost.getEvidence().get(i));
+                        System.out.println("added " + currentGhost.getEvidence().get(i) + " to " + x.getRoomTitle());
+                        addedEvidence = true;
+                    }
                 }
-            }
 
+            }
+        }
+        catch (NullPointerException e){
+            System.out.println("The data given is empty, cannot perform function");
         }
     }
     public Room getRandomRoomFromWorld() {
-        int index = r.nextInt(ghosts.size());
+        int index = r.nextInt(world.gameMap.size());
         return world.gameMap.get(index);
     }
 
