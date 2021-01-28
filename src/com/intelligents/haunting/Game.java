@@ -153,10 +153,10 @@ public class Game {
                 // Loop while no success
                 while (!addedEvidence) {
                     Room x = getRandomRoomFromWorld();
-                    System.out.println("random room chosen is " + x.getRoomTitle());
+                    // System.out.println("random room chosen is " + x.getRoomTitle());
                     if (x.getRoomEvidence() == null) {
                         x.setRoomEvidence(currentGhost.getEvidence().get(i));
-                        System.out.println("added " + currentGhost.getEvidence().get(i) + " to " + x.getRoomTitle());
+                        // System.out.println("added " + currentGhost.getEvidence().get(i) + " to " + x.getRoomTitle());
                         addedEvidence = true;
                     }
                 }
