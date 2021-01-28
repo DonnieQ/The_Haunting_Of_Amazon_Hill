@@ -54,8 +54,9 @@ public class Game {
             switch (input[0]) {
                 case "read":
                     System.out.println("****************************");
-                    System.out.println(player);
+                    System.out.println(ConsoleColors.BLACK_BACKGROUND + player + ConsoleColors.RESET);
                     System.out.println("****************************");
+                    System.out.println(ConsoleColors.BLACK_BACKGROUND + "Possible Ghosts: " + ConsoleColors.RESET);
                     printGhostsDesc();
                     System.out.println("****************************");
                     break;
