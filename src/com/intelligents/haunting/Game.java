@@ -19,10 +19,6 @@ public class Game {
         populateGhostList();
         setCurrentGhost(getRandomGhost());
         assignRandomEvidenceToMap();
-        for (Room room : world.gameMap) {
-            System.out.println(room.getRoomTitle());
-            System.out.println(room.getRoomEvidence());
-        }
     }
 
     void start() {
@@ -167,9 +163,15 @@ public class Game {
             System.out.println("The data given is empty, cannot perform function");
         }
     }
-    public Room getRandomRoomFromWorld() {
+    private Room getRandomRoomFromWorld() {
         int index = r.nextInt(world.gameMap.size());
         return world.gameMap.get(index);
+    }
+
+    public void printEverythingInWorld() {
+        for (Room room : world.gameMap) {
+            System.out.println(room.toString());
+        }
     }
 
     // Getters / Setters
