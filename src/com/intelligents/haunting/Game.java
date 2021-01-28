@@ -1,7 +1,5 @@
 package com.intelligents.haunting;
 
-import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -117,6 +115,7 @@ public class Game {
                                 System.out.println("You hit wall. Try again: ");
                                 System.out.println(">>");
                                 input = scanner.nextLine().strip().toLowerCase().split(" ");
+
                                 break;
 
                         }
@@ -152,7 +151,7 @@ public class Game {
                 while (!addedEvidence) {
                     Room x = getRandomRoomFromWorld();
                     // System.out.println("random room chosen is " + x.getRoomTitle());
-                    if (x.getRoomEvidence() == null) {
+                    if (x.getRoomEvidence().equals("")) {
                         x.setRoomEvidence(currentGhost.getEvidence().get(i));
                         // System.out.println("added " + currentGhost.getEvidence().get(i) + " to " + x.getRoomTitle());
                         addedEvidence = true;

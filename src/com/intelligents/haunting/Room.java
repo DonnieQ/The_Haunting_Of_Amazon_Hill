@@ -8,7 +8,7 @@ import java.util.Map;
 class Room {
     private String roomTitle;
     private String description;
-    private String roomEvidence;
+    private String roomEvidence = "";
     Map<String, Room> roomExits = new HashMap<>();
     private List<String> roomItems = new ArrayList<>();
 
