@@ -63,18 +63,29 @@ public class Game {
                     System.out.println(player);
                     System.out.println("****************************");
                     break;
+                case "look":
                 case "show":
                     System.out.println("****************************");
                     System.out.println("Your location is " + world.currentRoom.getRoomTitle());
                     if (world.currentRoom.getRoomItems().isEmpty()) {
                         System.out.println("Currently there are no items in "
                                 + world.currentRoom.getRoomTitle());
+                        System.out.println("Would you like to document anything about this room? " +
+                                ">>>");
+                        String journalEntry = scanner.nextLine().strip().toLowerCase();
+                        if (journalEntry.equals("no")){
+                            break;
+                        }
+                        player.setJournal(journalEntry);
                     }
                     else{
                         System.out.println("You look and notice an" + world.currentRoom.getRoomItems());
                             System.out.println("Would you like to document anything about this room? " +
                                     ">>>");
                             String journalEntry = scanner.nextLine().strip().toLowerCase();
+                            if (journalEntry.equals("no")){
+                                break;
+                            }
                             player.setJournal(journalEntry);
                        // System.out.println(world.currentRoom.getRoomItems());
 
