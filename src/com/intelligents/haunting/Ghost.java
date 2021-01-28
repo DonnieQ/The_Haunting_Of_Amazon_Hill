@@ -2,7 +2,7 @@ package com.intelligents.haunting;
 
 import java.util.ArrayList;
 
-public class Ghost {
+public class Ghost implements java.io.Serializable{
 
 
     private String name;
