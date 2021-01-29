@@ -6,6 +6,7 @@ import java.util.List;
 class Player implements java.io.Serializable{
     private final String name;
     private List<String> journal = new ArrayList<>();
+    private final TimeStamp time = new TimeStamp();
 
     Player(String name) {
         this.name = name;
@@ -20,7 +21,7 @@ class Player implements java.io.Serializable{
     }
 
     void setJournal(String journal) {
-        this.journal.add(journal);
+        this.journal.add("Date: " + time.localDateString + " " + journal);
     }
 
     @Override
