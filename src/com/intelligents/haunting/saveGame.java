@@ -1,10 +1,10 @@
-package com.intelligents.gamesave;
+package com.intelligents.haunting;
 
 import com.intelligents.client.Main;
 import com.intelligents.haunting.Game;
 //import com.intelligents.haunting.Player;
 //import com.intelligents.haunting.Room;
-//import com.intelligents.haunting.World;  ?? TODO: ask team about package private World, Player and Room
+//import com.intelligents.haunting.World;  ?? Done: ask team about package private World, Player and Room
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
