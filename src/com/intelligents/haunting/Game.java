@@ -74,7 +74,7 @@ public class Game implements java.io.Serializable{
                         System.out.println("****************************");
                         System.out.println("Your location is " + world.currentRoom.getRoomTitle());
                         if (world.currentRoom.getRoomEvidence().isEmpty()) {
-                            System.out.println("Currently there are no items in "
+                            System.out.println("Currently there are no evidence in "
                                     + world.currentRoom.getRoomTitle());
                             System.out.println("Would you like to document anything about this room? " +
                                     ">>>");
