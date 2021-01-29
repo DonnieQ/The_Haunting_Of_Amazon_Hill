@@ -1,7 +1,5 @@
 package com.intelligents.haunting;
 
-import com.intelligents.gamesave.saveGame;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
