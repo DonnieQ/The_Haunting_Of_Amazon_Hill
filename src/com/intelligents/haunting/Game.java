@@ -14,6 +14,7 @@ public class Game implements java.io.Serializable{
     private Ghost currentGhost;
 
     private Random r = new Random();
+    Player player;
 
     public Game() {
         populateGhostList();
@@ -33,21 +34,22 @@ public class Game implements java.io.Serializable{
 
         input = scanner.nextLine().strip().toLowerCase().split(" ");
 
-        Player player = new Player(input[0]);
+        player = new Player(input[0]);
 
         //System.out.println(player);
         System.out.println("Good luck to you, Detective " + player.getName());
         System.out.println("---------------------------");
 
 
-        while (isGameRunning) {
+        while (isGameRunning && !checkForWinner()) {
             isValidInput = true;
+            checkForWinner();
 
             System.out.println(ConsoleColors.RED + "Your location is " + world.currentRoom.getRoomTitle() + ConsoleColors.RESET);
             System.out.println(ConsoleColors.RED + world.currentRoom.getDescription() + ConsoleColors.RESET);
             System.out.println(ConsoleColors.YELLOW + "To move type: Go North, Go East, Go South, or Go West" + ConsoleColors.RESET);
             System.out.println("---------------------------");
-                        System.out.println("****************************");
+            System.out.println("****************************");
             System.out.println(">>");
 
             input = scanner.nextLine().strip().toLowerCase().split(" ");
@@ -75,7 +77,7 @@ public class Game implements java.io.Serializable{
                                     + world.currentRoom.getRoomTitle());
                             System.out.println("Would you like to document anything about this room? " +
                                     ">>>");
-                            String journalEntry = scanner.nextLine().strip().toLowerCase();
+                            String journalEntry = scanner.nextLine().strip();
                             if (journalEntry.equals("no")){
                                 break;
                             }
@@ -85,7 +87,7 @@ public class Game implements java.io.Serializable{
                             System.out.println("You look and notice: " + world.currentRoom.getRoomEvidence());
                                 System.out.println("Would you like to document anything about this room? " +
                                         ">>>");
-                                String journalEntry = scanner.nextLine().strip().toLowerCase();
+                                String journalEntry = scanner.nextLine().strip();
                                 if (journalEntry.equals("no")){
                                     break;
                                 }
@@ -203,6 +205,28 @@ public class Game implements java.io.Serializable{
     }
     public World getWorld() {
         return world;
+    }
+    boolean checkForWinner() {
+
+        int count = 0;
+
+        try {
+            Object[] arr = player.getJournal().toArray();
+            for(int i = 0; i < arr.length; i++){
+                String x = (String) arr[i];
+                String[] f = x.split(" ");
+                for(int j = 0; j < f.length; j++){
+                    if (currentGhost.getEvidence().contains(f[j])){
+                        count++;
+                    }
+                }
+            }
+
+        } catch (NullPointerException e) {
+            System.out.println("Keep trying");
+        }
+
+        return count == 2;
     }
 
 }

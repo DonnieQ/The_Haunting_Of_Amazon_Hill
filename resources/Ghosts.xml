@@ -4,14 +4,14 @@
         <name>Elizabeth Williams</name>
         <type>SAMCA</type>
         <background>an evil spirit, said to curse children and pregnant women with illness</background>
-        <evidence>Moldy Cheese</evidence>
-        <evidence>Sulfuric Scent</evidence>
+        <evidence>Cheese</evidence>
+        <evidence>Slime</evidence>
     </ghost>
     <ghost>
         <name>Jackson Smith</name>
         <type>Poltergeist</type>
         <background>a clown doll, likes to mess with the mind of intruders on it's property. Will laugh behind you randomly and when you turn around, it will vanish once eye contact is made</background>
         <evidence>Hallucinations</evidence>
-        <evidence>Sulfuric Scent</evidence>
+        <evidence>Sulfur</evidence>
     </ghost>
 </ghosts>
