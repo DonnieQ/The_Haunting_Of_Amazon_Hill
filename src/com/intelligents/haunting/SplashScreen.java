@@ -13,7 +13,7 @@ public class SplashScreen implements java.io.Serializable{
 
     public void splash(){
         System.out.println(ConsoleColors.YELLOW_BRIGHT + "What game would you like to play?\n " +
-                "Chapter 1. The Haunting on Amazon Hill\n " +
+                "Chapter 1. The Haunting of Amazon Hill\n " +
                 "Chapter 2. Chasing Ghosts\n " +
                 "Chapter 3. Hangman's Gallows\n " +
                 "Please enter a number for Chapter:" +
