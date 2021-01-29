@@ -13,7 +13,7 @@ public class Game implements java.io.Serializable{
 
     private Random r = new Random();
     Player player;
-
+    printFiles p = new printFiles();
     public Game() {
         populateGhostList();
         setCurrentGhost(getRandomGhost());
@@ -65,6 +65,9 @@ public class Game implements java.io.Serializable{
                         break;
                     case "save":
                         saveGame.save();
+                        break;
+                    case "open":
+                        p.print("Map");
                         break;
                     case "look":
                     case "show":
