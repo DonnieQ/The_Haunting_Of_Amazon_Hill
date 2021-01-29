@@ -2,6 +2,9 @@ package com.intelligents.gamesave;
 
 import com.intelligents.client.Main;
 import com.intelligents.haunting.Game;
+//import com.intelligents.haunting.Player;
+//import com.intelligents.haunting.Room;
+//import com.intelligents.haunting.World;  ?? TODO: ask team about package private World, Player and Room
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
@@ -13,6 +16,10 @@ public class saveGame {
 
     public static void save() {
         Game game = new Game();
+       // World world = new World();
+       // Room room = new Room();
+       // Player player = new Player();
+
         game.getCurrentGhost();
         try {
             FileOutputStream fos = new FileOutputStream("usr.save");
