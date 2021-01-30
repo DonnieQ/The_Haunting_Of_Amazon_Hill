@@ -13,11 +13,11 @@ import java.nio.file.Path;
     }
 
 
-    public void print(String fileToRead) {
+    public void print(String path,String fileToRead) {
         if (fileToRead != null) {
             String results = null;
             try {
-                results = Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", fileToRead));
+                results = Files.readString(Path.of(path, fileToRead));
             } catch (IOException e) {
                 e.printStackTrace();
             }
