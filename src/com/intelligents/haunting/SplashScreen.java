@@ -8,8 +8,8 @@ public class SplashScreen implements java.io.Serializable{
 
 
     public void splash(){
-        String lol = "loool";
-        System.out.printf("%50s", lol);
+
+
 
         System.out.println(ConsoleColors.YELLOW_BRIGHT + "What game would you like to play?\n " +
                 "Chapter 1. The Haunting of Amazon Hill\n " +
