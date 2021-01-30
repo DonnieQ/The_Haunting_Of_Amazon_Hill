@@ -101,7 +101,7 @@ public class Game implements java.io.Serializable{
 
                             System.out.println(world.currentRoom.getRoomEvidence());
                         }
-                        System.out.println("****************************");
+                        System.out.println("*****************************");
                         break;
                     case "exit":
                     case "quit":
