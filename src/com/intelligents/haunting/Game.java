@@ -34,6 +34,8 @@ public class Game implements java.io.Serializable{
 
         player = new Player(input[0]);
 
+        p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
+
         //System.out.println(player);
         System.out.println("Good luck to you, Detective " + player.getName());
         System.out.println("---------------------------");
@@ -46,8 +48,8 @@ public class Game implements java.io.Serializable{
             System.out.println(ConsoleColors.RED + "Your location is " + world.currentRoom.getRoomTitle() + ConsoleColors.RESET);
             System.out.println(ConsoleColors.RED + world.currentRoom.getDescription() + ConsoleColors.RESET);
             System.out.println(ConsoleColors.YELLOW + "To move type: Go North, Go East, Go South, or Go West" + ConsoleColors.RESET);
-            System.out.println("---------------------------");
-            System.out.println("****************************");
+           // System.out.println("---------------------------");
+           // System.out.println("****************************");
             System.out.println(">>");
 
             input = scanner.nextLine().strip().toLowerCase().split(" ");
@@ -66,8 +68,10 @@ public class Game implements java.io.Serializable{
                     case "save":
                         saveGame.save();
                         break;
+                    case "help":
+                        p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
                     case "open":
-                        p.print("Map");
+                        p.print("The_Haunting_Of_Amazon_Hill/resources","Map");
                         break;
                     case "look":
                     case "show":

@@ -1,9 +1,5 @@
 package com.intelligents.haunting;
 
-import java.io.Console;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Scanner;
 
 public class SplashScreen implements java.io.Serializable{
@@ -12,6 +8,9 @@ public class SplashScreen implements java.io.Serializable{
 
 
     public void splash(){
+        String lol = "loool";
+        System.out.printf("%50s", lol);
+
         System.out.println(ConsoleColors.YELLOW_BRIGHT + "What game would you like to play?\n " +
                 "Chapter 1. The Haunting of Amazon Hill\n " +
                 "Chapter 2. Chasing Ghosts\n " +
@@ -22,9 +21,9 @@ public class SplashScreen implements java.io.Serializable{
         if (gameType.matches("1")) {
             Game g = new Game();
            // String banner = Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "introText"));
-            p.print("introText");
+            p.print("The_Haunting_Of_Amazon_Hill/resources","introText");
             //String intro = Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "settingTheScene"));
-            p.print("settingTheScene");
+            p.print("The_Haunting_Of_Amazon_Hill/resources","settingTheScene");
            // System.out.println(banner);
             //System.out.println(intro);
             g.start();
@@ -36,7 +35,7 @@ public class SplashScreen implements java.io.Serializable{
     }
 
     public void pressEnterToContinue() {
-        p.print("splashScreen");
+        p.print("The_Haunting_Of_Amazon_Hill/resources","splashScreen");
         System.out.println(ConsoleColors.YELLOW + "Press Enter key to continue..." + ConsoleColors.RESET);
         try {
             System.in.read();
