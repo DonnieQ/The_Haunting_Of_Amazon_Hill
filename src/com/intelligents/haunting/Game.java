@@ -13,34 +13,39 @@ public class Game implements java.io.Serializable{
 
     private Random r = new Random();
     Player player;
-    printFiles p = new printFiles();
+    private transient printFiles p = new printFiles();
     public Game() {
         populateGhostList();
         setCurrentGhost(getRandomGhost());
         assignRandomEvidenceToMap();
     }
 
-    void start() {
+    void start(boolean isGameLoaded) {
         boolean isValidInput;
         boolean isGameRunning = true;
         String[] input;
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println(ConsoleColors.GREEN_BOLD+ "Thank you for choosing to play The Haunting on Amazon Hill. " +
-                "What would you like your name to be? " + ConsoleColors.RESET);
-        System.out.println(">>");
-
-        input = scanner.nextLine().strip().toLowerCase().split(" ");
-
-        player = new Player(input[0]);
-
-        p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
-
-        //System.out.println(player);
-        System.out.println("Good luck to you, Detective " + player.getName());
-        System.out.println("---------------------------");
+        if (!isGameLoaded) {
 
 
+
+            System.out.println(ConsoleColors.GREEN_BOLD + "Thank you for choosing to play The Haunting on Amazon Hill. " +
+                    "What would you like your name to be? " + ConsoleColors.RESET);
+            System.out.println(">>");
+
+            input = scanner.nextLine().strip().toLowerCase().split(" ");
+
+            player = new Player(input[0]);
+
+            p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
+
+            //System.out.println(player);
+            System.out.println("Good luck to you, Detective " + player.getName());
+            System.out.println("---------------------------");
+
+        }
+        //has access to entire Game object. tracking all changes
+        saveGame.setGame(this);
         while (isGameRunning && !checkForWinner()) {
             isValidInput = true;
             checkForWinner();
@@ -67,6 +72,9 @@ public class Game implements java.io.Serializable{
                         break;
                     case "save":
                         saveGame.save();
+                        break;
+                    case "load":
+                        saveGame.loadGame();
                         break;
                     case "help":
                         p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
@@ -196,6 +204,14 @@ public class Game implements java.io.Serializable{
     }
     // Getters / Setters
 
+
+    public Player getPlayer() {
+        return player;
+    }
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     public List<Ghost> getGhosts() {
         return ghosts;
     }
@@ -210,6 +226,10 @@ public class Game implements java.io.Serializable{
     }
     public World getWorld() {
         return world;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
     }
     boolean checkForWinner() {
 

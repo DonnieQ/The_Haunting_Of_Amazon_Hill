@@ -12,6 +12,10 @@ class Room implements java.io.Serializable{
     Map<String, Room> roomExits = new HashMap<>();
     private List<String> roomItems = new ArrayList<>();
 
+    public Room () {
+
+    }
+
     public Room(String title) {
         this.roomTitle = title;
     }
