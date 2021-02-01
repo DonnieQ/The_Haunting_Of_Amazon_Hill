@@ -8,12 +8,12 @@ import java.util.Scanner;
 public class Game implements java.io.Serializable{
     private World world = new World();
     private List<Ghost> ghosts = new ArrayList<>();
-    private saveGame saveGame = new saveGame();
+    private SaveGame saveGame = new SaveGame();
     private Ghost currentGhost;
 
     private Random r = new Random();
     Player player;
-    private transient printFiles p = new printFiles();
+    private transient PrintFiles p = new PrintFiles();
     public Game() {
         populateGhostList();
         setCurrentGhost(getRandomGhost());
