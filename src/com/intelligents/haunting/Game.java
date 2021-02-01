@@ -1,6 +1,5 @@
 package com.intelligents.haunting;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -50,14 +49,9 @@ public class Game implements java.io.Serializable{
         while (isGameRunning && !checkForWinner()) {
             isValidInput = true;
             checkForWinner();
-<<<<<<< Updated upstream
-            System.out.println(ConsoleColors.RED + "Your location is " + world.currentRoom.getRoomTitle() + ConsoleColors.RESET);
-            System.out.println(ConsoleColors.RED + world.currentRoom.getDescription() + ConsoleColors.RESET);
-=======
 
             System.out.println(ConsoleColors.RED + "Your location is " + world.getCurrentRoom().getRoomTitle() + ConsoleColors.RESET);
             System.out.println(ConsoleColors.RED + world.getCurrentRoom().getDescription() + ConsoleColors.RESET);
->>>>>>> Stashed changes
             System.out.println(ConsoleColors.YELLOW + "To move type: Go North, Go East, Go South, or Go West" + ConsoleColors.RESET);
            // System.out.println("---------------------------");
            // System.out.println("****************************");
@@ -69,7 +63,12 @@ public class Game implements java.io.Serializable{
             try {
                 switch (input[0]) {
                     case "read":
-                        displayJournal();
+                        System.out.println("****************************");
+                        System.out.println(ConsoleColors.BLACK_BACKGROUND + player + ConsoleColors.RESET);
+                        System.out.println("****************************");
+                        System.out.println(ConsoleColors.BLACK_BACKGROUND + "Possible Ghosts: " + ConsoleColors.RESET);
+                        printGhostsDesc();
+                        System.out.println("****************************");
                         break;
                     case "save":
                         saveGame.save();
@@ -85,17 +84,10 @@ public class Game implements java.io.Serializable{
                     case "look":
                     case "show":
                         System.out.println("****************************");
-<<<<<<< Updated upstream
-                        System.out.println("Your location is " + world.currentRoom.getRoomTitle());
-                        if (world.currentRoom.getRoomEvidence().isEmpty()) {
-                            System.out.println("Currently there are no evidence in "
-                                    + world.currentRoom.getRoomTitle());
-=======
                         System.out.println("Your location is " + world.getCurrentRoom().getRoomTitle());
                         if (world.getCurrentRoom().getRoomEvidence().isEmpty()) {
                             System.out.println("Currently there are no items in "
                                     + world.getCurrentRoom().getRoomTitle());
->>>>>>> Stashed changes
                             System.out.println("Would you like to document anything about this room? " +
                                     ">>>");
                             String journalEntry = scanner.nextLine().strip();
@@ -158,15 +150,6 @@ public class Game implements java.io.Serializable{
             }
         }
         System.out.println("Thank you for playing our game!!");
-    }
-
-    private void displayJournal() {
-        System.out.println("****************************");
-        String playersJournal = ConsoleColors.BLACK_BACKGROUND + player + ConsoleColors.RESET;
-        System.out.println("****************************");
-        String ghostHeading = ConsoleColors.BLACK_BACKGROUND + "Possible Ghosts: " + ConsoleColors.RESET;
-        System.out.printf("%-25s %25s %n", player, ghosts);
-        System.out.println("****************************");
     }
 
     public void populateGhostList() {
