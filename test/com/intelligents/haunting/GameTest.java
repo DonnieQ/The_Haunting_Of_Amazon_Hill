@@ -38,7 +38,7 @@ public class GameTest {
     @Test
     public void checkForWinnerWithEvidenceInSentencePositive() {
         p.setJournal("Hello there is Slime in here");
-        p.setJournal("There is Cheese in this one!!");
+        p.setJournal("There is Cheese in this one!!!");
         g.setPlayer(p);
         g.setCurrentGhost(g.getGhosts().get(0));
 
