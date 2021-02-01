@@ -7,10 +7,10 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 
-public class saveGame {
+public class SaveGame {
     private Game game;
 
-    public saveGame() {
+    public SaveGame() {
     }
 
     public void save() {

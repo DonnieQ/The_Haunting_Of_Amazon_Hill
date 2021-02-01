@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class SplashScreen implements java.io.Serializable{
     public static Scanner scanner = new Scanner(System.in);
-    printFiles p = new printFiles();
-    saveGame saveGame = new saveGame();
+    PrintFiles p = new PrintFiles();
+    SaveGame saveGame = new SaveGame();
 
     public void splash(){
 

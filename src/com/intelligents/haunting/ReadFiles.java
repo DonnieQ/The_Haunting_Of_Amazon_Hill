@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
- class readFiles {
+ class ReadFiles {
 
 
-     public readFiles() {
+     public ReadFiles() {
      }
 
 
