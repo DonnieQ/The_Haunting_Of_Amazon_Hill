@@ -5,7 +5,7 @@ import java.util.List;
 
 class World implements java.io.Serializable{
 
-    private transient readFiles r = new readFiles();
+    private transient ReadFiles r = new ReadFiles();
 
     List<Room> gameMap = new ArrayList<>();
 
