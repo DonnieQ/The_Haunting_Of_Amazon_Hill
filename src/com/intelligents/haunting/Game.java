@@ -50,8 +50,14 @@ public class Game implements java.io.Serializable{
         while (isGameRunning && !checkForWinner()) {
             isValidInput = true;
             checkForWinner();
+<<<<<<< Updated upstream
             System.out.println(ConsoleColors.RED + "Your location is " + world.currentRoom.getRoomTitle() + ConsoleColors.RESET);
             System.out.println(ConsoleColors.RED + world.currentRoom.getDescription() + ConsoleColors.RESET);
+=======
+
+            System.out.println(ConsoleColors.RED + "Your location is " + world.getCurrentRoom().getRoomTitle() + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.RED + world.getCurrentRoom().getDescription() + ConsoleColors.RESET);
+>>>>>>> Stashed changes
             System.out.println(ConsoleColors.YELLOW + "To move type: Go North, Go East, Go South, or Go West" + ConsoleColors.RESET);
            // System.out.println("---------------------------");
            // System.out.println("****************************");
@@ -79,10 +85,17 @@ public class Game implements java.io.Serializable{
                     case "look":
                     case "show":
                         System.out.println("****************************");
+<<<<<<< Updated upstream
                         System.out.println("Your location is " + world.currentRoom.getRoomTitle());
                         if (world.currentRoom.getRoomEvidence().isEmpty()) {
                             System.out.println("Currently there are no evidence in "
                                     + world.currentRoom.getRoomTitle());
+=======
+                        System.out.println("Your location is " + world.getCurrentRoom().getRoomTitle());
+                        if (world.getCurrentRoom().getRoomEvidence().isEmpty()) {
+                            System.out.println("Currently there are no items in "
+                                    + world.getCurrentRoom().getRoomTitle());
+>>>>>>> Stashed changes
                             System.out.println("Would you like to document anything about this room? " +
                                     ">>>");
                             String journalEntry = scanner.nextLine().strip();
@@ -92,7 +105,7 @@ public class Game implements java.io.Serializable{
                             player.setJournal(journalEntry);
                         }
                         else{
-                            System.out.println("You look and notice: " + world.currentRoom.getRoomEvidence());
+                            System.out.println("You look and notice: " + world.getCurrentRoom().getRoomEvidence());
                                 System.out.println("Would you like to document anything about this room? " +
                                         ">>>");
                                 String journalEntry = scanner.nextLine().strip();
@@ -102,7 +115,7 @@ public class Game implements java.io.Serializable{
                                 player.setJournal(journalEntry);
                            // System.out.println(world.currentRoom.getRoomItems());
 
-                            System.out.println(world.currentRoom.getRoomEvidence());
+                            System.out.println(world.getCurrentRoom().getRoomEvidence());
                         }
                         System.out.println("*****************************");
                         break;
@@ -122,8 +135,8 @@ public class Game implements java.io.Serializable{
                                 case "east":
                                 case "south":
                                 case "west":
-                                    if (world.currentRoom.roomExits.containsKey(input[1])) {
-                                        world.currentRoom = world.currentRoom.roomExits.get(input[1]);
+                                    if (world.getCurrentRoom().roomExits.containsKey(input[1])) {
+                                        world.setCurrentRoom(world.getCurrentRoom().roomExits.get(input[1]));
                                         isValidInput = false;
 
                                         break;

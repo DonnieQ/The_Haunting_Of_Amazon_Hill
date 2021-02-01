@@ -9,13 +9,23 @@ class World implements java.io.Serializable{
 
     List<Room> gameMap = new ArrayList<>();
 
-    Room lobby = new Room("Lobby");
-    Room dungeon = new Room("Dungeon");
-    Room diningRoom = new Room("Dining Room");
-    Room balcony = new Room("Balcony");
-    Room furnaceRoom = new Room("Furnace");
+    private Room lobby = new Room("Lobby");
+    private Room dungeon = new Room("Dungeon");
+    private Room diningRoom = new Room("Dining Room");
+    private Room balcony = new Room("Balcony");
+    private Room furnaceRoom = new Room("Furnace");
 
-    Room currentRoom = lobby;
+
+
+    private Room currentRoom = lobby;
+
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
+    }
 
     public World() {
 
