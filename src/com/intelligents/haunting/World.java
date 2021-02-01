@@ -3,9 +3,9 @@ package com.intelligents.haunting;
 import java.util.ArrayList;
 import java.util.List;
 
-class World {
+class World implements java.io.Serializable{
 
-    readFiles r = new readFiles();
+    private transient readFiles r = new readFiles();
 
     List<Room> gameMap = new ArrayList<>();
 

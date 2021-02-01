@@ -13,32 +13,39 @@ public class Game implements java.io.Serializable{
 
     private Random r = new Random();
     Player player;
-    printFiles p = new printFiles();
+    private transient printFiles p = new printFiles();
     public Game() {
         populateGhostList();
         setCurrentGhost(getRandomGhost());
         assignRandomEvidenceToMap();
     }
 
-    void start() {
+    void start(boolean isGameLoaded) {
         boolean isValidInput;
         boolean isGameRunning = true;
         String[] input;
         Scanner scanner = new Scanner(System.in);
-
-        System.out.println(ConsoleColors.GREEN_BOLD+ "Thank you for choosing to play The Haunting on Amazon Hill. " +
-                "What would you like your name to be? " + ConsoleColors.RESET);
-        System.out.println(">>");
-
-        input = scanner.nextLine().strip().toLowerCase().split(" ");
-
-        player = new Player(input[0]);
-
-        //System.out.println(player);
-        System.out.println("Good luck to you, Detective " + player.getName());
-        System.out.println("---------------------------");
+        if (!isGameLoaded) {
 
 
+
+            System.out.println(ConsoleColors.GREEN_BOLD + "Thank you for choosing to play The Haunting on Amazon Hill. " +
+                    "What would you like your name to be? " + ConsoleColors.RESET);
+            System.out.println(">>");
+
+            input = scanner.nextLine().strip().toLowerCase().split(" ");
+
+            player = new Player(input[0]);
+
+            p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
+
+            //System.out.println(player);
+            System.out.println("Good luck to you, Detective " + player.getName());
+            System.out.println("---------------------------");
+
+        }
+        //has access to entire Game object. tracking all changes
+        saveGame.setGame(this);
         while (isGameRunning && !checkForWinner()) {
             isValidInput = true;
             checkForWinner();
@@ -46,8 +53,8 @@ public class Game implements java.io.Serializable{
             System.out.println(ConsoleColors.RED + "Your location is " + world.currentRoom.getRoomTitle() + ConsoleColors.RESET);
             System.out.println(ConsoleColors.RED + world.currentRoom.getDescription() + ConsoleColors.RESET);
             System.out.println(ConsoleColors.YELLOW + "To move type: Go North, Go East, Go South, or Go West" + ConsoleColors.RESET);
-            System.out.println("---------------------------");
-            System.out.println("****************************");
+           // System.out.println("---------------------------");
+           // System.out.println("****************************");
             System.out.println(">>");
 
             input = scanner.nextLine().strip().toLowerCase().split(" ");
@@ -66,8 +73,13 @@ public class Game implements java.io.Serializable{
                     case "save":
                         saveGame.save();
                         break;
+                    case "load":
+                        saveGame.loadGame();
+                        break;
+                    case "help":
+                        p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
                     case "open":
-                        p.print("Map");
+                        p.print("The_Haunting_Of_Amazon_Hill/resources","Map");
                         break;
                     case "look":
                     case "show":
@@ -97,7 +109,7 @@ public class Game implements java.io.Serializable{
 
                             System.out.println(world.currentRoom.getRoomEvidence());
                         }
-                        System.out.println("****************************");
+                        System.out.println("*****************************");
                         break;
                     case "exit":
                     case "quit":
@@ -192,6 +204,14 @@ public class Game implements java.io.Serializable{
     }
     // Getters / Setters
 
+
+    public Player getPlayer() {
+        return player;
+    }
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     public List<Ghost> getGhosts() {
         return ghosts;
     }
@@ -207,17 +227,21 @@ public class Game implements java.io.Serializable{
     public World getWorld() {
         return world;
     }
+
+    public void setWorld(World world) {
+        this.world = world;
+    }
     boolean checkForWinner() {
 
         int count = 0;
 
         try {
             Object[] arr = player.getJournal().toArray();
-            for(int i = 0; i < arr.length; i++){
-                String x = (String) arr[i];
+            for (Object o : arr) {
+                String x = (String) o;
                 String[] f = x.split(" ");
-                for(int j = 0; j < f.length; j++){
-                    if (currentGhost.getEvidence().contains(f[j])){
+                for (String s : f) {
+                    if (currentGhost.getEvidence().contains(s)) {
                         count++;
                     }
                 }
