@@ -1,17 +1,11 @@
 package com.intelligents.haunting;
 
-import com.intelligents.client.Main;
-import com.intelligents.haunting.Game;
-//import com.intelligents.haunting.Player;
-//import com.intelligents.haunting.Room;
-//import com.intelligents.haunting.World;  ?? Done: ask team about package private World, Player and Room
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class saveGame {
     private Game game;
