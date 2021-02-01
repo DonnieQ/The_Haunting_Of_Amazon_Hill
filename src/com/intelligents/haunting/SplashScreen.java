@@ -21,12 +21,11 @@ public class SplashScreen implements java.io.Serializable{
         String gameType = getUserInput();
         if (gameType.matches("1")) {
             Game g = new Game();
-           // String banner = Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "introText"));
+
             p.print("The_Haunting_Of_Amazon_Hill/resources","introText");
-            //String intro = Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", "settingTheScene"));
+
             p.print("The_Haunting_Of_Amazon_Hill/resources","settingTheScene");
-           // System.out.println(banner);
-            //System.out.println(intro);
+
             g.start(false);
 
         }else if (gameType.matches("4")) {
