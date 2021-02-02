@@ -162,8 +162,9 @@ public class Game implements java.io.Serializable{
     private void printJournal() {
         String ghostEmoji = "\uD83D\uDC7B ";
         String houseEmoji = "\uD83C\uDFE0";
+        String bookEmoji = 	"\uD83D\uDCD6";
         System.out.println(divider + "\n");
-        System.out.println(ConsoleColors.WHITE_BRIGHT + player  + ConsoleColors.RESET + "\n");
+        System.out.println(ConsoleColors.BLACK_BACKGROUND + bookEmoji + " " + player + ConsoleColors.RESET + "\n");
         System.out.printf("%45s%n%n",ConsoleColors.BLACK_BACKGROUND + ghostEmoji + "Possible Ghosts " + ghostEmoji + ConsoleColors.RESET);
         System.out.println(ConsoleColors.GREEN_BOLD + ghosts.toString() + ConsoleColors.RESET + "\n");
         System.out.printf("%43s%n%n",ConsoleColors.BLACK_BACKGROUND + houseEmoji + " Rooms visited " + houseEmoji + ConsoleColors.RESET);
