@@ -54,3 +54,4 @@ TODO - Upload Sprint Screenshots
 2. **Jounal** [Driver download](https://chromedriver.chromium.org/downloads)
 3. **Launch .jar file**
 4. **Run Commands* run main.py!
+5.
