@@ -8,7 +8,7 @@
 
 
 ## Introduction
-![Logo](https://i.imgur.com/VCpS3ab.png)
+![Logo](https://i.imgur.com/exMTqBr.png)
 # The Haunting On Amazon Hill
 - Description 
   - You are an expert in getting information needed on the unknown that haunts the helpless. A family contracted your company to get rid of the ghost causing trouble in their residence. Before your company works to eradicate the ghost you need to gather information from the site regarding what type of ghost is present. This information is collected in your journal where you have your entries, and studies of past ghosts along with behaviors of each. Good luck to you, find out which ghost it is!
