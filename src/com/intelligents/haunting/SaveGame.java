@@ -14,9 +14,8 @@ public class SaveGame {
     }
 
     public void save() {
-     // NOTE: classes you want to be able to save must implement java.io.Serializable. Without implementing, you will be
+        // NOTE: classes you want to be able to save must implement java.io.Serializable. Without implementing, you will be
         // hit with exception type NotSerializableException.
-
 
 
         // using stream to Transfer bytes. From memory to disk for saving, from disk to memory for loading.
@@ -35,12 +34,11 @@ public class SaveGame {
             oos.flush();
             oos.close();
             System.out.println("Game saved\n");
-        }catch (Exception e) {
+        } catch (Exception e) {
             //System.out.println("Serialization Error! Can not save data.\n" + e.getClass() + ": " + e.getMessage() + "\n");
             System.out.println("Sorry currently cannot save game. **coming Soon!**");
             e.printStackTrace();
         }
-
 
 
     }
@@ -62,7 +60,7 @@ public class SaveGame {
             game.setCurrentGhost(ghost);
             game.setGhosts(ghosts);
             ois.close();
-        }catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Could not load saved game");
         }
     }
@@ -70,14 +68,6 @@ public class SaveGame {
     public void setGame(Game game) {
         this.game = game;
     }
-
-
-
-
-
-
-
-
 
 
 }
