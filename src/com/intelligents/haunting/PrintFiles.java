@@ -34,7 +34,7 @@ class PrintFiles {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println(ConsoleColors.BLACK_BACKGROUND_BRIGHT + results + ConsoleColors.RESET);
+            System.out.println(ConsoleColors.RED_BOLD + results + ConsoleColors.RESET);
         } else {
             System.out.println("Sorry that file is not in the Path.");
         }

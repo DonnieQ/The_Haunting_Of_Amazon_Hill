@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Game implements java.io.Serializable{
     private World world = new World();
     private List<Ghost> ghosts = new ArrayList<>();
-    private SaveGame saveGame = new SaveGame();
+    private SaveGame SaveGame = new SaveGame();
     private Ghost currentGhost;
 
     private Random r = new Random();
@@ -46,7 +46,7 @@ public class Game implements java.io.Serializable{
 
         }
         //has access to entire Game object. tracking all changes
-        saveGame.setGame(this);
+        SaveGame.setGame(this);
         while (isGameRunning && !checkForWinner()) {
             isValidInput = true;
             checkForWinner();
@@ -60,6 +60,7 @@ public class Game implements java.io.Serializable{
 
             System.out.println();
             System.out.println(ConsoleColors.RED_BOLD + world.getCurrentRoom().getDescription() + ConsoleColors.RESET);
+
 
             System.out.println(">>");
 
@@ -78,10 +79,10 @@ public class Game implements java.io.Serializable{
 
                         break;
                     case "save":
-                        saveGame.save();
+                        SaveGame.save();
                         break;
                     case "load":
-                        saveGame.loadGame();
+                        SaveGame.loadGame();
                         break;
                     case "help":
                         p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
@@ -240,7 +241,7 @@ public class Game implements java.io.Serializable{
 
         int count = 0;
 
-        try {
+//        try {
             Object[] arr = player.getJournal().toArray();
             for (Object o : arr) {
                 String x = (String) o;
@@ -252,9 +253,9 @@ public class Game implements java.io.Serializable{
                 }
             }
 
-        } catch (NullPointerException e) {
-            System.out.println("Keep trying");
-        }
+//        } catch (NullPointerException e) {
+//            System.out.println("Keep trying");
+//        }
 
         return count == 2;
     }
