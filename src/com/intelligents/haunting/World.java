@@ -17,6 +17,7 @@ class World implements java.io.Serializable{
 
 
 
+
     private Room currentRoom = lobby;
 
     public Room getCurrentRoom() {
@@ -44,38 +45,42 @@ class World implements java.io.Serializable{
         gameMap.add(lobby);
 
 
-        //  dungeon.roomExits.put("east", dungeon);
+        //Moving from rooms to lobby
         dungeon.roomExits.put("west", lobby);
-        //    dungeon.roomExits.put("north", balcony);
-        //    dungeon.roomExits.put("south", furnaceRoom);
-
         gameMap.add(dungeon);
 
-
-        //  diningRoom.roomExits.put("east", dungeon);
         diningRoom.roomExits.put("east", lobby);
-        //   diningRoom.roomExits.put("north", balcony);
-        //  diningRoom.roomExits.put("south", furnaceRoom);
-
         gameMap.add(diningRoom);
 
-
-        //  balcony.roomExits.put("east", dungeon);
-        //   balcony.roomExits.put("west", diningRoom);
-        //   balcony.roomExits.put("north", balcony);
         balcony.roomExits.put("south", lobby);
-
         gameMap.add(balcony);
 
-
-        // furnaceRoom.roomExits.put("east", dungeon);
-        //    furnaceRoom.roomExits.put("west", diningRoom);
         furnaceRoom.roomExits.put("north", lobby);
-        // furnaceRoom.roomExits.put("south", furnaceRoom);
-
         gameMap.add(furnaceRoom);
 
     }
+
+//    boolean roomVisted() {
+//        int count = 0;
+//
+//        try {
+//            Object[] arr = gameMap.toArray();
+//            for (Object o : arr) {
+//                String x = (String) o;
+//                String[] f = x.split(" ");
+//                for (String s : f) {
+//                    if () {
+//                        count++;
+//                    }
+//                }
+//            }
+//
+//        } catch (NullPointerException e) {
+//            System.out.println("Keep trying");
+//        }
+//
+//        return count == 2;
+//    }
 
 
 }

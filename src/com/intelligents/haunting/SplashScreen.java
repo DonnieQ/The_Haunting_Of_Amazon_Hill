@@ -29,10 +29,15 @@ public class SplashScreen implements java.io.Serializable{
             g.start(false);
 
         }else if (gameType.matches("4")) {
-            Game g = new Game();
-            save.setGame(g);
-            save.loadGame();
-            g.start(true);
+            try {
+                Game g = new Game();
+                save.setGame(g);
+                save.loadGame();
+                g.start(true);
+            }catch (NullPointerException e) {
+                splash();
+            }
+
         }
         else {
             System.out.println("invalid selection , please choose 1.");
