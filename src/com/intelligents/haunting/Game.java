@@ -74,8 +74,11 @@ public class Game implements java.io.Serializable{
                 switch (input[0]) {
                     case "read":
                         System.out.println(divider + "\n");
+                        System.out.println(ConsoleColors.WHITE_BRIGHT + player  + ConsoleColors.RESET + "\n");
                         System.out.printf("%45s%n%n",ConsoleColors.BLACK_BACKGROUND + ghostEmoji + "Possible Ghosts " + ghostEmoji + ConsoleColors.RESET);
-                        System.out.printf("%n%6s%n %15s %n",ConsoleColors.GREEN_BOLD + ghosts.toString() + ConsoleColors.RESET,ConsoleColors.WHITE_BRIGHT + player + ConsoleColors.RESET + "\n\n");
+                        System.out.println(ConsoleColors.GREEN_BOLD + ghosts.toString() + ConsoleColors.RESET + "\n\n");
+                        System.out.println(ConsoleColors.BLACK_BACKGROUND + "Rooms Visited: " + ConsoleColors.RESET);
+                        System.out.println(ConsoleColors.BLUE_BOLD + player.getRoomsVisited() + ConsoleColors.RESET);
                         System.out.println(divider);
 
                         break;
@@ -128,7 +131,7 @@ public class Game implements java.io.Serializable{
                     case "go":
 
                         while (isValidInput) {
-
+                            checkIfRoomVisited();
                             switch (input[1]) {
 
                                 case "north":
@@ -200,6 +203,12 @@ public class Game implements java.io.Serializable{
     private Room getRandomRoomFromWorld() {
         int index = r.nextInt(world.gameMap.size());
         return world.gameMap.get(index);
+    }
+
+    private void checkIfRoomVisited() {
+        if (!player.getRoomsVisited().contains(world.getCurrentRoom().getRoomTitle())) {
+            player.addToRoomsVisited(world.getCurrentRoom().getRoomTitle());
+        }
     }
 
     public void printEverythingInWorld() {
