@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class SplashScreen implements java.io.Serializable{
     public static Scanner scanner = new Scanner(System.in);
     PrintFiles p = new PrintFiles();
-    SaveGame saveGame = new SaveGame();
+    SaveGame save = new SaveGame();
 
     public void splash(){
 
@@ -16,7 +16,7 @@ public class SplashScreen implements java.io.Serializable{
                 "Chapter 2. Chasing Ghosts\n " +
                 "Chapter 3. Hangman's Gallows\n " +
                 "Press 4. to load saved game\n" +
-                "Please enter a number for Chapter:" +
+                "Please enter a number for Chapter: \n\n" +
                 ConsoleColors.RESET);
         String gameType = getUserInput();
         if (gameType.matches("1")) {
@@ -24,14 +24,14 @@ public class SplashScreen implements java.io.Serializable{
 
             p.print("The_Haunting_Of_Amazon_Hill/resources","introText");
 
-            p.print("The_Haunting_Of_Amazon_Hill/resources","settingTheScene");
+            p.printAlternateColor("The_Haunting_Of_Amazon_Hill/resources","settingTheScene");
 
             g.start(false);
 
         }else if (gameType.matches("4")) {
             Game g = new Game();
-            saveGame.setGame(g);
-            saveGame.loadGame();
+            save.setGame(g);
+            save.loadGame();
             g.start(true);
         }
         else {
