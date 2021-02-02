@@ -12,6 +12,8 @@ public class Game implements java.io.Serializable{
     private Ghost currentGhost;
 
     private Random r = new Random();
+    String divider = "*******************************************************************************************";
+
     Player player;
     private transient PrintFiles p = new PrintFiles();
     public Game() {
@@ -23,7 +25,7 @@ public class Game implements java.io.Serializable{
     void start(boolean isGameLoaded) {
         boolean isValidInput;
         boolean isGameRunning = true;
-        String divider = "*******************************************************************************************";
+
         String[] input;
         Scanner scanner = new Scanner(System.in);
         if (!isGameLoaded) {
@@ -52,8 +54,6 @@ public class Game implements java.io.Serializable{
             isValidInput = true;
             checkForWinner();
 
-            String ghostEmoji = "\uD83D\uDC7B ";
-
             String currentLoc = ConsoleColors.BLUE_BOLD + "Your location is " + world.getCurrentRoom().getRoomTitle() + ConsoleColors.RESET;
             String moveGuide = ConsoleColors.RESET+ConsoleColors.YELLOW + "To move type: Go North, Go East, Go South, or Go West" + ConsoleColors.RESET;
 
@@ -71,15 +71,11 @@ public class Game implements java.io.Serializable{
 
 
             try {
+                // Checks if current room is in roomsVisited List. If not adds currentRoom to roomsVisited
+                checkIfRoomVisited();
                 switch (input[0]) {
                     case "read":
-                        System.out.println(divider + "\n");
-                        System.out.println(ConsoleColors.WHITE_BRIGHT + player  + ConsoleColors.RESET + "\n");
-                        System.out.printf("%45s%n%n",ConsoleColors.BLACK_BACKGROUND + ghostEmoji + "Possible Ghosts " + ghostEmoji + ConsoleColors.RESET);
-                        System.out.println(ConsoleColors.GREEN_BOLD + ghosts.toString() + ConsoleColors.RESET + "\n\n");
-                        System.out.println(ConsoleColors.BLACK_BACKGROUND + "Rooms Visited: " + ConsoleColors.RESET);
-                        System.out.println(ConsoleColors.BLUE_BOLD + player.getRoomsVisited() + ConsoleColors.RESET);
-                        System.out.println(divider);
+                        printJournal();
 
                         break;
                     case "save":
@@ -90,7 +86,8 @@ public class Game implements java.io.Serializable{
                         break;
                     case "help":
                       //  p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
-                        p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");                        break;
+                        p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
+                        break;
                     case "open":
                         p.print("The_Haunting_Of_Amazon_Hill/resources","Map");
                         break;
@@ -131,7 +128,6 @@ public class Game implements java.io.Serializable{
                     case "go":
 
                         while (isValidInput) {
-                            checkIfRoomVisited();
                             switch (input[1]) {
 
                                 case "north":
@@ -161,6 +157,18 @@ public class Game implements java.io.Serializable{
             }
         }
         System.out.println("Thank you for playing our game!!");
+    }
+
+    private void printJournal() {
+        String ghostEmoji = "\uD83D\uDC7B ";
+        String houseEmoji = "\uD83C\uDFE0";
+        System.out.println(divider + "\n");
+        System.out.println(ConsoleColors.WHITE_BRIGHT + player  + ConsoleColors.RESET + "\n");
+        System.out.printf("%45s%n%n",ConsoleColors.BLACK_BACKGROUND + ghostEmoji + "Possible Ghosts " + ghostEmoji + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.GREEN_BOLD + ghosts.toString() + ConsoleColors.RESET + "\n");
+        System.out.printf("%43s%n%n",ConsoleColors.BLACK_BACKGROUND + houseEmoji + " Rooms visited " + houseEmoji + ConsoleColors.RESET);
+        System.out.println(ConsoleColors.BLUE_BOLD + player.getRoomsVisited() + ConsoleColors.RESET);
+        System.out.println(divider);
     }
 
     public void populateGhostList() {
