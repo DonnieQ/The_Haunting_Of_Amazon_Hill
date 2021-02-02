@@ -5,17 +5,18 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Game implements java.io.Serializable{
+public class Game implements java.io.Serializable {
     private World world = new World();
     private List<Ghost> ghosts = new ArrayList<>();
-    private SaveGame SaveGame = new SaveGame();
+    private final SaveGame SaveGame = new SaveGame();
     private Ghost currentGhost;
 
-    private Random r = new Random();
+    private final Random r = new Random();
     String divider = "*******************************************************************************************";
 
     Player player;
-    private transient PrintFiles p = new PrintFiles();
+    private final transient PrintFiles p = new PrintFiles();
+
     public Game() {
         populateGhostList();
         setCurrentGhost(getRandomGhost());
@@ -31,7 +32,6 @@ public class Game implements java.io.Serializable{
         if (!isGameLoaded) {
 
 
-
             System.out.println("\n" + ConsoleColors.GREEN_BOLD + "Thank you for choosing to play The Haunting of Amazon Hill. " +
                     "What would you like your name to be? " + ConsoleColors.RESET);
             System.out.println(">>");
@@ -39,13 +39,11 @@ public class Game implements java.io.Serializable{
             input = scanner.nextLine().strip().split(" ");
 
             player = new Player(input[0]);
-            System.out.printf("%175s%n", ConsoleColors.CYAN_UNDERLINED +" --> If you're new to the game type help for assistance" + ConsoleColors.RESET);
-
-
+            System.out.printf("%175s%n", ConsoleColors.CYAN_UNDERLINED + " --> If you're new to the game type help for assistance" + ConsoleColors.RESET);
 
             //System.out.println(player);
             System.out.printf("%70s%n%n", ConsoleColors.WHITE_BOLD_BRIGHT + "Good luck to you, " + player.getName() + ConsoleColors.RESET);
-           // System.out.println("---------------------------");
+            // System.out.println("---------------------------");
 
         }
         //has access to entire Game object. tracking all changes
@@ -55,9 +53,9 @@ public class Game implements java.io.Serializable{
             checkForWinner();
 
             String currentLoc = ConsoleColors.BLUE_BOLD + "Your location is " + world.getCurrentRoom().getRoomTitle() + ConsoleColors.RESET;
-            String moveGuide = ConsoleColors.RESET+ConsoleColors.YELLOW + "To move type: Go North, Go East, Go South, or Go West" + ConsoleColors.RESET;
+            String moveGuide = ConsoleColors.RESET + ConsoleColors.YELLOW + "To move type: Go North, Go East, Go South, or Go West" + ConsoleColors.RESET;
 
-            System.out.printf("%45s %95s %n", currentLoc,moveGuide);
+            System.out.printf("%45s %95s %n", currentLoc, moveGuide);
 
             System.out.println();
             System.out.println(ConsoleColors.RED_BOLD + world.getCurrentRoom().getDescription() + ConsoleColors.RESET);
@@ -84,11 +82,11 @@ public class Game implements java.io.Serializable{
                         SaveGame.loadGame();
                         break;
                     case "help":
-                      //  p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
+                        //  p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
                         p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
                         break;
                     case "open":
-                        p.print("The_Haunting_Of_Amazon_Hill/resources","Map");
+                        p.print("The_Haunting_Of_Amazon_Hill/resources", "Map");
                         break;
                     case "look":
                     case "show":
@@ -96,23 +94,22 @@ public class Game implements java.io.Serializable{
                         System.out.printf("%46s%n", currentLoc);
                         if (world.getCurrentRoom().getRoomEvidence().isEmpty()) {
                             System.out.println("Currently there are no items in "
-                                    + world.getCurrentRoom().getRoomTitle() +"\n");
+                                    + world.getCurrentRoom().getRoomTitle() + "\n");
                             System.out.println("Would you like to document anything about this room? \n" + ">>>");
                             String journalEntry = scanner.nextLine().strip();
-                            if (journalEntry.equals("no")){
+                            if (journalEntry.equals("no")) {
                                 break;
                             }
                             player.setJournal(journalEntry);
-                        }
-                        else{
+                        } else {
                             System.out.println("You look and notice: " + world.getCurrentRoom().getRoomEvidence() + "\n\n");
-                                System.out.println("Would you like to document anything about this room? \n " + ">>>");
-                                String journalEntry = scanner.nextLine().strip();
-                                if (journalEntry.equals("no")){
-                                    break;
-                                }
-                                player.setJournal(journalEntry);
-                           // System.out.println(world.currentRoom.getRoomItems());
+                            System.out.println("Would you like to document anything about this room? \n " + ">>>");
+                            String journalEntry = scanner.nextLine().strip();
+                            if (journalEntry.equals("no")) {
+                                break;
+                            }
+                            player.setJournal(journalEntry);
+                            // System.out.println(world.currentRoom.getRoomItems());
 
                             System.out.println(world.getCurrentRoom().getRoomEvidence());
                         }
@@ -136,14 +133,12 @@ public class Game implements java.io.Serializable{
                                     if (world.getCurrentRoom().roomExits.containsKey(input[1])) {
                                         world.setCurrentRoom(world.getCurrentRoom().roomExits.get(input[1]));
                                         isValidInput = false;
-
                                         break;
                                     }
                                 default:
                                     System.out.println("You hit wall. Try again: ");
                                     System.out.println(">>");
                                     input = scanner.nextLine().strip().toLowerCase().split(" ");
-
                                     break;
 
                             }
@@ -161,12 +156,12 @@ public class Game implements java.io.Serializable{
     private void printJournal() {
         String ghostEmoji = "\uD83D\uDC7B ";
         String houseEmoji = "\uD83C\uDFE0";
-        String bookEmoji = 	"\uD83D\uDCD6";
+        String bookEmoji = "\uD83D\uDCD6";
         System.out.println(divider + "\n");
         System.out.println(ConsoleColors.BLACK_BACKGROUND + bookEmoji + " " + player + ConsoleColors.RESET + "\n");
-        System.out.printf("%45s%n%n",ConsoleColors.BLACK_BACKGROUND + ghostEmoji + "Possible Ghosts " + ghostEmoji + ConsoleColors.RESET);
+        System.out.printf("%45s%n%n", ConsoleColors.BLACK_BACKGROUND + ghostEmoji + "Possible Ghosts " + ghostEmoji + ConsoleColors.RESET);
         System.out.println(ConsoleColors.GREEN_BOLD + ghosts.toString() + ConsoleColors.RESET + "\n");
-        System.out.printf("%43s%n%n",ConsoleColors.BLACK_BACKGROUND + houseEmoji + " Rooms visited " + houseEmoji + ConsoleColors.RESET);
+        System.out.printf("%43s%n%n", ConsoleColors.BLACK_BACKGROUND + houseEmoji + " Rooms visited " + houseEmoji + ConsoleColors.RESET);
         System.out.println(ConsoleColors.BLUE_BOLD + player.getRoomsVisited() + ConsoleColors.RESET);
         System.out.println(divider);
     }
@@ -180,10 +175,12 @@ public class Game implements java.io.Serializable{
             System.out.println(ghost.toString());
         }
     }
+
     public Ghost getRandomGhost() {
         int index = r.nextInt(ghosts.size());
         return ghosts.get(index);
     }
+
     private void assignRandomEvidenceToMap() {
         try {
             //for each evidence from monster, get rooms from world.gamemap equivalent to the number of evidences.
@@ -203,11 +200,11 @@ public class Game implements java.io.Serializable{
                 }
 
             }
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println("The data given is empty, cannot perform function");
         }
     }
+
     private Room getRandomRoomFromWorld() {
         int index = r.nextInt(world.gameMap.size());
         return world.gameMap.get(index);
@@ -224,6 +221,7 @@ public class Game implements java.io.Serializable{
             System.out.println(room.toString());
         }
     }
+
     public void printGhostsDesc() {
         ghosts.forEach(ghost -> System.out.println(ConsoleColors.BLACK_BACKGROUND_BRIGHT + ConsoleColors.GREEN_BRIGHT + ghost.toString() + ConsoleColors.RESET + "\n"));
     }
@@ -233,21 +231,27 @@ public class Game implements java.io.Serializable{
     public Player getPlayer() {
         return player;
     }
+
     public void setPlayer(Player player) {
         this.player = player;
     }
+
     public List<Ghost> getGhosts() {
         return ghosts;
     }
+
     public void setGhosts(List<Ghost> ghosts) {
         this.ghosts = ghosts;
     }
+
     public Ghost getCurrentGhost() {
         return currentGhost;
     }
+
     public void setCurrentGhost(Ghost ghost) {
         this.currentGhost = ghost;
     }
+
     public World getWorld() {
         return world;
     }
@@ -255,21 +259,22 @@ public class Game implements java.io.Serializable{
     public void setWorld(World world) {
         this.world = world;
     }
+
     boolean checkForWinner() {
 
         int count = 0;
 
 //        try {
-            Object[] arr = player.getJournal().toArray();
-            for (Object o : arr) {
-                String x = (String) o;
-                String[] f = x.split(" ");
-                for (String s : f) {
-                    if (currentGhost.getEvidence().contains(s)) {
-                        count++;
-                    }
+        Object[] arr = player.getJournal().toArray();
+        for (Object o : arr) {
+            String x = (String) o;
+            String[] f = x.split(" ");
+            for (String s : f) {
+                if (currentGhost.getEvidence().contains(s)) {
+                    count++;
                 }
             }
+        }
 
 //        } catch (NullPointerException e) {
 //            System.out.println("Keep trying");

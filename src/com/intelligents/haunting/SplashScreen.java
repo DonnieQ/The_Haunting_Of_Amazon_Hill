@@ -2,13 +2,12 @@ package com.intelligents.haunting;
 
 import java.util.Scanner;
 
-public class SplashScreen implements java.io.Serializable{
+public class SplashScreen implements java.io.Serializable {
     public static Scanner scanner = new Scanner(System.in);
     PrintFiles p = new PrintFiles();
     SaveGame save = new SaveGame();
 
-    public void splash(){
-
+    public void splash() {
 
 
         System.out.println(ConsoleColors.YELLOW_BRIGHT + "What game would you like to play?\n " +
@@ -22,31 +21,30 @@ public class SplashScreen implements java.io.Serializable{
         if (gameType.matches("1")) {
             Game g = new Game();
 
-            p.print("The_Haunting_Of_Amazon_Hill/resources","introText");
+            p.print("The_Haunting_Of_Amazon_Hill/resources", "introText");
 
-            p.printAlternateColor("The_Haunting_Of_Amazon_Hill/resources","settingTheScene");
+            p.printAlternateColor("The_Haunting_Of_Amazon_Hill/resources", "settingTheScene");
 
             g.start(false);
 
-        }else if (gameType.matches("4")) {
+        } else if (gameType.matches("4")) {
             try {
                 Game g = new Game();
                 save.setGame(g);
                 save.loadGame();
                 g.start(true);
-            }catch (NullPointerException e) {
+            } catch (NullPointerException e) {
                 splash();
             }
 
-        }
-        else {
+        } else {
             System.out.println("invalid selection , please choose 1.");
             splash();
         }
     }
 
     public void pressEnterToContinue() {
-        p.print("The_Haunting_Of_Amazon_Hill/resources","splashScreen");
+        p.print("The_Haunting_Of_Amazon_Hill/resources", "splashScreen");
         System.out.println(ConsoleColors.YELLOW + "Press Enter key to continue..." + ConsoleColors.RESET);
         try {
             System.in.read();

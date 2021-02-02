@@ -11,7 +11,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
 
-class XMLParser implements java.io.Serializable{
+class XMLParser implements java.io.Serializable {
 
     public static NodeList readGhosts() {
         NodeList results = null;

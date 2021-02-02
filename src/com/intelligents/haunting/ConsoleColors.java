@@ -1,6 +1,6 @@
 package com.intelligents.haunting;
 
-public class ConsoleColors implements java.io.Serializable{
+public class ConsoleColors implements java.io.Serializable {
     // Reset
     public static final String RESET = "\033[0m";  // Text Reset
 
