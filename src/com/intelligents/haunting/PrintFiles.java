@@ -50,7 +50,7 @@ class PrintFiles {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.printf("%-15s %100s %n", results, results2 );
+            System.out.printf("%-15s %100s %n", results, results2);
         } else {
             System.out.println("Sorry that file is not in the Path.");
         }

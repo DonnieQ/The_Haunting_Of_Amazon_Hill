@@ -5,9 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-class Player implements java.io.Serializable{
+class Player implements java.io.Serializable {
     private final String name;
-    private List<String> journal = new ArrayList<>();
+    private final List<String> journal = new ArrayList<>();
     private final TimeStamp time = new TimeStamp();
     String localDateString = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy @ HH:mm"));
 
@@ -15,7 +15,7 @@ class Player implements java.io.Serializable{
         return roomsVisited;
     }
 
-    private List<String> roomsVisited = new ArrayList<>();
+    private final List<String> roomsVisited = new ArrayList<>();
 
     Player(String name) {
         this.name = name;
