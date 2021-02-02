@@ -11,9 +11,18 @@ class Player implements java.io.Serializable{
     private final TimeStamp time = new TimeStamp();
     String localDateString = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy @ HH:mm"));
 
+    public List<String> getRoomsVisited() {
+        return roomsVisited;
+    }
+
+    private List<String> roomsVisited = new ArrayList<>();
 
     Player(String name) {
         this.name = name;
+    }
+
+    void addToRoomsVisited(String roomTitle) {
+        roomsVisited.add(roomTitle);
     }
 
     String getName() {
@@ -30,7 +39,7 @@ class Player implements java.io.Serializable{
 
     @Override
     public String toString() {
-        return getName() + "\'s" + " journal currently shows these items: \n" + getJournal();
+        return ConsoleColors.BLACK_BACKGROUND + getName() + "\'s" + " journal currently shows these items: " + ConsoleColors.RESET + "\n" + getJournal();
     }
 
 }
