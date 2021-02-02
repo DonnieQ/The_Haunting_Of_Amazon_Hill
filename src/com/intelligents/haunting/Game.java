@@ -23,25 +23,26 @@ public class Game implements java.io.Serializable{
     void start(boolean isGameLoaded) {
         boolean isValidInput;
         boolean isGameRunning = true;
+        String divider = "*******************************************************************************************";
         String[] input;
         Scanner scanner = new Scanner(System.in);
         if (!isGameLoaded) {
 
 
 
-            System.out.println(ConsoleColors.GREEN_BOLD + "Thank you for choosing to play The Haunting on Amazon Hill. " +
+            System.out.println("\n" + ConsoleColors.GREEN_BOLD + "Thank you for choosing to play The Haunting of Amazon Hill. " +
                     "What would you like your name to be? " + ConsoleColors.RESET);
             System.out.println(">>");
 
-            input = scanner.nextLine().strip().toLowerCase().split(" ");
+            input = scanner.nextLine().strip().split(" ");
 
             player = new Player(input[0]);
 
             p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
 
             //System.out.println(player);
-            System.out.println("Good luck to you, Detective " + player.getName());
-            System.out.println("---------------------------");
+            System.out.printf("%70s%n%n", ConsoleColors.WHITE_BOLD_BRIGHT + "Good luck to you, " + player.getName() + ConsoleColors.RESET);
+           // System.out.println("---------------------------");
 
         }
         //has access to entire Game object. tracking all changes
@@ -50,25 +51,31 @@ public class Game implements java.io.Serializable{
             isValidInput = true;
             checkForWinner();
 
-            System.out.println(ConsoleColors.RED + "Your location is " + world.getCurrentRoom().getRoomTitle() + ConsoleColors.RESET);
-            System.out.println(ConsoleColors.RED + world.getCurrentRoom().getDescription() + ConsoleColors.RESET);
-            System.out.println(ConsoleColors.YELLOW + "To move type: Go North, Go East, Go South, or Go West" + ConsoleColors.RESET);
-           // System.out.println("---------------------------");
-           // System.out.println("****************************");
+            String ghostEmoji = "\uD83D\uDC7B ";
+
+            String currentLoc = ConsoleColors.BLUE_BOLD + "Your location is " + world.getCurrentRoom().getRoomTitle() + ConsoleColors.RESET;
+            String moveGuide = ConsoleColors.RESET+ConsoleColors.YELLOW + "To move type: Go North, Go East, Go South, or Go West" + ConsoleColors.RESET;
+
+            System.out.printf("%45s %95s %n", currentLoc,moveGuide);
+
+            System.out.println();
+            System.out.println(ConsoleColors.RED_BOLD + world.getCurrentRoom().getDescription() + ConsoleColors.RESET);
+
             System.out.println(">>");
 
             input = scanner.nextLine().strip().toLowerCase().split(" ");
+
+            String ghostString = ghosts.toString();
 
 
             try {
                 switch (input[0]) {
                     case "read":
-                        System.out.println("****************************");
-                        System.out.println(ConsoleColors.BLACK_BACKGROUND + player + ConsoleColors.RESET);
-                        System.out.println("****************************");
-                        System.out.println(ConsoleColors.BLACK_BACKGROUND + "Possible Ghosts: " + ConsoleColors.RESET);
-                        printGhostsDesc();
-                        System.out.println("****************************");
+                        System.out.println(divider + "\n");
+                        System.out.printf("%45s%n%n",ConsoleColors.BLACK_BACKGROUND + ghostEmoji + "Possible Ghosts " + ghostEmoji + ConsoleColors.RESET);
+                        System.out.printf("%n%6s%n %15s %n",ConsoleColors.GREEN_BOLD + ghosts.toString() + ConsoleColors.RESET,ConsoleColors.WHITE_BRIGHT + player + ConsoleColors.RESET + "\n\n");
+                        System.out.println(divider);
+
                         break;
                     case "save":
                         saveGame.save();
@@ -83,13 +90,12 @@ public class Game implements java.io.Serializable{
                         break;
                     case "look":
                     case "show":
-                        System.out.println("****************************");
-                        System.out.println("Your location is " + world.getCurrentRoom().getRoomTitle());
+                        System.out.println(divider);
+                        System.out.printf("%46s%n", currentLoc);
                         if (world.getCurrentRoom().getRoomEvidence().isEmpty()) {
                             System.out.println("Currently there are no items in "
-                                    + world.getCurrentRoom().getRoomTitle());
-                            System.out.println("Would you like to document anything about this room? " +
-                                    ">>>");
+                                    + world.getCurrentRoom().getRoomTitle() +"\n");
+                            System.out.println("Would you like to document anything about this room? \n" + ">>>");
                             String journalEntry = scanner.nextLine().strip();
                             if (journalEntry.equals("no")){
                                 break;
@@ -97,9 +103,8 @@ public class Game implements java.io.Serializable{
                             player.setJournal(journalEntry);
                         }
                         else{
-                            System.out.println("You look and notice: " + world.getCurrentRoom().getRoomEvidence());
-                                System.out.println("Would you like to document anything about this room? " +
-                                        ">>>");
+                            System.out.println("You look and notice: " + world.getCurrentRoom().getRoomEvidence() + "\n\n");
+                                System.out.println("Would you like to document anything about this room? \n " + ">>>");
                                 String journalEntry = scanner.nextLine().strip();
                                 if (journalEntry.equals("no")){
                                     break;
@@ -109,7 +114,7 @@ public class Game implements java.io.Serializable{
 
                             System.out.println(world.getCurrentRoom().getRoomEvidence());
                         }
-                        System.out.println("*****************************");
+                        System.out.println(divider);
                         break;
                     case "exit":
                     case "quit":
@@ -200,7 +205,7 @@ public class Game implements java.io.Serializable{
         }
     }
     public void printGhostsDesc() {
-        ghosts.forEach(ghost -> System.out.println(ConsoleColors.BLACK_BACKGROUND_BRIGHT + ConsoleColors.GREEN_BRIGHT + ghost.toString() + ConsoleColors.RESET));
+        ghosts.forEach(ghost -> System.out.println(ConsoleColors.BLACK_BACKGROUND_BRIGHT + ConsoleColors.GREEN_BRIGHT + ghost.toString() + ConsoleColors.RESET + "\n"));
     }
     // Getters / Setters
 

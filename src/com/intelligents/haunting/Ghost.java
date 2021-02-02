@@ -57,6 +57,6 @@ public class Ghost implements java.io.Serializable{
     public String toString() {
         return getType() + ":\n" +
                 "\tBackground: " + getBackground() + "\n" +
-                "\tEvidence: " +  getEvidence();
+                "\tEvidence: " +  getEvidence() + "\n\n";
     }
 }

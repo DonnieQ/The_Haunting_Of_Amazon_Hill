@@ -24,7 +24,7 @@ public class SplashScreen implements java.io.Serializable{
 
             p.print("The_Haunting_Of_Amazon_Hill/resources","introText");
 
-            p.print("The_Haunting_Of_Amazon_Hill/resources","settingTheScene");
+            p.printAlternateColor("The_Haunting_Of_Amazon_Hill/resources","settingTheScene");
 
             g.start(false);
 
