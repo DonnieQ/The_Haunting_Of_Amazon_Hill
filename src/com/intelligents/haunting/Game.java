@@ -62,7 +62,6 @@ public class Game implements java.io.Serializable{
             System.out.println();
             System.out.println(ConsoleColors.RED_BOLD + world.getCurrentRoom().getDescription() + ConsoleColors.RESET);
 
-
             System.out.println(">>");
 
             input = scanner.nextLine().strip().toLowerCase().split(" ");
@@ -153,7 +152,7 @@ public class Game implements java.io.Serializable{
 
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Please say \'Move\' or \'Go\' before choosing a direction!");
+                System.out.println("Please say 'Move' or 'Go' before choosing a direction!");
             }
         }
         System.out.println("Thank you for playing our game!!");
@@ -237,7 +236,6 @@ public class Game implements java.io.Serializable{
     public void setPlayer(Player player) {
         this.player = player;
     }
-
     public List<Ghost> getGhosts() {
         return ghosts;
     }
