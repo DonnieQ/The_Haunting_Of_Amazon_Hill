@@ -37,8 +37,9 @@ public class Game implements java.io.Serializable{
             input = scanner.nextLine().strip().split(" ");
 
             player = new Player(input[0]);
+            System.out.printf("%175s%n", ConsoleColors.CYAN_UNDERLINED +" --> If you're new to the game type help for assistance" + ConsoleColors.RESET);
 
-            p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
+
 
             //System.out.println(player);
             System.out.printf("%70s%n%n", ConsoleColors.WHITE_BOLD_BRIGHT + "Good luck to you, " + player.getName() + ConsoleColors.RESET);
@@ -85,7 +86,8 @@ public class Game implements java.io.Serializable{
                         SaveGame.loadGame();
                         break;
                     case "help":
-                        p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
+                      //  p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
+                        p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");                        break;
                     case "open":
                         p.print("The_Haunting_Of_Amazon_Hill/resources","Map");
                         break;

@@ -40,6 +40,22 @@ class PrintFiles {
         }
     }
 
+    void printHelp(String path, String path2, String fileToRead, String fileToRead2) {
+        if (fileToRead != null) {
+            String results = null;
+            String results2 = null;
+            try {
+                results = Files.readString(Path.of(path, fileToRead));
+                results2 = Files.readString(Path.of(path2, fileToRead2));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.printf("%-15s %100s %n", results, results2 );
+        } else {
+            System.out.println("Sorry that file is not in the Path.");
+        }
+    }
+
 
 }
 
