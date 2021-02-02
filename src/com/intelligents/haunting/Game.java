@@ -62,7 +62,6 @@ public class Game implements java.io.Serializable{
             System.out.println();
             System.out.println(ConsoleColors.RED_BOLD + world.getCurrentRoom().getDescription() + ConsoleColors.RESET);
 
-
             System.out.println(">>");
 
             input = scanner.nextLine().strip().toLowerCase().split(" ");
@@ -153,7 +152,7 @@ public class Game implements java.io.Serializable{
 
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Please say \'Move\' or \'Go\' before choosing a direction!");
+                System.out.println("Please say 'Move' or 'Go' before choosing a direction!");
             }
         }
         System.out.println("Thank you for playing our game!!");
@@ -162,8 +161,9 @@ public class Game implements java.io.Serializable{
     private void printJournal() {
         String ghostEmoji = "\uD83D\uDC7B ";
         String houseEmoji = "\uD83C\uDFE0";
+        String bookEmoji = 	"\uD83D\uDCD6";
         System.out.println(divider + "\n");
-        System.out.println(ConsoleColors.WHITE_BRIGHT + player  + ConsoleColors.RESET + "\n");
+        System.out.println(ConsoleColors.BLACK_BACKGROUND + bookEmoji + " " + player + ConsoleColors.RESET + "\n");
         System.out.printf("%45s%n%n",ConsoleColors.BLACK_BACKGROUND + ghostEmoji + "Possible Ghosts " + ghostEmoji + ConsoleColors.RESET);
         System.out.println(ConsoleColors.GREEN_BOLD + ghosts.toString() + ConsoleColors.RESET + "\n");
         System.out.printf("%43s%n%n",ConsoleColors.BLACK_BACKGROUND + houseEmoji + " Rooms visited " + houseEmoji + ConsoleColors.RESET);
@@ -236,7 +236,6 @@ public class Game implements java.io.Serializable{
     public void setPlayer(Player player) {
         this.player = player;
     }
-
     public List<Ghost> getGhosts() {
         return ghosts;
     }

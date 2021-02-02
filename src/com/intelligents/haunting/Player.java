@@ -39,8 +39,8 @@ class Player implements java.io.Serializable{
 
     @Override
     public String toString() {
-        return ConsoleColors.BLACK_BACKGROUND + getName() + "\'s"
-                + " journal currently shows these items: " + ConsoleColors.RESET + "\n"
+        return getName() + "'s"
+                + " journal currently shows these items: " + "\uD83D\uDCD6" + ConsoleColors.RESET + "\n\n"
                 + ConsoleColors.RED_BOLD_BRIGHT + getJournal() + ConsoleColors.RESET;
     }
 
