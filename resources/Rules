@@ -27,6 +27,10 @@
 
                 - pause = pause music
 
+                - volume up = increases volume
+
+                - volume down = decreases volume
+
                 - exit/q/quit will stop the game and allow you to exit.
 
 

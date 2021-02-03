@@ -17,6 +17,7 @@ public class Game implements java.io.Serializable {
     private MusicPlayer mp = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/Haunted Mansion.wav");
     private MusicPlayer soundEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/page-flip-4.wav");
     private MusicPlayer walkEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/footsteps-4.wav");
+
     public Game() {
         populateGhostList();
         setCurrentGhost(getRandomGhost());
@@ -65,15 +66,24 @@ public class Game implements java.io.Serializable {
 
             System.out.println(">>");
 
+
             input = scanner.nextLine().strip().toLowerCase().split(" ");
 
-            String ghostString = ghosts.toString();
+//            if (input[0].equals("volume") && input[1].equals())
 
 
             // Checks if current room is in roomsVisited List. If not adds currentRoom to roomsVisited
             checkIfRoomVisited();
             try {
                 switch (input[0]) {
+
+                    case "volume":
+                        if (input[1].equals("up")) {
+                            mp.setVolume(5.0f);
+                        } else {
+                            mp.setVolume(-15.0f);
+                        }
+                        break;
 
                     case "read":
                         printJournal();
@@ -140,21 +150,21 @@ public class Game implements java.io.Serializable {
                         while (isValidInput) {
                             switch (input[1]) {
 
-                            case "north":
-                            case "east":
-                            case "south":
-                            case "west":
-                                if (world.getCurrentRoom().roomExits.containsKey(input[1])) {
-                                    world.setCurrentRoom(world.getCurrentRoom().roomExits.get(input[1]));
-                                    isValidInput = false;
-                                    walkEffect.playSoundEffect();
+                                case "north":
+                                case "east":
+                                case "south":
+                                case "west":
+                                    if (world.getCurrentRoom().roomExits.containsKey(input[1])) {
+                                        world.setCurrentRoom(world.getCurrentRoom().roomExits.get(input[1]));
+                                        isValidInput = false;
+                                        walkEffect.playSoundEffect();
+                                        break;
+                                    }
+                                default:
+                                    System.out.println("You hit wall. Try again: ");
+                                    System.out.println(">>");
+                                    input = scanner.nextLine().strip().toLowerCase().split(" ");
                                     break;
-                                }
-                            default:
-                                System.out.println("You hit wall. Try again: ");
-                                System.out.println(">>");
-                                input = scanner.nextLine().strip().toLowerCase().split(" ");
-                                break;
 
                             }
 
