@@ -15,7 +15,7 @@ public class Game implements java.io.Serializable {
     private Player player;
     private final transient PrintFiles p = new PrintFiles();
     private MusicPlayer mp = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/Haunted Mansion.wav");
-    private MusicPlayer soundEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/pluck-pcm16.wav");
+    private MusicPlayer soundEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/page-flip-4.wav");
 
     public Game() {
         populateGhostList();
