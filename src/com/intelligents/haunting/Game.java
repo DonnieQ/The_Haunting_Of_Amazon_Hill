@@ -30,7 +30,7 @@ public class Game implements java.io.Serializable {
         String[] input;
         Scanner scanner = new Scanner(System.in);
 
-
+        mp.startMusic();
         if (!isGameLoaded) {
 
 
@@ -49,7 +49,7 @@ public class Game implements java.io.Serializable {
         }
         //has access to entire Game object. tracking all changes
         SaveGame.setGame(this);
-        mp.startMusic();
+
 
         while (isGameRunning && !checkForWinner()) {
             isValidInput = true;
