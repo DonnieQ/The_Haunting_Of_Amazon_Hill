@@ -7,6 +7,7 @@ import java.io.IOException;
 class MusicPlayer {
 
     private Clip clip;
+    private FloatControl controller;
 
     MusicPlayer(String filepath) {
 
@@ -15,6 +16,7 @@ class MusicPlayer {
                 AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File(filepath));
                 clip = AudioSystem.getClip();
                 clip.open(audioStream);
+                controller = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
                 e.printStackTrace();
             }
@@ -31,6 +33,7 @@ class MusicPlayer {
 
     void quitMusic() {
         clip.close();
+
     }
 
     void playSoundEffect() {
@@ -38,4 +41,11 @@ class MusicPlayer {
         clip.start();
     }
 
+    public float getVolume() {
+        return controller.getValue();
+    }
+
+    public void setVolume(float volume) {
+        controller.setValue(volume);
+    }
 }
