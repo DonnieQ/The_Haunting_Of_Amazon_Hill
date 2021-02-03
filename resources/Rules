@@ -23,6 +23,10 @@
 
                 - save = save game progress
 
+                - play = start music
+
+                - pause = pause music
+
                 - exit/q/quit will stop the game and allow you to exit.
 
 

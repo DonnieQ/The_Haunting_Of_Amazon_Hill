@@ -1,5 +1,8 @@
 package com.intelligents.haunting;
 
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -29,6 +32,8 @@ public class Game implements java.io.Serializable {
 
         String[] input;
         Scanner scanner = new Scanner(System.in);
+
+
         if (!isGameLoaded) {
 
 
@@ -48,32 +53,39 @@ public class Game implements java.io.Serializable {
         }
         //has access to entire Game object. tracking all changes
         SaveGame.setGame(this);
-        while (isGameRunning && !checkForWinner()) {
-            isValidInput = true;
-            checkForWinner();
 
-            String currentLoc = ConsoleColors.BLUE_BOLD + "Your location is " + world.getCurrentRoom().getRoomTitle() + ConsoleColors.RESET;
-            String moveGuide = ConsoleColors.RESET + ConsoleColors.YELLOW + "To move type: Go North, Go East, Go South, or Go West" + ConsoleColors.RESET;
+        try {
+            File file = new File("The_Haunting_Of_Amazon_Hill/resources/Sounds/Haunted Mansion.wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.start();
 
-            System.out.printf("%45s %95s %n", currentLoc, moveGuide);
+            while (isGameRunning && !checkForWinner()) {
+                isValidInput = true;
+                checkForWinner();
 
-            System.out.println();
-            System.out.println(ConsoleColors.RED_BOLD + world.getCurrentRoom().getDescription() + ConsoleColors.RESET);
+                String currentLoc = ConsoleColors.BLUE_BOLD + "Your location is " + world.getCurrentRoom().getRoomTitle() + ConsoleColors.RESET;
+                String moveGuide = ConsoleColors.RESET + ConsoleColors.YELLOW + "To move type: Go North, Go East, Go South, or Go West" + ConsoleColors.RESET;
 
-            System.out.println(">>");
+                System.out.printf("%45s %95s %n", currentLoc, moveGuide);
 
-            input = scanner.nextLine().strip().toLowerCase().split(" ");
+                System.out.println();
+                System.out.println(ConsoleColors.RED_BOLD + world.getCurrentRoom().getDescription() + ConsoleColors.RESET);
 
-            String ghostString = ghosts.toString();
+                System.out.println(">>");
+
+                input = scanner.nextLine().strip().toLowerCase().split(" ");
+
+                String ghostString = ghosts.toString();
 
 
-            try {
                 // Checks if current room is in roomsVisited List. If not adds currentRoom to roomsVisited
                 checkIfRoomVisited();
                 switch (input[0]) {
+
                     case "read":
                         printJournal();
-
                         break;
                     case "save":
                         SaveGame.save();
@@ -118,7 +130,14 @@ public class Game implements java.io.Serializable {
                     case "exit":
                     case "quit":
                     case "q":
+                        clip.close();
                         isGameRunning = false;
+                        break;
+                    case "pause":
+                        clip.stop();
+                        break;
+                    case "play":
+                        clip.start();
                         break;
                     case "move":
                     case "go":
@@ -144,11 +163,11 @@ public class Game implements java.io.Serializable {
                             }
 
                         }
-
                 }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Please say 'Move' or 'Go' before choosing a direction!");
+
             }
+        } catch (ArrayIndexOutOfBoundsException | LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+            e.printStackTrace();
         }
         System.out.println("Thank you for playing our game!!");
     }
