@@ -10,12 +10,12 @@ public class Game implements java.io.Serializable {
     private List<Ghost> ghosts = new ArrayList<>();
     private final SaveGame SaveGame = new SaveGame();
     private Ghost currentGhost;
-
     private final Random r = new Random();
-    String divider = "*******************************************************************************************";
-
-    Player player;
+    private final String divider = "*******************************************************************************************";
+    private Player player;
     private final transient PrintFiles p = new PrintFiles();
+    private MusicPlayer mp = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/Haunted Mansion.wav");
+    private MusicPlayer soundEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/pluck-pcm16.wav");
 
     public Game() {
         populateGhostList();
@@ -29,6 +29,8 @@ public class Game implements java.io.Serializable {
 
         String[] input;
         Scanner scanner = new Scanner(System.in);
+
+        mp.startMusic();
         if (!isGameLoaded) {
 
 
@@ -43,11 +45,12 @@ public class Game implements java.io.Serializable {
 
             //System.out.println(player);
             System.out.printf("%70s%n%n", ConsoleColors.WHITE_BOLD_BRIGHT + "Good luck to you, " + player.getName() + ConsoleColors.RESET);
-            // System.out.println("---------------------------");
 
         }
         //has access to entire Game object. tracking all changes
         SaveGame.setGame(this);
+
+
         while (isGameRunning && !checkForWinner()) {
             isValidInput = true;
             checkForWinner();
@@ -67,89 +70,99 @@ public class Game implements java.io.Serializable {
             String ghostString = ghosts.toString();
 
 
-            try {
-                // Checks if current room is in roomsVisited List. If not adds currentRoom to roomsVisited
-                checkIfRoomVisited();
-                switch (input[0]) {
-                    case "read":
-                        printJournal();
+            // Checks if current room is in roomsVisited List. If not adds currentRoom to roomsVisited
+            checkIfRoomVisited();
+            switch (input[0]) {
 
-                        break;
-                    case "save":
-                        SaveGame.save();
-                        break;
-                    case "load":
-                        SaveGame.loadGame();
-                        break;
-                    case "help":
-                        //  p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
-                        p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
-                        break;
-                    case "open":
-                        p.print("The_Haunting_Of_Amazon_Hill/resources", "Map");
-                        break;
-                    case "look":
-                    case "show":
-                        System.out.println(divider);
-                        System.out.printf("%46s%n", currentLoc);
-                        if (world.getCurrentRoom().getRoomEvidence().isEmpty()) {
-                            System.out.println("Currently there are no items in "
-                                    + world.getCurrentRoom().getRoomTitle() + "\n");
-                            System.out.println("Would you like to document anything about this room? \n" + ">>>");
-                            String journalEntry = scanner.nextLine().strip();
-                            if (journalEntry.equals("no")) {
-                                break;
-                            }
-                            player.setJournal(journalEntry);
-                        } else {
-                            System.out.println("You look and notice: " + world.getCurrentRoom().getRoomEvidence() + "\n\n");
-                            System.out.println("Would you like to document anything about this room? \n " + ">>>");
-                            String journalEntry = scanner.nextLine().strip();
-                            if (journalEntry.equals("no")) {
-                                break;
-                            }
-                            player.setJournal(journalEntry);
-                            // System.out.println(world.currentRoom.getRoomItems());
-
-                            System.out.println(world.getCurrentRoom().getRoomEvidence());
+                case "read":
+                    printJournal();
+                    soundEffect.playSoundEffect();
+                    break;
+                case "save":
+                    SaveGame.save();
+                    break;
+                case "load":
+                    SaveGame.loadGame();
+                    break;
+                case "help":
+                    //  p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
+                    p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
+                    break;
+                case "open":
+                    p.print("The_Haunting_Of_Amazon_Hill/resources", "Map");
+                    break;
+                case "look":
+                case "show":
+                    System.out.println(divider);
+                    System.out.printf("%46s%n", currentLoc);
+                    if (world.getCurrentRoom().getRoomEvidence().isEmpty()) {
+                        System.out.println("Currently there are no items in "
+                                + world.getCurrentRoom().getRoomTitle() + "\n");
+                        System.out.println("Would you like to document anything about this room? \n" + ">>>");
+                        String journalEntry = scanner.nextLine().strip();
+                        if (journalEntry.equals("no")) {
+                            break;
                         }
-                        System.out.println(divider);
-                        break;
-                    case "exit":
-                    case "quit":
-                    case "q":
-                        isGameRunning = false;
-                        break;
-                    case "move":
-                    case "go":
+                        player.setJournal(journalEntry);
+                    } else {
+                        System.out.println("You look and notice: " + world.getCurrentRoom().getRoomEvidence() + "\n\n");
+                        System.out.println("Would you like to document anything about this room? \n " + ">>>");
+                        String journalEntry = scanner.nextLine().strip();
+                        if (journalEntry.equals("no")) {
+                            break;
+                        }
+                        player.setJournal(journalEntry);
+                        // System.out.println(world.currentRoom.getRoomItems());
 
-                        while (isValidInput) {
-                            switch (input[1]) {
+                        System.out.println(world.getCurrentRoom().getRoomEvidence());
+                    }
+                    System.out.println(divider);
+                    break;
+                case "exit":
+                case "quit":
+                case "q":
+                    //clip.close();
+                    mp.quitMusic();
+                    isGameRunning = false;
+                    break;
+                case "pause":
+                    // clip.stop();
+                    mp.pauseMusic();
+                    break;
+                case "play":
+                    // clip.start();
+                    mp.startMusic();
+                    break;
+                case "move":
+                case "go":
 
-                                case "north":
-                                case "east":
-                                case "south":
-                                case "west":
-                                    if (world.getCurrentRoom().roomExits.containsKey(input[1])) {
-                                        world.setCurrentRoom(world.getCurrentRoom().roomExits.get(input[1]));
-                                        isValidInput = false;
-                                        break;
-                                    }
-                                default:
-                                    System.out.println("You hit wall. Try again: ");
-                                    System.out.println(">>");
-                                    input = scanner.nextLine().strip().toLowerCase().split(" ");
+                    while (isValidInput) {
+                        switch (input[1]) {
+
+                            case "north":
+                            case "east":
+                            case "south":
+                            case "west":
+                                if (world.getCurrentRoom().roomExits.containsKey(input[1])) {
+                                    world.setCurrentRoom(world.getCurrentRoom().roomExits.get(input[1]));
+                                    isValidInput = false;
                                     break;
-
-                            }
+                                }
+                            default:
+                                System.out.println("You hit wall. Try again: ");
+                                System.out.println(">>");
+                                input = scanner.nextLine().strip().toLowerCase().split(" ");
+                                break;
 
                         }
 
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Please say 'Move' or 'Go' before choosing a direction!");
+                    }
             }
+
         }
+//        } catch (ArrayIndexOutOfBoundsException | LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+//            e.printStackTrace();
+//        }
         System.out.println("Thank you for playing our game!!");
     }
 

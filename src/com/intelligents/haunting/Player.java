@@ -8,8 +8,7 @@ import java.util.List;
 class Player implements java.io.Serializable {
     private final String name;
     private final List<String> journal = new ArrayList<>();
-    private final TimeStamp time = new TimeStamp();
-    String localDateString = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy @ HH:mm"));
+
 
     public List<String> getRoomsVisited() {
         return roomsVisited;
@@ -34,6 +33,7 @@ class Player implements java.io.Serializable {
     }
 
     void setJournal(String journal) {
+        String localDateString = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MM-dd-yyyy @ HH:mm"));
         this.journal.add("Date: " + localDateString + " -> " + journal);
     }
 
