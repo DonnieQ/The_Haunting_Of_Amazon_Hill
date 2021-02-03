@@ -16,7 +16,7 @@ public class Game implements java.io.Serializable {
     private final transient PrintFiles p = new PrintFiles();
     private MusicPlayer mp = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/Haunted Mansion.wav");
     private MusicPlayer soundEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/page-flip-4.wav");
-
+    private MusicPlayer walkEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/footsteps-4.wav");
     public Game() {
         populateGhostList();
         setCurrentGhost(getRandomGhost());
@@ -140,20 +140,21 @@ public class Game implements java.io.Serializable {
                         while (isValidInput) {
                             switch (input[1]) {
 
-                                case "north":
-                                case "east":
-                                case "south":
-                                case "west":
-                                    if (world.getCurrentRoom().roomExits.containsKey(input[1])) {
-                                        world.setCurrentRoom(world.getCurrentRoom().roomExits.get(input[1]));
-                                        isValidInput = false;
-                                        break;
-                                    }
-                                default:
-                                    System.out.println("You hit wall. Try again: ");
-                                    System.out.println(">>");
-                                    input = scanner.nextLine().strip().toLowerCase().split(" ");
+                            case "north":
+                            case "east":
+                            case "south":
+                            case "west":
+                                if (world.getCurrentRoom().roomExits.containsKey(input[1])) {
+                                    world.setCurrentRoom(world.getCurrentRoom().roomExits.get(input[1]));
+                                    isValidInput = false;
+                                    walkEffect.playSoundEffect();
                                     break;
+                                }
+                            default:
+                                System.out.println("You hit wall. Try again: ");
+                                System.out.println(">>");
+                                input = scanner.nextLine().strip().toLowerCase().split(" ");
+                                break;
 
                             }
 
