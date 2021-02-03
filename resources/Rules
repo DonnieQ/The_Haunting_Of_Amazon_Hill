@@ -1,0 +1,32 @@
+                        ****RULES****
+
+                Traverse through the rooms to look for evidence of ghostly visitors.
+                If anything looks suspicious, make sure to take note
+                in your journal.
+
+                You'll be victorious if you're able to find both pieces of
+                evidence for the current ghost and properly document it.
+
+                Happy hunting!!
+
+                       ****Commands****
+
+                - help = displays this screen
+
+                - open = displays the game map
+
+                - read = to view what's in your character's journal
+
+                - look/show = displays any evidence located in your current room
+
+                - move/go + direction e.g. "move north" or "go west"
+
+                - save = save game progress
+
+                - play = start music
+
+                - pause = pause music
+
+                - exit/q/quit will stop the game and allow you to exit.
+
+

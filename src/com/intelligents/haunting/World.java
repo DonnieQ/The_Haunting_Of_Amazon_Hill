@@ -3,19 +3,28 @@ package com.intelligents.haunting;
 import java.util.ArrayList;
 import java.util.List;
 
-class World {
+class World implements java.io.Serializable {
 
-    readFiles r = new readFiles();
+    private final transient ReadFiles r = new ReadFiles();
 
     List<Room> gameMap = new ArrayList<>();
 
-    Room lobby = new Room("Lobby");
-    Room dungeon = new Room("Dungeon");
-    Room diningRoom = new Room("Dining Room");
-    Room balcony = new Room("Balcony");
-    Room furnaceRoom = new Room("Furnace");
+    private final Room lobby = new Room("Lobby");
+    private final Room dungeon = new Room("Dungeon");
+    private final Room diningRoom = new Room("Dining Room");
+    private final Room balcony = new Room("Balcony");
+    private final Room furnaceRoom = new Room("Furnace");
 
-    Room currentRoom = lobby;
+
+    private Room currentRoom = lobby;
+
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
+    }
 
     public World() {
 
@@ -34,38 +43,42 @@ class World {
         gameMap.add(lobby);
 
 
-        //  dungeon.roomExits.put("east", dungeon);
+        //Moving from rooms to lobby
         dungeon.roomExits.put("west", lobby);
-        //    dungeon.roomExits.put("north", balcony);
-        //    dungeon.roomExits.put("south", furnaceRoom);
-
         gameMap.add(dungeon);
 
-
-        //  diningRoom.roomExits.put("east", dungeon);
         diningRoom.roomExits.put("east", lobby);
-        //   diningRoom.roomExits.put("north", balcony);
-        //  diningRoom.roomExits.put("south", furnaceRoom);
-
         gameMap.add(diningRoom);
 
-
-        //  balcony.roomExits.put("east", dungeon);
-        //   balcony.roomExits.put("west", diningRoom);
-        //   balcony.roomExits.put("north", balcony);
         balcony.roomExits.put("south", lobby);
-
         gameMap.add(balcony);
 
-
-        // furnaceRoom.roomExits.put("east", dungeon);
-        //    furnaceRoom.roomExits.put("west", diningRoom);
         furnaceRoom.roomExits.put("north", lobby);
-        // furnaceRoom.roomExits.put("south", furnaceRoom);
-
         gameMap.add(furnaceRoom);
 
     }
+
+//    boolean roomVisted() {
+//        int count = 0;
+//
+//        try {
+//            Object[] arr = gameMap.toArray();
+//            for (Object o : arr) {
+//                String x = (String) o;
+//                String[] f = x.split(" ");
+//                for (String s : f) {
+//                    if () {
+//                        count++;
+//                    }
+//                }
+//            }
+//
+//        } catch (NullPointerException e) {
+//            System.out.println("Keep trying");
+//        }
+//
+//        return count == 2;
+//    }
 
 
 }
