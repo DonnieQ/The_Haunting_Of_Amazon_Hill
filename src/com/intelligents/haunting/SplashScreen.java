@@ -10,6 +10,7 @@ public class SplashScreen implements java.io.Serializable {
 
     public SplashScreen() {
         themeSong.playSoundEffect();
+        themeSong.setVolume((float) -25.69);
     }
 
     public void splash() {
