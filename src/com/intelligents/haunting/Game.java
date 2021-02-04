@@ -55,6 +55,9 @@ public class Game implements java.io.Serializable {
 
         }
         //has access to entire Game object. tracking all changes
+
+        narrateRooms(world.getCurrentRoom().getDescription());
+
         SaveGame.setGame(this);
 
 
@@ -69,7 +72,7 @@ public class Game implements java.io.Serializable {
             System.out.println();
             // System.out.println(ConsoleColors.RED_BOLD + world.getCurrentRoom().getDescription() + ConsoleColors.RESET);
 
-            narrateRooms(getRandomRoomFromWorld().getDescription());
+
 
             System.out.println(">>");
 
@@ -185,11 +188,17 @@ public class Game implements java.io.Serializable {
                                 case "east":
                                 case "south":
                                 case "west":
-                                    if (world.getCurrentRoom().roomExits.containsKey(input[1])) {
-                                        world.setCurrentRoom(world.getCurrentRoom().roomExits.get(input[1]));
-                                        isValidInput = false;
-                                        walkEffect.playSoundEffect();
-                                        break;
+                                    try {
+                                        if (world.getCurrentRoom().roomExits.containsKey(input[1])) {
+                                            world.setCurrentRoom(world.getCurrentRoom().roomExits.get(input[1]));
+                                            isValidInput = false;
+                                            walkEffect.playSoundEffect();
+                                            Thread.sleep(1800);
+                                            narrateRooms(world.getCurrentRoom().getDescription());
+                                            break;
+                                        }
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
                                     }
                                 default:
                                     System.out.println("You hit wall. Try again: ");
