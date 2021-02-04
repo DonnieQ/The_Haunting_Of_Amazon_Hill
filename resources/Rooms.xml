@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rooms>
+    <room>
+        <title>Lobby</title>
+        <description> ************************************************************************************************************************
+            The room sits perfectly still...too still. I see four possible routes i can take. I breathe in and out, maybe the best
+            advice that therapist has given me. Time to make a decision, the waiting is killing me....
+            ******************************************************************************************** </description>
+        <exit>
+            <direction>north</direction>
+            <directionName>Balcony</directionName>
+                    </exit>
+        <exit>
+            <direction>south</direction>
+            <directionName>Dungeon</directionName>
+        </exit>
+        <exit>
+            <direction>east</direction>
+            <directionName>Furnace Room</directionName>
+        </exit>
+        <exit>
+            <direction>west</direction>
+            <directionName>Dinning Room</directionName>
+        </exit>
+    </room>
+    <room>
+        <title>Dungeon</title>
+        <description> ************************************************************************************************************************
+            Blackness does not describe this room. For blackness foretells the death of light. Thus this is not the case, there was
+            never light here. This darkness embodies emptiness, a void. There is no life here. There never was....
+            ************************************************************************************************************************ </description>
+        <exit>
+            <direction>north</direction>
+            <directionName>Lobby</directionName>
+        </exit>
+            </room>
+    <room>
+        <title>Furnace Room</title>
+        <description> ************************************************************************************************************************
+            The Devil's perspiration, oh how thy glimmers as waterfalls. The glow from the fire place cracks and sends devils
+            dancing on these walls. My heart thumps intensely, the beat increases sevenfold.... I stand amidst the fire, yet why am
+            I so cold?
+            ************************************************************************************************************************ </description>
+        <exit>
+            <direction>west</direction>
+            <directionName>Lobby</directionName>
+        </exit>
+            </room>
+    <room>
+        <title>Dinning Room</title>
+        <description> ************************************************************************************************************************
+            The table is set, the candles shine brightly off the chandeliers. Portraits of the deceased hang smartly, pondering my
+            intrusion. Their eyes telling stories I will never know. I get the eerily feeling they are not watching me....
+            ************************************************************************************************************************ </description>
+        <exit>
+            <direction>east</direction>
+            <directionName>Lobby</directionName>
+        </exit>
+            </room>
+    <room>
+        <title>Balcony</title>
+        <description> ************************************************************************************************************************
+            Finally fresh air... Somehow I can never appreciate the air from below. Here i feel above my sorrows, above my demons,
+            above my past. Closer to my maker, I feel at ease... Yet i fear something is watching me.....
+            ************************************************************************************************************************ </description>
+        <exit>
+            <direction>south</direction>
+            <directionName>Lobby</directionName>
+        </exit>
+            </room>
+</rooms>
