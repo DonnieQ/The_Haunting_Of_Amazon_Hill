@@ -6,6 +6,12 @@ public class SplashScreen implements java.io.Serializable {
     public static Scanner scanner = new Scanner(System.in);
     PrintFiles p = new PrintFiles();
     SaveGame save = new SaveGame();
+    private final MusicPlayer themeSong = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/VIKINGS THEME SONG.wav");
+
+    public SplashScreen() {
+        themeSong.playSoundEffect();
+        themeSong.setVolume((float) -25.69);
+    }
 
     public void splash() {
 
@@ -19,6 +25,7 @@ public class SplashScreen implements java.io.Serializable {
                 ConsoleColors.RESET);
         String gameType = getUserInput();
         if (gameType.matches("1")) {
+            themeSong.stopSoundEffect();
             Game g = new Game();
 
             p.print("The_Haunting_Of_Amazon_Hill/resources", "introText");
@@ -29,6 +36,7 @@ public class SplashScreen implements java.io.Serializable {
 
         } else if (gameType.matches("4")) {
             try {
+                themeSong.stopSoundEffect();
                 Game g = new Game();
                 save.setGame(g);
                 save.loadGame();
@@ -49,6 +57,7 @@ public class SplashScreen implements java.io.Serializable {
         try {
             System.in.read();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
