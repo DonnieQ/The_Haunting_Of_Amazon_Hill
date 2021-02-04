@@ -11,13 +11,24 @@ public class Ghost implements java.io.Serializable {
     private String background;
     private ArrayList<String> evidence;
 
+    public String getBackstory() {
+        return backstory;
+    }
+
+    public void setBackstory(String backstory) {
+        this.backstory = backstory;
+    }
+
+    private String backstory;
+
     // Single constructor
 
-    Ghost(String name, String type, String background, ArrayList<String> evidence) {
+    Ghost(String name, String type, String background, ArrayList<String> evidence, String backstory) {
         this.name = name;
         this.type = type;
         this.background = background;
         this.evidence = evidence;
+        this.background = backstory;
     }
 
     // Getters & Setters
