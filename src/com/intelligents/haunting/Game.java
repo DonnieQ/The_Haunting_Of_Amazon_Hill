@@ -18,6 +18,7 @@ public class Game implements java.io.Serializable {
     private MusicPlayer soundEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/page-flip-4.wav");
     private MusicPlayer walkEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/footsteps-4.wav");
     private MusicPlayer keyboardEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/fast-pace-typing.wav");
+    private MusicPlayer paperFalling = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/paper flutter (2).wav");
     private final Scanner scanner = new Scanner(System.in);
 
     public Game() {
@@ -54,6 +55,9 @@ public class Game implements java.io.Serializable {
 
         }
         //has access to entire Game object. tracking all changes
+
+        narrateRooms(world.getCurrentRoom().getDescription());
+
         SaveGame.setGame(this);
 
 
@@ -66,12 +70,15 @@ public class Game implements java.io.Serializable {
             System.out.printf("%45s %95s %n", currentLoc, moveGuide);
 
             System.out.println();
-            System.out.println(ConsoleColors.RED_BOLD + world.getCurrentRoom().getDescription() + ConsoleColors.RESET);
+            // System.out.println(ConsoleColors.RED_BOLD + world.getCurrentRoom().getDescription() + ConsoleColors.RESET);
+
+
 
             System.out.println(">>");
 
 
             input = scanner.nextLine().strip().toLowerCase().split(" ");
+
 
 //            if (input[0].equals("volume") && input[1].equals())
 
@@ -181,11 +188,17 @@ public class Game implements java.io.Serializable {
                                 case "east":
                                 case "south":
                                 case "west":
-                                    if (world.getCurrentRoom().roomExits.containsKey(input[1])) {
-                                        world.setCurrentRoom(world.getCurrentRoom().roomExits.get(input[1]));
-                                        isValidInput = false;
-                                        walkEffect.playSoundEffect();
-                                        break;
+                                    try {
+                                        if (world.getCurrentRoom().roomExits.containsKey(input[1])) {
+                                            world.setCurrentRoom(world.getCurrentRoom().roomExits.get(input[1]));
+                                            isValidInput = false;
+                                            walkEffect.playSoundEffect();
+                                            Thread.sleep(1800);
+                                            narrateRooms(world.getCurrentRoom().getDescription());
+                                            break;
+                                        }
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
                                     }
                                 default:
                                     System.out.println("You hit wall. Try again: ");
@@ -426,6 +439,25 @@ public class Game implements java.io.Serializable {
             e.printStackTrace();
         }
 
+    }
+
+    private void narrateRooms(String input) {
+        int seconds = 1;
+        int numChars = input.toCharArray().length;
+        long sleepTime = (long) seconds * 4000 / numChars;
+        System.out.print(ConsoleColors.RED_BRIGHT);
+        try {
+            paperFalling.playSoundEffect();
+            for (Character c : input.toCharArray()) {
+                System.out.print(c);
+                Thread.sleep(sleepTime);
+            }
+            paperFalling.stopSoundEffect();
+            System.out.println();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.print(ConsoleColors.RESET);
     }
 
 }

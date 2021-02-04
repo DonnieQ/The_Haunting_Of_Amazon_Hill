@@ -11,11 +11,11 @@ class World implements java.io.Serializable {
     List<Room> gameMap = new ArrayList<>();
     private List<Room> rooms = new ArrayList<>();
 
-    private final Room lobby = new Room("Lobby");
-    private final Room dungeon = new Room("Dungeon");
-    private final Room diningRoom = new Room("Dining Room");
-    private final Room balcony = new Room("Balcony");
-    private final Room furnaceRoom = new Room("Furnace");
+//    private final Room lobby = new Room("Lobby");
+//    private final Room dungeon = new Room("Dungeon");
+//    private final Room diningRoom = new Room("Dining Room");
+//    private final Room balcony = new Room("Balcony");
+//    private final Room furnaceRoom = new Room("Furnace");
 
 
     private Room currentRoom = null;

@@ -20,7 +20,7 @@
         </exit>
         <exit>
             <direction>west</direction>
-            <directionName>Dinning Room</directionName>
+            <directionName>Dining Room</directionName>
         </exit>
     </room>
     <room>
@@ -45,9 +45,53 @@
             <direction>west</direction>
             <directionName>Lobby</directionName>
         </exit>
+        <exit>
+            <direction>north</direction>
+            <directionName>Attic</directionName>
+        </exit>
+        <exit>
+            <direction>east</direction>
+            <directionName>Library</directionName>
+        </exit>
             </room>
     <room>
-        <title>Dinning Room</title>
+        <title>Attic</title>
+        <description>***</description>
+        <exit>
+            <direction>south</direction>
+            <directionName>Furnace Room</directionName>
+        </exit>
+    </room>
+    <room>
+        <title>Library</title>
+        <description>***</description>
+        <exit>
+            <direction>west</direction>
+            <directionName>Furnace Room</directionName>
+        </exit>
+        <exit>
+            <direction>south</direction>
+            <directionName>Garden Of Eden</directionName>
+        </exit>
+    </room>
+    <room>
+        <title>Garden Of Eden</title>
+        <description>***</description>
+        <exit>
+            <direction>north</direction>
+            <directionName>Library</directionName>
+        </exit>
+    </room>
+    <room>
+        <title>Secret Tunnel</title>
+        <description>***</description>
+        <exit>
+            <direction>south</direction>
+            <directionName>Dining Room</directionName>
+        </exit>
+    </room>
+    <room>
+        <title>Dining Room</title>
         <description> ************************************************************************************************************************
             The table is set, the candles shine brightly off the chandeliers. Portraits of the deceased hang smartly, pondering my
             intrusion. Their eyes telling stories I will never know. I get the eerily feeling they are not watching me....
@@ -55,6 +99,10 @@
         <exit>
             <direction>east</direction>
             <directionName>Lobby</directionName>
+        </exit>
+        <exit>
+            <direction>north</direction>
+            <directionName>Secret Tunnel</directionName>
         </exit>
             </room>
     <room>
