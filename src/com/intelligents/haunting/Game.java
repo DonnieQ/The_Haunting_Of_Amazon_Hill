@@ -1,6 +1,5 @@
 package com.intelligents.haunting;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -20,6 +19,7 @@ public class Game implements java.io.Serializable {
     private MusicPlayer walkEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/footsteps-4.wav");
     private MusicPlayer keyboardEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/fast-pace-typing.wav");
     private final Scanner scanner = new Scanner(System.in);
+
     public Game() {
         populateGhostList();
         setCurrentGhost(getRandomGhost());
@@ -43,7 +43,10 @@ public class Game implements java.io.Serializable {
 
             input = scanner.nextLine().strip().split(" ");
 
-            player = new Player(input[0]);
+            player = Player.getInstance();
+
+            player.setName(input[0]);
+
             System.out.printf("%175s%n", ConsoleColors.CYAN_UNDERLINED + " --> If you're new to the game type help for assistance" + ConsoleColors.RESET);
 
             //System.out.println(player);
@@ -111,7 +114,7 @@ public class Game implements java.io.Serializable {
                         System.out.printf("%46s%n", currentLoc);
                         if (world.getCurrentRoom().getRoomEvidence().isEmpty()) {
                             narrate("Currently there are no items in "
-                                            + world.getCurrentRoom().getRoomTitle() + "\n");
+                                    + world.getCurrentRoom().getRoomTitle() + "\n");
                             narrate("Would you like to document anything about this room? [Yes/No]\n" + ">>>");
                             writeEntryInJournal();
                         } else {
@@ -130,12 +133,11 @@ public class Game implements java.io.Serializable {
                                         " Would you like to guess the ghost anyway or go back inside?");
                                 String ans = "";
                                 boolean validEntry = false;
-                                while(!validEntry) {
+                                while (!validEntry) {
                                     ans = scanner.nextLine().strip().toLowerCase();
                                     if (ans.contains("guess") || ans.contains("inside")) {
                                         validEntry = true;
-                                    }
-                                    else {
+                                    } else {
                                         narrate("Invalid input, please decide whether you want to guess or go back inside");
                                     }
                                 }
@@ -148,10 +150,9 @@ public class Game implements java.io.Serializable {
                                 narrate("You won");
                                 getGhostBackstory();
                                 isGameRunning = false;
-                            }
-                            else {
+                            } else {
                                 narrate("Unfortunately, the ghost you determined was incorrect. The correct ghost was \n"
-                                                + currentGhost.toString() + "You have been loaded into a new world. Good luck trying again.\n");
+                                        + currentGhost.toString() + "You have been loaded into a new world. Good luck trying again.\n");
                                 resetWorld();
                             }
                         }
@@ -209,8 +210,8 @@ public class Game implements java.io.Serializable {
 
     private String getTypeOfGhostFromUser() {
         narrate("You've collected all the evidence you could find. " +
-                        "Based on your expertise, make an informed decision on what type of " +
-                        "ghost is haunting Amazon Hill.");
+                "Based on your expertise, make an informed decision on what type of " +
+                "ghost is haunting Amazon Hill.");
         narrate("Here are all the possible ghosts");
         System.out.print(ConsoleColors.GREEN_BOLD_BRIGHT);
         ghosts.forEach(ghost -> System.out.println(ghost.getType()));
@@ -225,13 +226,11 @@ public class Game implements java.io.Serializable {
         String journalEntry = scanner.nextLine().strip();
         if (journalEntry.equals("no")) {
             narrate("Journal Closed.");
-        }
-        else if (journalEntry.equalsIgnoreCase("yes")) {
+        } else if (journalEntry.equalsIgnoreCase("yes")) {
             narrate("Your entry: ");
             journalEntry = scanner.nextLine().strip();
             player.setJournal(journalEntry);
-        }
-        else {
+        } else {
             System.out.println("Invalid Journal entry. Please look/show again to document again.");
         }
     }
@@ -250,17 +249,17 @@ public class Game implements java.io.Serializable {
         System.out.println(divider);
     }
 
-    public void populateGhostList() {
+    void populateGhostList() {
         this.setGhosts(XMLParser.populateGhosts(XMLParser.readGhosts()));
     }
 
-    public void printGhosts() {
+    void printGhosts() {
         for (Ghost ghost : ghosts) {
             System.out.println(ghost.toString());
         }
     }
 
-    public Ghost getRandomGhost() {
+    Ghost getRandomGhost() {
         int index = r.nextInt(ghosts.size());
         return ghosts.get(index);
     }
@@ -300,49 +299,50 @@ public class Game implements java.io.Serializable {
         }
     }
 
-    public void printEverythingInWorld() {
+    void printEverythingInWorld() {
         for (Room room : world.gameMap) {
             System.out.println(room.toString());
         }
     }
 
-    public void printGhostsDesc() {
+    void printGhostsDesc() {
         ghosts.forEach(ghost -> System.out.println(ConsoleColors.BLACK_BACKGROUND_BRIGHT + ConsoleColors.GREEN_BRIGHT + ghost.toString() + ConsoleColors.RESET + "\n"));
     }
     // Getters / Setters
 
 
-    public Player getPlayer() {
+    Player getPlayer() {
         return player;
     }
 
-    public void setPlayer(Player player) {
+    void setPlayer(Player player) {
         this.player = player;
     }
 
-    public List<Ghost> getGhosts() {
+    List<Ghost> getGhosts() {
         return ghosts;
     }
 
-    public void setGhosts(List<Ghost> ghosts) {
+    void setGhosts(List<Ghost> ghosts) {
         this.ghosts = ghosts;
     }
 
-    public Ghost getCurrentGhost() {
+    Ghost getCurrentGhost() {
         return currentGhost;
     }
 
-    public void setCurrentGhost(Ghost ghost) {
+    void setCurrentGhost(Ghost ghost) {
         this.currentGhost = ghost;
     }
 
-    public World getWorld() {
+    World getWorld() {
         return world;
     }
 
-    public void setWorld(World world) {
+    void setWorld(World world) {
         this.world = world;
     }
+
     private void getGhostBackstory() {
     }
 
@@ -353,7 +353,7 @@ public class Game implements java.io.Serializable {
             System.out.println("You can only exit from Lobby");
             return false;
         }
-        if (player.getRoomsVisited().size()==1) {
+        if (player.getRoomsVisited().size() == 1) {
             System.out.println("You must visit more than one room to exit");
             return false;
         }
@@ -368,16 +368,17 @@ public class Game implements java.io.Serializable {
 
     private void removeAllEvidenceFromWorld() {
         for (Room room : world.gameMap) {
-            if(!room.getRoomEvidence().isEmpty()) {
+            if (!room.getRoomEvidence().isEmpty()) {
                 room.setRoomEvidence("");
             }
         }
     }
 
-    public boolean checkWinnerTest() {
+    boolean checkWinnerTest() {
         // Testing purposes
         return checkIfHasAllEvidenceIsInJournal();
     }
+
     private boolean checkIfHasAllEvidenceIsInJournal() {
         boolean hasAllEvidence = true;
         // grab characteristics of currentGhost
@@ -387,7 +388,7 @@ public class Game implements java.io.Serializable {
         // grab list of last word of ghost evidence which should be the noun we are looking for
         // for each noun in list of nouns see if its in journal
         for (String e : evidence) {
-            String nounToLookFor = e.substring(e.lastIndexOf(" ")+1);
+            String nounToLookFor = e.substring(e.lastIndexOf(" ") + 1);
             if (!player.getJournal().toString().toLowerCase().contains(nounToLookFor.toLowerCase())) {
                 hasAllEvidence = false;
                 break;
@@ -395,10 +396,11 @@ public class Game implements java.io.Serializable {
         }
         return hasAllEvidence;
     }
-    private void narrate(String input){
+
+    private void narrate(String input) {
         int seconds = 1;
         int numChars = input.toCharArray().length;
-        long sleepTime = (long) seconds*1000/numChars;
+        long sleepTime = (long) seconds * 1000 / numChars;
         System.out.print(ConsoleColors.RED);
         try {
             keyboardEffect.playSoundEffect();
@@ -408,19 +410,18 @@ public class Game implements java.io.Serializable {
             }
             keyboardEffect.stopSoundEffect();
             System.out.println();
-        }
-        catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         System.out.print(ConsoleColors.RESET);
     }
+
     private void chrisIsCool() {
-        String url_open ="https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        String url_open = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
         try {
             java.awt.Desktop.getDesktop().browse(java.net.URI.create(url_open));
             mp.quitMusic();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

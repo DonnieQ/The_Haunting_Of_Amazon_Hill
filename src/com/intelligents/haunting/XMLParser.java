@@ -1,19 +1,18 @@
 package com.intelligents.haunting;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.ArrayList;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.Element;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
+import java.util.ArrayList;
 
 class XMLParser implements java.io.Serializable {
 
-    public static NodeList readGhosts() {
+    static NodeList readGhosts() {
         NodeList results = null;
         try {
             // class.xml is place in the folder data within the package structure
@@ -46,7 +45,7 @@ class XMLParser implements java.io.Serializable {
         return results;
     }
 
-    public static ArrayList<Ghost> populateGhosts(NodeList nList) {
+    static ArrayList<Ghost> populateGhosts(NodeList nList) {
         //Instantiate new Ghost list
         ArrayList<Ghost> ghosts = new ArrayList<>();
         // With node list find each element and construct ghost object

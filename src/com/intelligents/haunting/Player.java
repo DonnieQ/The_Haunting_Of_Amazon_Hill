@@ -6,26 +6,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Player implements java.io.Serializable {
-    private final String name;
+
+    private static Player playerSingleton;
+    private String name;
     private final List<String> journal = new ArrayList<>();
-
-
-    public List<String> getRoomsVisited() {
-        return roomsVisited;
-    }
-
     private final List<String> roomsVisited = new ArrayList<>();
 
-    Player(String name) {
-        this.name = name;
+
+    private Player() {
+        if (playerSingleton != null) {
+            throw new RuntimeException("Need to use getInstance()");
+        }
     }
+
+
+    static Player getInstance() {
+        if (playerSingleton == null) {
+            playerSingleton = new Player();
+        }
+        return playerSingleton;
+    }
+
 
     void addToRoomsVisited(String roomTitle) {
         roomsVisited.add(roomTitle);
     }
 
+    void setName(String name) {
+        this.name = name;
+    }
+
     String getName() {
         return name;
+    }
+
+    List<String> getRoomsVisited() {
+        return roomsVisited;
     }
 
     List<String> getJournal() {

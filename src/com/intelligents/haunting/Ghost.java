@@ -13,7 +13,7 @@ public class Ghost implements java.io.Serializable {
 
     // Single constructor
 
-    public Ghost(String name, String type, String background, ArrayList<String> evidence) {
+    Ghost(String name, String type, String background, ArrayList<String> evidence) {
         this.name = name;
         this.type = type;
         this.background = background;
@@ -22,35 +22,35 @@ public class Ghost implements java.io.Serializable {
 
     // Getters & Setters
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 
-    public String getType() {
+    String getType() {
         return type;
     }
 
-    public void setType(String type) {
+    void setType(String type) {
         this.type = type;
     }
 
-    public String getBackground() {
+    String getBackground() {
         return background;
     }
 
-    public void setBackground(String background) {
+    void setBackground(String background) {
         this.background = background;
     }
 
-    public ArrayList<String> getEvidence() {
+    ArrayList<String> getEvidence() {
         return evidence;
     }
 
-    public void setEvidence(ArrayList<String> evidence) {
+    void setEvidence(ArrayList<String> evidence) {
         this.evidence = evidence;
     }
 
@@ -60,8 +60,8 @@ public class Ghost implements java.io.Serializable {
                 "\tBackground: " + getBackground() + "\n" +
                 "\tEvidence: " +
                 getEvidence()
-                .stream()
-                .map(x -> x.substring(x.lastIndexOf(" ") + 1))
-                .collect(Collectors.toList()) + "\n\n";
+                        .stream()
+                        .map(x -> x.substring(x.lastIndexOf(" ") + 1))
+                        .collect(Collectors.toList()) + "\n\n";
     }
 }

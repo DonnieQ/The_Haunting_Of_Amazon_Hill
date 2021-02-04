@@ -40,16 +40,17 @@ class MusicPlayer {
         clip.setMicrosecondPosition(0);
         clip.start();
     }
+
     void stopSoundEffect() {
         clip.setMicrosecondPosition(0);
         clip.stop();
     }
 
-    public float getVolume() {
+    float getVolume() {
         return controller.getValue();
     }
 
-    public void setVolume(float volume) {
+    void setVolume(float volume) {
         controller.setValue(volume);
     }
 }

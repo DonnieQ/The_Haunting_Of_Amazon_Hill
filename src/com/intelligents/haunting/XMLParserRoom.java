@@ -5,7 +5,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javax.lang.model.util.Elements;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 
 class XMLParserRoom implements java.io.Serializable {
 
-    public static NodeList readRooms() {
+    static NodeList readRooms() {
         NodeList results = null;
         try {
             // class.xml is place in the folder data within the package structure
@@ -34,7 +33,7 @@ class XMLParserRoom implements java.io.Serializable {
             root.normalize();
 
             // print out the root node of the XML document
-             //System.out.println("Root is " + root.getNodeName());
+            //System.out.println("Root is " + root.getNodeName());
 
             // Get all "room" elements by tag name
             results = doc.getElementsByTagName("room");
@@ -46,7 +45,7 @@ class XMLParserRoom implements java.io.Serializable {
         return results;
     }
 
-    public static ArrayList<Room> populateRooms(NodeList nList) {
+    static ArrayList<Room> populateRooms(NodeList nList) {
         //Instantiate new Room list
         ArrayList<Room> rooms = new ArrayList<>();
         // With node list find each element and construct room object
@@ -57,15 +56,15 @@ class XMLParserRoom implements java.io.Serializable {
                 // Generate local variables from each "room" element in XML
                 Element roomElement = (Element) nNode;
                 String roomTitle = roomElement.getElementsByTagName("title").item(0).getTextContent();
-               // String type = room.getElementsByTagName("").item(0).getTextContent();
+                // String type = room.getElementsByTagName("").item(0).getTextContent();
                 String roomDescription = roomElement.getElementsByTagName("description").item(0).getTextContent();
                 ArrayList<String> evidence = new ArrayList<>();
-                                // Construct new ghost and add to ghost list
+                // Construct new ghost and add to ghost list
                 Room room = new Room(roomTitle, roomDescription);
                 //for loops to read multiple exits. Return list of exits
-                for (int j = 0; j<roomElement.getElementsByTagName("exit").getLength(); j++) {
+                for (int j = 0; j < roomElement.getElementsByTagName("exit").getLength(); j++) {
                     //cast the item read back as Element from node
-                    Element el = (Element)  roomElement.getElementsByTagName("exit").item(j);
+                    Element el = (Element) roomElement.getElementsByTagName("exit").item(j);
                     //get direction and name from element
                     String direction = el.getElementsByTagName("direction").item(0).getTextContent();
                     String name = el.getElementsByTagName("directionName").item(0).getTextContent();
