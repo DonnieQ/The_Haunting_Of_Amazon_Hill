@@ -21,7 +21,7 @@ public class GameTest {
         g.setPlayer(p);
         g.setCurrentGhost(g.getGhosts().get(0));
 
-        assertTrue(g.checkForWinner());
+        assertTrue(g.checkWinnerTest());
 
     }
 
@@ -31,7 +31,7 @@ public class GameTest {
         g.setPlayer(p);
         g.setCurrentGhost(g.getGhosts().get(0));
 
-        assertFalse(g.checkForWinner());
+        assertFalse(g.checkWinnerTest());
     }
 
     @Test
@@ -41,6 +41,6 @@ public class GameTest {
         g.setPlayer(p);
         g.setCurrentGhost(g.getGhosts().get(0));
 
-        assertTrue(g.checkForWinner());
+        assertTrue(g.checkWinnerTest());
     }
 }

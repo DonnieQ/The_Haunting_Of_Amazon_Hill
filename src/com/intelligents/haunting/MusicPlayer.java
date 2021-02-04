@@ -40,6 +40,10 @@ class MusicPlayer {
         clip.setMicrosecondPosition(0);
         clip.start();
     }
+    void stopSoundEffect() {
+        clip.setMicrosecondPosition(0);
+        clip.stop();
+    }
 
     public float getVolume() {
         return controller.getValue();
