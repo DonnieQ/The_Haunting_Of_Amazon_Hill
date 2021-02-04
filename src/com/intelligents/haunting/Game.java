@@ -77,7 +77,9 @@ public class Game implements java.io.Serializable {
             checkIfRoomVisited();
             try {
                 switch (input[0]) {
-
+                    case "chris":
+                        chrisIsCool();
+                        break;
                     case "volume":
                         if (input[1].equals("up")) {
                             mp.setVolume(5.0f);
@@ -110,11 +112,11 @@ public class Game implements java.io.Serializable {
                         if (world.getCurrentRoom().getRoomEvidence().isEmpty()) {
                             narrate("Currently there are no items in "
                                             + world.getCurrentRoom().getRoomTitle() + "\n");
-                            narrate("Would you like to document anything about this room? \n" + ">>>");
+                            narrate("Would you like to document anything about this room? [Yes/No]\n" + ">>>");
                             writeEntryInJournal();
                         } else {
                             narrate("You look and notice: " + world.getCurrentRoom().getRoomEvidence() + "\n\n");
-                            narrate("Journal currently opened, would you like to document anything about this room? \n " + ">>>");
+                            narrate("Journal currently opened, would you like to document anything about this room? [Yes/No]\n " + ">>>");
                             writeEntryInJournal();
                             // System.out.println(world.currentRoom.getRoomItems());
                         }
@@ -124,8 +126,22 @@ public class Game implements java.io.Serializable {
                         if (userAbleToExit()) {
                             // In order to win, user has to have correct evidence and guessed right ghost
                             if (!checkIfHasAllEvidenceIsInJournal()) {
-                                narrate("You did not collect all of the evidence needed to make a guess. Sending you back inside.");
-                                break;
+                                narrate("It seems your journal does not have all of the evidence needed to determine the ghost." +
+                                        " Would you like to guess the ghost anyway or go back inside?");
+                                String ans = "";
+                                boolean validEntry = false;
+                                while(!validEntry) {
+                                    ans = scanner.nextLine().strip().toLowerCase();
+                                    if (ans.contains("guess") || ans.contains("inside")) {
+                                        validEntry = true;
+                                    }
+                                    else {
+                                        narrate("Invalid input, please decide whether you want to guess or go back inside");
+                                    }
+                                }
+                                if (ans.contains("inside")) {
+                                    break;
+                                }
                             }
                             String userGuess = getTypeOfGhostFromUser();
                             if (userGuess.equalsIgnoreCase(currentGhost.getType())) {
@@ -196,7 +212,9 @@ public class Game implements java.io.Serializable {
                         "Based on your expertise, make an informed decision on what type of " +
                         "ghost is haunting Amazon Hill.");
         narrate("Here are all the possible ghosts");
+        System.out.print(ConsoleColors.GREEN_BOLD_BRIGHT);
         ghosts.forEach(ghost -> System.out.println(ghost.getType()));
+        System.out.print(ConsoleColors.RESET);
         narrate("Which Ghost do you think it is?");
         String userGuessed = scanner.nextLine().strip();
         narrate("Good job gathering evidence " + player.getName() + "\nYou guessed " + userGuessed);
@@ -370,11 +388,8 @@ public class Game implements java.io.Serializable {
         // for each noun in list of nouns see if its in journal
         for (String e : evidence) {
             String nounToLookFor = e.substring(e.lastIndexOf(" ")+1);
-            System.out.println(nounToLookFor + " noun");
-            System.out.println(player.getJournal().toString().toLowerCase());
             if (!player.getJournal().toString().toLowerCase().contains(nounToLookFor.toLowerCase())) {
                 hasAllEvidence = false;
-                System.out.println("no match");
                 break;
             }
         }
@@ -398,6 +413,15 @@ public class Game implements java.io.Serializable {
             e.printStackTrace();
         }
         System.out.print(ConsoleColors.RESET);
+    }
+    private void chrisIsCool() {
+        String url_open ="https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+        try {
+            java.awt.Desktop.getDesktop().browse(java.net.URI.create(url_open));
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
