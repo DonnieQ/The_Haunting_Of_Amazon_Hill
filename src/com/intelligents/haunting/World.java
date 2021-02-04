@@ -20,30 +20,30 @@ class World implements java.io.Serializable {
 
     private Room currentRoom = null;
 
-    public Room getCurrentRoom() {
+    Room getCurrentRoom() {
         return currentRoom;
     }
 
-    public void setCurrentRoom(Room currentRoom) {
+    void setCurrentRoom(Room currentRoom) {
         this.currentRoom = currentRoom;
     }
 
-    public World() {
+    World() {
         //read all room objects in
         populateRoomList();
         currentRoom = rooms.get(0);
 
         HashMap<String, Room> map = new HashMap<>();
         // create map between room name and room object
-        for (Room room: rooms) {
-            map.put(room.getRoomTitle(),room);
+        for (Room room : rooms) {
+            map.put(room.getRoomTitle(), room);
             gameMap.add(room);
         }
         // get the directions from each room and map a direction to a room object using previous map
-        for (Room room: rooms) {
-            for (String key :room.directionList.keySet()) {
+        for (Room room : rooms) {
+            for (String key : room.directionList.keySet()) {
                 String roomName = room.directionList.get(key);
-                room.roomExits.put(key,map.get(roomName));
+                room.roomExits.put(key, map.get(roomName));
             }
         }
 
@@ -75,13 +75,16 @@ class World implements java.io.Serializable {
 //        gameMap.add(furnaceRoom);
 
     }
-    public void populateRoomList() {
+
+    void populateRoomList() {
         this.setRooms(XMLParserRoom.populateRooms(XMLParserRoom.readRooms()));
     }
-    public List<Room> getRooms() {
+
+    List<Room> getRooms() {
         return rooms;
     }
-    public void setRooms(List<Room> rooms) {
+
+    void setRooms(List<Room> rooms) {
         this.rooms = rooms;
     }
 

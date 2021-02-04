@@ -62,7 +62,7 @@ public class SplashScreen implements java.io.Serializable {
     }
 
 
-    public static String getUserInput() {
+    static String getUserInput() {
         return scanner.nextLine();
     }
 }
