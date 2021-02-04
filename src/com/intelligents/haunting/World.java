@@ -77,7 +77,7 @@ class World implements java.io.Serializable {
     }
 
     void populateRoomList() {
-        this.setRooms(XMLParserRoom.populateRooms(XMLParserRoom.readRooms()));
+        this.setRooms(XMLParser.populateRooms(XMLParser.readRooms()));
     }
 
     List<Room> getRooms() {
