@@ -418,10 +418,12 @@ public class Game implements java.io.Serializable {
         String url_open ="https://www.youtube.com/watch?v=dQw4w9WgXcQ";
         try {
             java.awt.Desktop.getDesktop().browse(java.net.URI.create(url_open));
+            mp.quitMusic();
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
 }
