@@ -7,13 +7,13 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 
-public class SaveGame {
+class SaveGame {
     private Game game;
 
-    public SaveGame() {
+    SaveGame() {
     }
 
-    public void save() {
+    void save() {
         // NOTE: classes you want to be able to save must implement java.io.Serializable. Without implementing, you will be
         // hit with exception type NotSerializableException.
 
@@ -43,8 +43,9 @@ public class SaveGame {
 
     }
 
-    @SuppressWarnings("unchecked")  //i wrote this code, so i can guarantee this is an array of objects
-    public void loadGame() {
+    @SuppressWarnings("unchecked")
+        //i wrote this code, so i can guarantee this is an array of objects
+    void loadGame() {
         try {
             //pulling data from file with FileInputStream
             FileInputStream fis = new FileInputStream("usr.save");
@@ -65,7 +66,7 @@ public class SaveGame {
         }
     }
 
-    public void setGame(Game game) {
+    void setGame(Game game) {
         this.game = game;
     }
 
