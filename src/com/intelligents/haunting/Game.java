@@ -1,5 +1,6 @@
 package com.intelligents.haunting;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -17,6 +18,8 @@ public class Game implements java.io.Serializable {
     private MusicPlayer mp = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/Haunted Mansion.wav");
     private MusicPlayer soundEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/page-flip-4.wav");
     private MusicPlayer walkEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/footsteps-4.wav");
+    private MusicPlayer keyboardEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/fast-pace-typing.wav");
+    private final Scanner scanner = new Scanner(System.in);
     public Game() {
         populateGhostList();
         setCurrentGhost(getRandomGhost());
@@ -28,7 +31,7 @@ public class Game implements java.io.Serializable {
         boolean isGameRunning = true;
 
         String[] input;
-        Scanner scanner = new Scanner(System.in);
+
 
         mp.startMusic();
         if (!isGameLoaded) {
@@ -51,9 +54,8 @@ public class Game implements java.io.Serializable {
         SaveGame.setGame(this);
 
 
-        while (isGameRunning && !checkForWinner()) {
+        while (isGameRunning) {
             isValidInput = true;
-            checkForWinner();
 
             String currentLoc = ConsoleColors.BLUE_BOLD + "Your location is " + world.getCurrentRoom().getRoomTitle() + ConsoleColors.RESET;
             String moveGuide = ConsoleColors.RESET + ConsoleColors.YELLOW + "To move type: Go North, Go East, Go South, or Go West" + ConsoleColors.RESET;
@@ -97,29 +99,38 @@ public class Game implements java.io.Serializable {
                         System.out.println(divider);
                         System.out.printf("%46s%n", currentLoc);
                         if (world.getCurrentRoom().getRoomEvidence().isEmpty()) {
-                            System.out.println("Currently there are no items in "
-                                    + world.getCurrentRoom().getRoomTitle() + "\n");
-                            System.out.println("Would you like to document anything about this room? \n" + ">>>");
-                            String journalEntry = scanner.nextLine().strip();
-                            if (journalEntry.equals("no")) {
-                                break;
-                            }
-                            player.setJournal(journalEntry);
+                            narrate("Currently there are no items in "
+                                            + world.getCurrentRoom().getRoomTitle() + "\n");
+                            narrate("Would you like to document anything about this room? \n" + ">>>");
+                            writeEntryInJournal();
                         } else {
-                            System.out.println("You look and notice: " + world.getCurrentRoom().getRoomEvidence() + "\n\n");
-                            System.out.println("Would you like to document anything about this room? \n " + ">>>");
-                            String journalEntry = scanner.nextLine().strip();
-                            if (journalEntry.equals("no")) {
-                                break;
-                            }
-                            player.setJournal(journalEntry);
+                            narrate("You look and notice: " + world.getCurrentRoom().getRoomEvidence() + "\n\n");
+                            narrate("Journal currently opened, would you like to document anything about this room? \n " + ">>>");
+                            writeEntryInJournal();
                             // System.out.println(world.currentRoom.getRoomItems());
-
-                            System.out.println(world.getCurrentRoom().getRoomEvidence());
                         }
                         System.out.println(divider);
                         break;
                     case "exit":
+                        if (userAbleToExit()) {
+                            // In order to win, user has to have correct evidence and guessed right ghost
+                            if (!checkIfHasAllEvidenceIsInJournal()) {
+                                narrate("You did not collect all of the evidence needed to make a guess. Sending you back inside.");
+                                break;
+                            }
+                            String userGuess = getTypeOfGhostFromUser();
+                            if (userGuess.equalsIgnoreCase(currentGhost.getType())) {
+                                narrate("You won");
+                                getGhostBackstory();
+                                isGameRunning = false;
+                            }
+                            else {
+                                narrate("Unfortunately, the ghost you determined was incorrect. The correct ghost was \n"
+                                                + currentGhost.toString() + "You have been loaded into a new world. Good luck trying again.\n");
+                                resetWorld();
+                            }
+                        }
+                        break;
                     case "quit":
                     case "q":
                         //clip.close();
@@ -170,6 +181,34 @@ public class Game implements java.io.Serializable {
 //        }
         System.out.println("Thank you for playing our game!!");
     }
+
+    private String getTypeOfGhostFromUser() {
+        narrate("You've collected all the evidence you could find. " +
+                        "Based on your expertise, make an informed decision on what type of " +
+                        "ghost is haunting Amazon Hill.");
+        narrate("Here are all the possible ghosts");
+        ghosts.forEach(ghost -> System.out.println(ghost.getType()));
+        narrate("Which Ghost do you think it is?");
+        String userGuessed = scanner.nextLine().strip();
+        narrate("Good job gathering evidence " + player.getName() + "\nYou guessed " + userGuessed);
+        return userGuessed;
+    }
+
+    private void writeEntryInJournal() {
+        String journalEntry = scanner.nextLine().strip();
+        if (journalEntry.equals("no")) {
+            narrate("Journal Closed.");
+        }
+        else if (journalEntry.equalsIgnoreCase("yes")) {
+            narrate("Your entry: ");
+            journalEntry = scanner.nextLine().strip();
+            player.setJournal(journalEntry);
+        }
+        else {
+            System.out.println("Invalid Journal entry. Please look/show again to document again.");
+        }
+    }
+
 
     private void printJournal() {
         String ghostEmoji = "\uD83D\uDC7B ";
@@ -277,28 +316,79 @@ public class Game implements java.io.Serializable {
     public void setWorld(World world) {
         this.world = world;
     }
+    private void getGhostBackstory() {
+    }
 
-    boolean checkForWinner() {
+    private boolean userAbleToExit() {
+        boolean ableToExit = true;
+        // Is player currently in lobby? Has user visited any other rooms? Is so size of roomsVisited would be greater than 1
+        if (!world.getCurrentRoom().getRoomTitle().equals("Lobby")) {
+            System.out.println("You can only exit from Lobby");
+            return false;
+        }
+        if (player.getRoomsVisited().size()==1) {
+            System.out.println("You must visit more than one room to exit");
+            return false;
+        }
+        return ableToExit;
+    }
 
-        int count = 0;
+    private void resetWorld() {
+        removeAllEvidenceFromWorld();
+        setCurrentGhost(getRandomGhost());
+        assignRandomEvidenceToMap();
+    }
 
-//        try {
-        Object[] arr = player.getJournal().toArray();
-        for (Object o : arr) {
-            String x = (String) o;
-            String[] f = x.split(" ");
-            for (String s : f) {
-                if (currentGhost.getEvidence().contains(s)) {
-                    count++;
-                }
+    private void removeAllEvidenceFromWorld() {
+        for (Room room : world.gameMap) {
+            if(!room.getRoomEvidence().isEmpty()) {
+                room.setRoomEvidence("");
             }
         }
+    }
 
-//        } catch (NullPointerException e) {
-//            System.out.println("Keep trying");
-//        }
-
-        return count == 2;
+    public boolean checkWinnerTest() {
+        // Testing purposes
+        return checkIfHasAllEvidenceIsInJournal();
+    }
+    private boolean checkIfHasAllEvidenceIsInJournal() {
+        boolean hasAllEvidence = true;
+        // grab characteristics of currentGhost
+        ArrayList<String> evidence = currentGhost.getEvidence();
+        // grab contents of journal
+        // make everything in journal lower case
+        // grab list of last word of ghost evidence which should be the noun we are looking for
+        // for each noun in list of nouns see if its in journal
+        for (String e : evidence) {
+            String nounToLookFor = e.substring(e.lastIndexOf(" ")+1);
+            System.out.println(nounToLookFor + " noun");
+            System.out.println(player.getJournal().toString().toLowerCase());
+            if (!player.getJournal().toString().toLowerCase().contains(nounToLookFor.toLowerCase())) {
+                hasAllEvidence = false;
+                System.out.println("no match");
+                break;
+            }
+        }
+        return hasAllEvidence;
+    }
+    private void narrate(String input){
+        int seconds = 1;
+        int numChars = input.toCharArray().length;
+        long sleepTime = (long) seconds*1000/numChars;
+        System.out.print(ConsoleColors.RED);
+        try {
+            keyboardEffect.playSoundEffect();
+            for (Character c : input.toCharArray()) {
+                System.out.print(c);
+                Thread.sleep(sleepTime);
+            }
+            keyboardEffect.stopSoundEffect();
+            System.out.println();
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        System.out.print(ConsoleColors.RESET);
     }
 
 }

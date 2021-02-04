@@ -1,6 +1,7 @@
 package com.intelligents.haunting;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Ghost implements java.io.Serializable {
 
@@ -57,6 +58,10 @@ public class Ghost implements java.io.Serializable {
     public String toString() {
         return getType() + ":\n" +
                 "\tBackground: " + getBackground() + "\n" +
-                "\tEvidence: " + getEvidence() + "\n\n";
+                "\tEvidence: " +
+                getEvidence()
+                .stream()
+                .map(x -> x.substring(x.lastIndexOf(" ") + 1))
+                .collect(Collectors.toList()) + "\n\n";
     }
 }

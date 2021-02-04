@@ -4,23 +4,23 @@
         <name>Elizabeth Williams</name>
         <type>SAMCA</type>
         <background>An evil spirit, said to curse children and pregnant women with illness</background>
-        <evidence>Cheese</evidence>
-        <evidence>Slime</evidence>
+        <evidence>Remanence of Moldy Cheese</evidence>
+        <evidence>Oozing Slime</evidence>
     </ghost>
     <ghost>
         <name>Jackson Smith</name>
         <type>Poltergeist</type>
         <background>A clown doll, likes to mess with the mind of intruders on it's property.
               Will laugh behind you randomly and when you turn around, it will vanish once eye contact is made</background>
-        <evidence>Hallucinations</evidence>
-        <evidence>Sulfur</evidence>
+        <evidence>Ghost messed with your mind causing hallucinations</evidence>
+        <evidence>Room has a slight scent of sulfur</evidence>
     </ghost>
     <ghost>
         <name>Edgar Miller</name>
         <type>Demon</type>
         <background>A supernatural being, typically associated with evil.
             Is summoned to do works of malice, or to create chaos amongst those it haunts.</background>
-        <evidence>Lacerations</evidence>
-        <evidence>Hallucinations</evidence>
+        <evidence>The ghost has entered the physical realm and harmed your body causing lacerations</evidence>
+        <evidence>A flash of a figure pop up in the corner. likely to be hallucinations</evidence>
     </ghost>
 </ghosts>
