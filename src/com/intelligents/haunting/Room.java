@@ -11,6 +11,7 @@ class Room implements java.io.Serializable {
     private String roomEvidence = "";
     Map<String, Room> roomExits = new HashMap<>();
     private List<String> roomItems = new ArrayList<>();
+    public Map<String, String> directionList = new HashMap<>();
 
     public Room() {
 
@@ -19,6 +20,12 @@ class Room implements java.io.Serializable {
     public Room(String title) {
         this.roomTitle = title;
     }
+
+    public Room(String title, String description) {
+        this.roomTitle = title;
+        this.description = description;
+    }
+
 
     public String getRoomTitle() {
         return roomTitle;
@@ -48,10 +55,10 @@ class Room implements java.io.Serializable {
         this.roomEvidence = roomEvidence;
     }
 
-    public Room(String description, String ghostTracks) {
-        this.description = description;
-
-    }
+//    public Room(String description, String ghostTracks) {
+//        this.description = description;
+//
+//    }
 
     public void addItemToRoom(String item) {
         roomItems.add(item);
