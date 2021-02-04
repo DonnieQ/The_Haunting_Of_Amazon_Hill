@@ -6,6 +6,7 @@
         <background>An evil spirit, said to curse children and pregnant women with illness</background>
         <evidence>Remanence of Moldy Cheese</evidence>
         <evidence>Oozing Slime</evidence>
+        <backstory></backstory>
     </ghost>
     <ghost>
         <name>Jackson Smith</name>
@@ -14,6 +15,7 @@
               Will laugh behind you randomly and when you turn around, it will vanish once eye contact is made</background>
         <evidence>Ghost messed with your mind causing hallucinations</evidence>
         <evidence>Room has a slight scent of sulfur</evidence>
+        <backstory></backstory>
     </ghost>
     <ghost>
         <name>Edgar Miller</name>
@@ -22,5 +24,6 @@
             Is summoned to do works of malice, or to create chaos amongst those it haunts.</background>
         <evidence>The ghost has entered the physical realm and harmed your body causing lacerations</evidence>
         <evidence>A flash of a figure pop up in the corner. likely to be hallucinations</evidence>
+        <backstory></backstory>
     </ghost>
 </ghosts>

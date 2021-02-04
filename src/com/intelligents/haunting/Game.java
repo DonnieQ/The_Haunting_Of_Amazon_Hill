@@ -364,6 +364,7 @@ public class Game implements java.io.Serializable {
         removeAllEvidenceFromWorld();
         setCurrentGhost(getRandomGhost());
         assignRandomEvidenceToMap();
+        player.resetPlayer();
     }
 
     private void removeAllEvidenceFromWorld() {
