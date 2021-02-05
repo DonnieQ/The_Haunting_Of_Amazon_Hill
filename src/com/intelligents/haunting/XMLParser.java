@@ -63,8 +63,9 @@ class XMLParser implements java.io.Serializable {
                 String evidence2 = ghost.getElementsByTagName("evidence").item(1).getTextContent();
                 evidence.add(evidence1);
                 evidence.add(evidence2);
+                String backstory = ghost.getElementsByTagName("backstory").item(0).getTextContent();
                 // Construct new ghost and add to ghost list
-                ghosts.add(new Ghost(name, type, background, evidence));
+                ghosts.add(new Ghost(name, type, background, evidence, backstory));
                 // Print
                 // System.out.println(name);
             }

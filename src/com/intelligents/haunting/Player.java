@@ -53,6 +53,20 @@ class Player implements java.io.Serializable {
         this.journal.add("Date: " + localDateString + " -> " + journal);
     }
 
+    void resetPlayer() {
+        this.clearJournal();
+        this.resetRoomsVisited();
+    }
+
+    private void resetRoomsVisited() {
+        roomsVisited.clear();
+        addToRoomsVisited("Lobby");
+    }
+
+    private void clearJournal() {
+        journal.clear();
+    }
+
     @Override
     public String toString() {
         return getName() + "'s"
