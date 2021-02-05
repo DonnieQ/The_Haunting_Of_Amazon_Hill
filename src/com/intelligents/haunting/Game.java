@@ -115,7 +115,25 @@ public class Game implements java.io.Serializable {
                         p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
                         break;
                     case "open":
-                        p.print("The_Haunting_Of_Amazon_Hill/resources", "Map");
+                        if (world.getCurrentRoom().getRoomTitle().matches("Dining Room")) {
+                            p.print("The_Haunting_Of_Amazon_Hill/resources","Map(DiningRoom)");
+                        }else if (world.getCurrentRoom().getRoomTitle().matches("Balcony")) {
+                            p.print("The_Haunting_Of_Amazon_Hill/resources","Map(Balcony)");
+                        }else if ("Attic".matches(world.getCurrentRoom().getRoomTitle())) {
+                            p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Attic)");
+                        }else if (world.getCurrentRoom().getRoomTitle().matches("Dungeon")) {
+                            p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Dungeon)");
+                        }else if (world.getCurrentRoom().getRoomTitle().matches("Furnace Room")) {
+                            p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(FurnaceRoom)");
+                        }else if (world.getCurrentRoom().getRoomTitle().matches("Garden Of Eden")) {
+                            p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(GardenOfEden)");
+                        }else if (world.getCurrentRoom().getRoomTitle().matches("Library")) {
+                            p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Library)");
+                        }else if (world.getCurrentRoom().getRoomTitle().matches("Lobby")) {
+                            p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Lobby)");
+                        }else{
+                            p.print("The_Haunting_Of_Amazon_Hill/resources", "Map2");
+                        }
                         break;
                     case "look":
                     case "show":
