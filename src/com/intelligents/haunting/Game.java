@@ -115,25 +115,39 @@ public class Game implements java.io.Serializable {
                         p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
                         break;
                     case "open":
-                        if (world.getCurrentRoom().getRoomTitle().matches("Dining Room")) {
-                            p.print("The_Haunting_Of_Amazon_Hill/resources","Map(DiningRoom)");
-                        }else if (world.getCurrentRoom().getRoomTitle().matches("Balcony")) {
-                            p.print("The_Haunting_Of_Amazon_Hill/resources","Map(Balcony)");
-                        }else if ("Attic".matches(world.getCurrentRoom().getRoomTitle())) {
-                            p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Attic)");
-                        }else if (world.getCurrentRoom().getRoomTitle().matches("Dungeon")) {
-                            p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Dungeon)");
-                        }else if (world.getCurrentRoom().getRoomTitle().matches("Furnace Room")) {
-                            p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(FurnaceRoom)");
-                        }else if (world.getCurrentRoom().getRoomTitle().matches("Garden Of Eden")) {
-                            p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(GardenOfEden)");
-                        }else if (world.getCurrentRoom().getRoomTitle().matches("Library")) {
-                            p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Library)");
-                        }else if (world.getCurrentRoom().getRoomTitle().matches("Lobby")) {
-                            p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Lobby)");
-                        }else{
-                            p.print("The_Haunting_Of_Amazon_Hill/resources", "Map2");
+
+                        //TODO: method in world????
+                        switch (world.getCurrentRoom().getRoomTitle()){
+                            case "Dining Room":
+                                p.print("The_Haunting_Of_Amazon_Hill/resources","Map(DiningRoom)");
+                                break;
+                            case "Balcony":
+                                p.print("The_Haunting_Of_Amazon_Hill/resources","Map(Balcony)");
+                                break;
+                            case "Attic":
+                                p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Attic)");
+                                break;
+                            case "Dungeon":
+                                p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Dungeon)");
+                                break;
+                            case "Furnace Room":
+                                    p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(FurnaceRoom)");
+                                    break;
+                            case "Garden Of Eden":
+                                p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(GardenOfEden)");
+                                break;
+                            case "Library":
+                                p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Library)");
+                                break;
+                            case "Lobby":
+                                p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Lobby)");
+                                break;
+                            case "Secret Tunnel":
+                                System.out.println("You're in a super secret tunnel!!! ");
+                                break;
                         }
+
+
                         break;
                     case "look":
                     case "show":
