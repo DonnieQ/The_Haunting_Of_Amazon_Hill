@@ -157,7 +157,7 @@ public class Game implements java.io.Serializable {
                             String userGuess = getTypeOfGhostFromUser();
                             if (userGuess.equalsIgnoreCase(currentGhost.getType())) {
                                 narrate("You won");
-                                getGhostBackstory();
+                                narrate(getGhostBackstory());
                                 isGameRunning = false;
                             } else {
                                 if(guessCounter < 1) {
@@ -362,7 +362,8 @@ public class Game implements java.io.Serializable {
         this.world = world;
     }
 
-    private void getGhostBackstory() {
+    private String getGhostBackstory() {
+        return currentGhost.getBackstory();
     }
 
     private boolean userAbleToExit() {
