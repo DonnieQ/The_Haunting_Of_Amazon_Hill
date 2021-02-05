@@ -155,7 +155,7 @@ public class Game implements java.io.Serializable {
                             String userGuess = getTypeOfGhostFromUser();
                             if (userGuess.equalsIgnoreCase(currentGhost.getType())) {
                                 narrate("You won");
-                                getGhostBackstory();
+                                narrate(getGhostBackstory());
                                 isGameRunning = false;
                             } else {
                                 narrate("Unfortunately, the ghost you determined was incorrect. The correct ghost was \n"
@@ -356,7 +356,8 @@ public class Game implements java.io.Serializable {
         this.world = world;
     }
 
-    private void getGhostBackstory() {
+    private String getGhostBackstory() {
+        return currentGhost.getBackstory();
     }
 
     private boolean userAbleToExit() {

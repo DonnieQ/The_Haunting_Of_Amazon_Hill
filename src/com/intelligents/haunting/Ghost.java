@@ -10,6 +10,7 @@ public class Ghost implements java.io.Serializable {
     private String type;
     private String background;
     private ArrayList<String> evidence;
+    private String backstory;
 
     public String getBackstory() {
         return backstory;
@@ -19,7 +20,7 @@ public class Ghost implements java.io.Serializable {
         this.backstory = backstory;
     }
 
-    private String backstory;
+
 
     // Single constructor
 
@@ -28,7 +29,7 @@ public class Ghost implements java.io.Serializable {
         this.type = type;
         this.background = background;
         this.evidence = evidence;
-        this.background = backstory;
+        this.backstory = backstory;
     }
 
     // Getters & Setters
