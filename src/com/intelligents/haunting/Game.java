@@ -14,12 +14,14 @@ public class Game implements java.io.Serializable {
     private final String divider = "*******************************************************************************************";
     private Player player;
     private final transient PrintFiles p = new PrintFiles();
-    private MusicPlayer mp = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/Haunted Mansion.wav");
-    private MusicPlayer soundEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/page-flip-4.wav");
-    private MusicPlayer walkEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/footsteps-4.wav");
-    private MusicPlayer keyboardEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/fast-pace-typing.wav");
-    private MusicPlayer paperFalling = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/paper flutter (2).wav");
+    private final MusicPlayer mp = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/Haunted Mansion.wav");
+    private final MusicPlayer soundEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/page-flip-4.wav");
+    private final MusicPlayer walkEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/footsteps-4.wav");
+    private final MusicPlayer keyboardEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/fast-pace-typing.wav");
+    private final MusicPlayer paperFalling = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/paper flutter (2).wav");
     private final Scanner scanner = new Scanner(System.in);
+    private int guessCounter = 0;
+    boolean isGameRunning = true;
 
     public Game() {
         populateGhostList();
@@ -29,7 +31,7 @@ public class Game implements java.io.Serializable {
 
     void start(boolean isGameLoaded) {
         boolean isValidInput;
-        boolean isGameRunning = true;
+
 
         String[] input;
 
@@ -158,9 +160,13 @@ public class Game implements java.io.Serializable {
                                 narrate(getGhostBackstory());
                                 isGameRunning = false;
                             } else {
-                                narrate("Unfortunately, the ghost you determined was incorrect. The correct ghost was \n"
-                                        + currentGhost.toString() + "You have been loaded into a new world. Good luck trying again.\n");
-                                resetWorld();
+                                if(guessCounter < 1) {
+                                    narrate("Unfortunately, the ghost you determined was incorrect. The correct ghost was \n"
+                                            + currentGhost.toString() + "You have been loaded into a new world. Good luck trying again.\n");
+                                    resetWorld();
+                                }else {
+                                    resetWorld();
+                                }
                             }
                         }
                         break;
@@ -375,10 +381,15 @@ public class Game implements java.io.Serializable {
     }
 
     private void resetWorld() {
-        removeAllEvidenceFromWorld();
-        setCurrentGhost(getRandomGhost());
-        assignRandomEvidenceToMap();
-        player.resetPlayer();
+        guessCounter++;
+        if(guessCounter <=1) {
+            removeAllEvidenceFromWorld();
+            setCurrentGhost(getRandomGhost());
+            assignRandomEvidenceToMap();
+        }else{
+            System.out.printf("%95s%n%n",ConsoleColors.YELLOW_BOLD + "Sorry, you've made too many incorrect guesses. GAME OVER." + ConsoleColors.RESET);
+            isGameRunning = false;
+        }
     }
 
     private void removeAllEvidenceFromWorld() {
