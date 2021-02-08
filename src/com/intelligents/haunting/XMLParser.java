@@ -72,6 +72,7 @@ class XMLParser implements java.io.Serializable {
         }
         return ghosts;
     }
+
     static NodeList readRooms() {
         NodeList results = null;
         try {
@@ -116,10 +117,9 @@ class XMLParser implements java.io.Serializable {
                 // Generate local variables from each "room" element in XML
                 Element roomElement = (Element) nNode;
                 String roomTitle = roomElement.getElementsByTagName("title").item(0).getTextContent();
-                // String type = room.getElementsByTagName("").item(0).getTextContent();
                 String roomDescription = roomElement.getElementsByTagName("description").item(0).getTextContent();
                 ArrayList<String> evidence = new ArrayList<>();
-                // Construct new ghost and add to ghost list
+                // Construct new room and add to room list
                 Room room = new Room(roomTitle, roomDescription);
                 //for loops to read multiple exits. Return list of exits
                 for (int j = 0; j < roomElement.getElementsByTagName("exit").getLength(); j++) {
@@ -130,11 +130,10 @@ class XMLParser implements java.io.Serializable {
                     String name = el.getElementsByTagName("directionName").item(0).getTextContent();
                     //pointing to hashmap and mapping direction to room name
                     room.directionList.put(direction, name);
-                    //System.out.println(j+ " " + direction + " " + name);
+
                 }
                 // will populate the rooms
                 rooms.add(room);
-                //System.out.println(i+ " " + roomTitle + roomDescription);
             }
         }
         return rooms;

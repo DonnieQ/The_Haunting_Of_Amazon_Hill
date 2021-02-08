@@ -6,10 +6,14 @@ import java.nio.file.Path;
 
 class PrintFiles {
 
+    /**Reads text files and displays it's content**/
+
 
     PrintFiles() {
 
     }
+
+
 
 
     void print(String path, String fileToRead) {

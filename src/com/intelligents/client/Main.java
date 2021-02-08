@@ -1,6 +1,6 @@
 package com.intelligents.client;
 
-import com.intelligents.haunting.Game;
+import com.intelligents.haunting.MapMaker;
 import com.intelligents.haunting.SplashScreen;
 
 public class Main implements java.io.Serializable {
@@ -8,6 +8,12 @@ public class Main implements java.io.Serializable {
         SplashScreen s = new SplashScreen();
         s.pressEnterToContinue();
         s.splash();
+
+        MapMaker m = new MapMaker();
+        m.makeTheDiningRoom();
+
+
+
     }
 }
 
