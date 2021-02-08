@@ -3,7 +3,6 @@
 - [Introduction](#introduction)
 - [Requirements](#requirements)
 - [Resources Utilized](#resources-utilized)
-- [Supporting Documents](#supporting-documents)
 - [How To Use](#how-to-use)
 
 
@@ -18,15 +17,15 @@
 ## Requirements
 
 - User Accessibility
-1. User shall be able to TODO
-2. User shall be able to TODO
-3. User shall be able to TODO
-4. User shall be able to TODO
+1. User shall be able to play game with a random ghost each iteration
+2. User shall be able to encounter welcome screen on game launch
+3. User shall be able to traverse through rooms
+4. User shall be able to gather evidence to make a prediction on mystery ghost
 
 - System Accessibility
-1. System shall take input from user TODO
-2. System shall utilize TODO
-3. System shall perform TODO
+1. System shall take input from user and perform correct function
+2. System shall utilize resources to perform necessary game functions
+3. System shall perform optimally with no errors
 
 - Software
 1. System shall be written in Java, using IDE (IntelliJ)
@@ -44,14 +43,12 @@
 - Git Source Control
 - Azure Dev Ops
 - Scrum Development Workflow
+- Javax.SoundSampled
+- AudioInputStream
 
-## Supporting Documents
-TODO - Upload Class Diagram
-TODO - Upload Sprint Screenshots
 
 ## How To Use
-1. **Commands**
-2. **Jounal** [Driver download](https://chromedriver.chromium.org/downloads)
-3. **Launch .jar file**
-4. **Run Commands* run main.py!
-5.
+1. **Clone Repo**
+2. **Open project in IDE**
+4. **Run Commands run main.java!**
+5. **Enjoy!**
