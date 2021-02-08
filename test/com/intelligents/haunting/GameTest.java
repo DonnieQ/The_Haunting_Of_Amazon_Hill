@@ -2,6 +2,10 @@ package com.intelligents.haunting;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class GameTest {
@@ -43,4 +47,17 @@ public class GameTest {
 
         assertTrue(g.checkWinnerTest());
     }
+
+    @Test
+    public void checkForRandomGhostSpawned() {
+        g.populateGhostList();
+        g.setCurrentGhost(g.getRandomGhost());
+        Ghost gg = g.getCurrentGhost();
+
+
+        System.out.println(gg);
+
+
+    }
+
 }
