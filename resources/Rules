@@ -4,8 +4,11 @@
                 If anything looks suspicious, make sure to take note
                 in your journal.
 
-                You'll be victorious if you're able to find both pieces of
-                evidence for the current ghost and properly document it.
+                To be victorious you must be in lobby and request to exit; once out, you must use the evidence that you have collected
+                to correctly answer which ghost is guilty of the haunting.
+
+                You will only have 2 attempts before the game ends! After each wrong guess, the world resets and you are
+                thrown back in!
 
                 Happy hunting!!
 
@@ -13,7 +16,7 @@
 
                 - help = displays this screen
 
-                - open = displays the game map
+                - open = displays the game map and current location
 
                 - read = to view what's in your character's journal
 
@@ -27,6 +30,12 @@
 
                 - pause = pause music
 
-                - exit/q/quit will stop the game and allow you to exit.
+                - volume up = increases volume
+
+                - volume down = decreases volume
+
+                - exit = if in lobby it allows you to a temporarily leave the home to guess the ghost
+
+                - q/quit will stop the game.
 
 

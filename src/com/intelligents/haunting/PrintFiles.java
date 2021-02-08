@@ -6,13 +6,17 @@ import java.nio.file.Path;
 
 class PrintFiles {
 
+    /**Reads text files and displays it's content**/
 
-    public PrintFiles() {
+
+    PrintFiles() {
 
     }
 
 
-    public void print(String path, String fileToRead) {
+
+
+    void print(String path, String fileToRead) {
         if (fileToRead != null) {
             String results = null;
             try {

@@ -7,11 +7,11 @@ import java.nio.file.Path;
 class ReadFiles {
 
 
-    public ReadFiles() {
+    ReadFiles() {
     }
 
 
-    public String read(String fileToRead) {
+    String read(String fileToRead) {
         String results = "";
         if (fileToRead != null) {
             try {

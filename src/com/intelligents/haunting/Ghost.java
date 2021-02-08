@@ -1,6 +1,7 @@
 package com.intelligents.haunting;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Ghost implements java.io.Serializable {
 
@@ -9,47 +10,59 @@ public class Ghost implements java.io.Serializable {
     private String type;
     private String background;
     private ArrayList<String> evidence;
+    private String backstory;
+
+    public String getBackstory() {
+        return backstory;
+    }
+
+    public void setBackstory(String backstory) {
+        this.backstory = backstory;
+    }
+
+
 
     // Single constructor
 
-    public Ghost(String name, String type, String background, ArrayList<String> evidence) {
+    Ghost(String name, String type, String background, ArrayList<String> evidence, String backstory) {
         this.name = name;
         this.type = type;
         this.background = background;
         this.evidence = evidence;
+        this.backstory = backstory;
     }
 
     // Getters & Setters
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 
-    public String getType() {
+    String getType() {
         return type;
     }
 
-    public void setType(String type) {
+    void setType(String type) {
         this.type = type;
     }
 
-    public String getBackground() {
+    String getBackground() {
         return background;
     }
 
-    public void setBackground(String background) {
+    void setBackground(String background) {
         this.background = background;
     }
 
-    public ArrayList<String> getEvidence() {
+    ArrayList<String> getEvidence() {
         return evidence;
     }
 
-    public void setEvidence(ArrayList<String> evidence) {
+    void setEvidence(ArrayList<String> evidence) {
         this.evidence = evidence;
     }
 
@@ -57,6 +70,10 @@ public class Ghost implements java.io.Serializable {
     public String toString() {
         return getType() + ":\n" +
                 "\tBackground: " + getBackground() + "\n" +
-                "\tEvidence: " + getEvidence() + "\n\n";
+                "\tEvidence: " +
+                getEvidence()
+                        .stream()
+                        .map(x -> x.substring(x.lastIndexOf(" ") + 1))
+                        .collect(Collectors.toList()) + "\n\n";
     }
 }

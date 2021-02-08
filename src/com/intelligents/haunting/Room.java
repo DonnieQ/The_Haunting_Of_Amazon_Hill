@@ -11,32 +11,39 @@ class Room implements java.io.Serializable {
     private String roomEvidence = "";
     Map<String, Room> roomExits = new HashMap<>();
     private List<String> roomItems = new ArrayList<>();
+    public Map<String, String> directionList = new HashMap<>();
 
-    public Room() {
+    Room() {
 
     }
 
-    public Room(String title) {
+    Room(String title) {
         this.roomTitle = title;
     }
 
-    public String getRoomTitle() {
-        return roomTitle;
-    }
-
-    public void setRoomTitle(String roomTitle) {
-        this.roomTitle = roomTitle;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
+    Room(String title, String description) {
+        this.roomTitle = title;
         this.description = description;
     }
 
-    public String getRoomEvidence() {
+
+    String getRoomTitle() {
+        return roomTitle;
+    }
+
+    void setRoomTitle(String roomTitle) {
+        this.roomTitle = roomTitle;
+    }
+
+    String getDescription() {
+        return description;
+    }
+
+    void setDescription(String description) {
+        this.description = description;
+    }
+
+    String getRoomEvidence() {
         try {
             return roomEvidence;
         } catch (NullPointerException e) {
@@ -44,20 +51,16 @@ class Room implements java.io.Serializable {
         }
     }
 
-    public void setRoomEvidence(String roomEvidence) {
+    void setRoomEvidence(String roomEvidence) {
         this.roomEvidence = roomEvidence;
     }
 
-    public Room(String description, String ghostTracks) {
-        this.description = description;
 
-    }
-
-    public void addItemToRoom(String item) {
+    void addItemToRoom(String item) {
         roomItems.add(item);
     }
 
-    public List<String> getRoomItems() {
+    List<String> getRoomItems() {
         List<String> results = new ArrayList<>();
         if (roomItems.size() == 0) {
             return results;
@@ -65,7 +68,7 @@ class Room implements java.io.Serializable {
         return roomItems;
     }
 
-    public void setRoomItems(List<String> roomItems) {
+    void setRoomItems(List<String> roomItems) {
         this.roomItems = roomItems;
     }
 }
