@@ -57,10 +57,10 @@ public class Game implements java.io.Serializable {
             System.out.printf("%70s%n%n", ConsoleColors.WHITE_BOLD_BRIGHT + "Good luck to you, " + player.getName() + ConsoleColors.RESET);
 
         }
-        //has access to entire Game object. tracking all changes
 
         narrateRooms(world.getCurrentRoom().getDescription());
-
+        
+        //has access to entire Game object. tracking all changes
         SaveGame.setGame(this);
 
 

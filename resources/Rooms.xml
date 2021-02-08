@@ -129,17 +129,18 @@
     <room>
         <title>Dining Room</title>
         <description>
-            ************************************************************************************************************************
+            ******************************************************************************************************************************
             The room where it all happens, the thoughts, the joys, the painful memories. Oh if these walls could talk, their echoes
             would would be overpowering. The stained glass windows, darkened in their nature, mysterious in their design, stay black
             without the rippling effect of the light, never knowing that the dust that clings, the dirt over years, could so easily
             be washed away. The walls are so cold to the touch, stealing the heat from my warm fingers, never caring if my own heart
-            froze. That presence of death inside this room may have been a certainty, that the walls peeling may show truth where the
-            the home may wish to bury. There are skeletons in the cupboards, muffled in their screams, yet only the truth can usher
-            them out. Until that, the paint will peel and the wood will rot, forever wishing for the warmth of a touch.
-            The table stays set, the candles shine brightly off the chandeliers. Portraits of the deceased hang smartly, pondering my
-            intrusion. Their eyes telling stories I will never know. I get the eerily feeling they are not watching me....
-            ************************************************************************************************************************
+            froze. There seems to be a small opening to the north of this wall. The presence of death inside this room may have been
+            a certainty, that the walls peeling may show truth where the the home may wish to bury. There are skeletons in the cupboards,
+            muffled in their screams, yet only the truth can usher them out. Until that, the paint will peel and the wood will rot, forever
+            wishing for the warmth of a touch. The table stays set, the candles shine brightly off the chandeliers. Portraits of the
+            deceased hang smartly, pondering my intrusion. Their eyes telling stories I will never know. I get the eerily feeling they
+            are not watching me....
+            ********************************************************************************************************************************
         </description>
         <exit>
             <direction>east</direction>
