@@ -27,7 +27,6 @@ class Player implements java.io.Serializable {
         return playerSingleton;
     }
 
-
     void addToRoomsVisited(String roomTitle) {
         roomsVisited.add(roomTitle);
     }

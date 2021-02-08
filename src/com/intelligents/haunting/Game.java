@@ -24,6 +24,7 @@ public class Game implements java.io.Serializable {
     boolean isGameRunning = true;
 
     public Game() {
+        //populates the main ghost list and sets a random ghost for the current game session
         populateGhostList();
         setCurrentGhost(getRandomGhost());
         assignRandomEvidenceToMap();
@@ -52,7 +53,7 @@ public class Game implements java.io.Serializable {
 
             System.out.printf("%175s%n", ConsoleColors.CYAN_UNDERLINED + " --> If you're new to the game type help for assistance" + ConsoleColors.RESET);
 
-            //System.out.println(player);
+
             System.out.printf("%70s%n%n", ConsoleColors.WHITE_BOLD_BRIGHT + "Good luck to you, " + player.getName() + ConsoleColors.RESET);
 
         }
@@ -72,17 +73,10 @@ public class Game implements java.io.Serializable {
             System.out.printf("%45s %95s %n", currentLoc, moveGuide);
 
             System.out.println();
-            // System.out.println(ConsoleColors.RED_BOLD + world.getCurrentRoom().getDescription() + ConsoleColors.RESET);
-
-
 
             System.out.println(">>");
 
-
             input = scanner.nextLine().strip().toLowerCase().split(" ");
-
-
-//            if (input[0].equals("volume") && input[1].equals())
 
 
             // Checks if current room is in roomsVisited List. If not adds currentRoom to roomsVisited
@@ -92,6 +86,7 @@ public class Game implements java.io.Serializable {
                     case "chris":
                         chrisIsCool();
                         break;
+                    //Allows for volume to be increased or decreased
                     case "volume":
                         if (input[1].equals("up")) {
                             mp.setVolume(5.0f);
@@ -99,30 +94,31 @@ public class Game implements java.io.Serializable {
                             mp.setVolume(-15.0f);
                         }
                         break;
-
+                        //Prints journal and plays page turning sound effect
                     case "read":
                         printJournal();
                         soundEffect.playSoundEffect();
                         break;
+                        //Creates a save file that can be loaded
                     case "save":
                         SaveGame.save();
                         break;
+                        //Reads the loaded usr.save file
                     case "load":
                         SaveGame.loadGame();
                         break;
+                        //
                     case "help":
-                        //  p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
                         p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
                         break;
                     case "open":
-
                         //TODO: method in world????
-                        switch (world.getCurrentRoom().getRoomTitle()){
+                        switch (world.getCurrentRoom().getRoomTitle()) {
                             case "Dining Room":
-                                p.print("The_Haunting_Of_Amazon_Hill/resources","Map(DiningRoom)");
+                                p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(DiningRoom)");
                                 break;
                             case "Balcony":
-                                p.print("The_Haunting_Of_Amazon_Hill/resources","Map(Balcony)");
+                                p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Balcony)");
                                 break;
                             case "Attic":
                                 p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Attic)");
@@ -131,8 +127,8 @@ public class Game implements java.io.Serializable {
                                 p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Dungeon)");
                                 break;
                             case "Furnace Room":
-                                    p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(FurnaceRoom)");
-                                    break;
+                                p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(FurnaceRoom)");
+                                break;
                             case "Garden Of Eden":
                                 p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(GardenOfEden)");
                                 break;
@@ -146,9 +142,8 @@ public class Game implements java.io.Serializable {
                                 System.out.println("You're in a super secret tunnel!!! ");
                                 break;
                         }
-
-
                         break;
+                        //Displays room contents/evidence
                     case "look":
                     case "show":
                         System.out.println(divider);
@@ -162,10 +157,10 @@ public class Game implements java.io.Serializable {
                             narrate("You look and notice: " + world.getCurrentRoom().getRoomEvidence() + "\n\n");
                             narrate("Journal currently opened, would you like to document anything about this room? [Yes/No]\n " + ">>>");
                             writeEntryInJournal();
-                            // System.out.println(world.currentRoom.getRoomItems());
                         }
                         System.out.println(divider);
                         break;
+                        //Allows user to leave if more than one room has been input into RoomsVisted
                     case "exit":
                         if (userAbleToExit()) {
                             // In order to win, user has to have correct evidence and guessed right ghost
@@ -192,11 +187,11 @@ public class Game implements java.io.Serializable {
                                 narrate(getGhostBackstory());
                                 isGameRunning = false;
                             } else {
-                                if(guessCounter < 1) {
+                                if (guessCounter < 1) {
                                     narrate("Unfortunately, the ghost you determined was incorrect. The correct ghost was \n"
                                             + currentGhost.toString() + "You have been loaded into a new world. Good luck trying again.\n");
                                     resetWorld();
-                                }else {
+                                } else {
                                     resetWorld();
                                 }
                             }
@@ -204,16 +199,13 @@ public class Game implements java.io.Serializable {
                         break;
                     case "quit":
                     case "q":
-                        //clip.close();
                         mp.quitMusic();
                         isGameRunning = false;
                         break;
                     case "pause":
-                        // clip.stop();
                         mp.pauseMusic();
                         break;
                     case "play":
-                        // clip.start();
                         mp.startMusic();
                         break;
                     case "move":
@@ -253,9 +245,7 @@ public class Game implements java.io.Serializable {
             }
 
         }
-//        } catch (ArrayIndexOutOfBoundsException | LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-//            e.printStackTrace();
-//        }
+
         System.out.println("Thank you for playing our game!!");
     }
 
@@ -413,13 +403,15 @@ public class Game implements java.io.Serializable {
     }
 
     private void resetWorld() {
+        //resets world and adds a new ghost. guessCounter is incremented with a maximum allowable guesses
+        // set at 2.
         guessCounter++;
-        if(guessCounter <=1) {
+        if (guessCounter <= 1) {
             removeAllEvidenceFromWorld();
             setCurrentGhost(getRandomGhost());
             assignRandomEvidenceToMap();
-        }else{
-            System.out.printf("%95s%n%n",ConsoleColors.YELLOW_BOLD + "Sorry, you've made too many incorrect guesses. GAME OVER." + ConsoleColors.RESET);
+        } else {
+            System.out.printf("%95s%n%n", ConsoleColors.YELLOW_BOLD + "Sorry, you've made too many incorrect guesses. GAME OVER." + ConsoleColors.RESET);
             isGameRunning = false;
         }
     }
