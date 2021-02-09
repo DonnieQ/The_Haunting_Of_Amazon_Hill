@@ -62,13 +62,14 @@ public class Game implements java.io.Serializable {
         }
 
         narrateRooms(world.getCurrentRoom().getDescription());
-        
+
         //has access to entire Game object. tracking all changes
         SaveGame.setGame(this);
 
 
         while (isGameRunning) {
             isValidInput = true;
+            int attempt = 0;
 
             String currentLoc = ConsoleColors.BLUE_BOLD + "Your location is " + world.getCurrentRoom().getRoomTitle() + ConsoleColors.RESET;
             String moveGuide = ConsoleColors.RESET + ConsoleColors.YELLOW + "To move type: Go North, Go East, Go South, or Go West" + ConsoleColors.RESET;
@@ -97,56 +98,28 @@ public class Game implements java.io.Serializable {
                             mp.setVolume(-15.0f);
                         }
                         break;
-                        //Prints journal and plays page turning sound effect
+                    //Prints journal and plays page turning sound effect
                     case "read":
                         printJournal();
                         soundEffect.playSoundEffect();
                         break;
-                        //Creates a save file that can be loaded
+                    //Creates a save file that can be loaded
                     case "save":
                         SaveGame.save();
                         break;
-                        //Reads the loaded usr.save file
+                    //Reads the loaded usr.save file
                     case "load":
                         SaveGame.loadGame();
                         break;
-                        //
+                    //
                     case "help":
                         p.print("resources", "Rules");
                         break;
                     case "open":
                         //TODO: method in world????
-                        switch (world.getCurrentRoom().getRoomTitle()) {
-                            case "Dining Room":
-                                p.print("resources", "Map(DiningRoom)");
-                                break;
-                            case "Balcony":
-                                p.print("resources", "Map(Balcony)");
-                                break;
-                            case "Attic":
-                                p.print("resources", "Map(Attic)");
-                                break;
-                            case "Dungeon":
-                                p.print("resources", "Map(Dungeon)");
-                                break;
-                            case "Furnace Room":
-                                p.print("resources", "Map(FurnaceRoom)");
-                                break;
-                            case "Garden Of Eden":
-                                p.print("resources", "Map(GardenOfEden)");
-                                break;
-                            case "Library":
-                                p.print("resources", "Map(Library)");
-                                break;
-                            case "Lobby":
-                                p.print("resources", "Map(Lobby)");
-                                break;
-                            case "Secret Tunnel":
-                                System.out.println("You're in a super secret tunnel!!! ");
-                                break;
-                        }
+                        openMap();
                         break;
-                        //Displays room contents/evidence
+                    //Displays room contents/evidence
                     case "look":
                     case "show":
                         System.out.println(divider);
@@ -170,7 +143,7 @@ public class Game implements java.io.Serializable {
                         }
                         System.out.println(divider);
                         break;
-                        //Allows user to leave if more than one room has been input into RoomsVisted
+                    //Allows user to leave if more than one room has been input into RoomsVisted
                     case "exit":
                         if (userAbleToExit()) {
                             // In order to win, user has to have correct evidence and guessed right ghost
@@ -255,11 +228,50 @@ public class Game implements java.io.Serializable {
                 default:
                     System.out.println("You hit a wall. Try again: ");
                     System.out.print(">>>");
+                    attempt++;
+                    if (attempt >= 2) {
+                        System.out.println();
+                        openMap();
+                        System.out.println("Where would you like to go? ");
+                        System.out.print(">>>");
+                    }
                     input = scanner.nextLine().strip().toLowerCase().split(" ");
                     break;
 
             }
 
+        }
+    }
+
+    private void openMap() {
+        switch (world.getCurrentRoom().getRoomTitle()) {
+            case "Dining Room":
+                p.print("resources", "Map(DiningRoom)");
+                break;
+            case "Balcony":
+                p.print("resources", "Map(Balcony)");
+                break;
+            case "Attic":
+                p.print("resources", "Map(Attic)");
+                break;
+            case "Dungeon":
+                p.print("resources", "Map(Dungeon)");
+                break;
+            case "Furnace Room":
+                p.print("resources", "Map(FurnaceRoom)");
+                break;
+            case "Garden Of Eden":
+                p.print("resources", "Map(GardenOfEden)");
+                break;
+            case "Library":
+                p.print("resources", "Map(Library)");
+                break;
+            case "Lobby":
+                p.print("resources", "Map(Lobby)");
+                break;
+            case "Secret Tunnel":
+                System.out.println("You're in a super secret tunnel!!! ");
+                break;
         }
     }
 
