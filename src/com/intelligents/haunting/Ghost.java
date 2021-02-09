@@ -24,6 +24,12 @@ public class Ghost implements java.io.Serializable {
 
     // Single constructor
 
+
+    Ghost(String name, String type) {
+        this.name = name;
+        this.type = type;
+    }
+
     Ghost(String name, String type, String background, ArrayList<String> evidence, String backstory) {
         this.name = name;
         this.type = type;
