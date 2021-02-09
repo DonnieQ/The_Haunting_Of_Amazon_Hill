@@ -410,6 +410,7 @@ public class Game implements java.io.Serializable {
             removeAllEvidenceFromWorld();
             setCurrentGhost(getRandomGhost());
             assignRandomEvidenceToMap();
+            player.resetPlayer();
         } else {
             System.out.printf("%95s%n%n", ConsoleColors.YELLOW_BOLD + "Sorry, you've made too many incorrect guesses. GAME OVER." + ConsoleColors.RESET);
             isGameRunning = false;
