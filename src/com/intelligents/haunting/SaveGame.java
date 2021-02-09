@@ -29,6 +29,7 @@ class SaveGame {
             oos.writeObject(game.getWorld());
             oos.writeObject(game.getCurrentGhost());
             oos.writeObject(game.getGhosts());
+            oos.writeObject(game.getMiniGhosts());
             oos.writeObject(game.getPlayer());
             // make sure any buffered data is written before i close the stream
             oos.flush();
