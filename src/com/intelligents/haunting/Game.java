@@ -231,7 +231,7 @@ public class Game implements java.io.Serializable {
                                         e.printStackTrace();
                                     }
                                 default:
-                                    System.out.println("You hit wall. Try again: ");
+                                    System.out.println("You hit a wall. Try again: ");
                                     System.out.print(">>>");
                                     input = scanner.nextLine().strip().toLowerCase().split(" ");
                                     break;
