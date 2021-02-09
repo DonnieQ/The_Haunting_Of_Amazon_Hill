@@ -34,6 +34,7 @@ public class Game implements java.io.Serializable {
     }
 
     void start(boolean isGameLoaded) {
+        // this isn't actually used to error check anywhere - change so that it checks a parser to actually check validity
         boolean isValidInput;
 
 
@@ -193,7 +194,6 @@ public class Game implements java.io.Serializable {
                         break;
                     case "move":
                     case "go":
-
                         changeRoom(isValidInput, input, attempt);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -215,6 +215,7 @@ public class Game implements java.io.Serializable {
                 case "west":
                     try {
                         if (world.getCurrentRoom().roomExits.containsKey(input[1])) {
+                            player.setMostRecentExit(input[1]);
                             world.setCurrentRoom(world.getCurrentRoom().roomExits.get(input[1]));
                             isValidInput = false;
                             walkEffect.playSoundEffect();
@@ -314,7 +315,28 @@ public class Game implements java.io.Serializable {
         }
         if (userCommands.equals("run")){
             narrate("Frightened to the point of tears, you flee back the way you came.");
+            changeRoom(true, invertPlayerRoom(player.getMostRecentExit()), 0);
         }
+    }
+
+    private String[] invertPlayerRoom(String mostRecentExit) {
+        String[] opposite = new String[]{"go", null};
+        switch (mostRecentExit){
+            case "east":
+                opposite[1] = "west";
+                break;
+            case "north":
+                opposite[1] = "south";
+                break;
+            case "south":
+                opposite[1] = "north";
+                break;
+            // default case is west, which will make the player go east in case most recent exit is null from just starting
+            default:
+                opposite[1] = "east";
+                break;
+        }
+        return opposite;
     }
 
 
