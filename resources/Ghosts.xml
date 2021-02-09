@@ -42,4 +42,10 @@
             The motives of Edgar's behavior are unknown. All we know is his sadism is very much apparent on the victims
             he haunts today.</backstory>
     </ghost>
+    <minighosts>
+        <minighost>
+            <name>Angry Grandma</name>
+            <type>apparition</type>
+        </minighost>
+    </minighosts>
 </ghosts>

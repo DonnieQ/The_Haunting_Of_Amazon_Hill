@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Game implements java.io.Serializable {
     private World world = new World();
     private List<Ghost> ghosts = new ArrayList<>();
+    private List<MiniGhost> miniGhosts = new ArrayList<>();
     private final SaveGame SaveGame = new SaveGame();
     private Ghost currentGhost;
     private final Random r = new Random();
@@ -26,6 +27,7 @@ public class Game implements java.io.Serializable {
     public Game() {
         //populates the main ghost list and sets a random ghost for the current game session
         populateGhostList();
+        populateMiniGhostList();
         setCurrentGhost(getRandomGhost());
         assignRandomEvidenceToMap();
     }
@@ -291,7 +293,11 @@ public class Game implements java.io.Serializable {
     }
 
     void populateGhostList() {
-        this.setGhosts(XMLParser.populateGhosts(XMLParser.readGhosts()));
+        this.setGhosts(XMLParser.populateGhosts(XMLParser.readXML("Ghosts"), "ghost"));
+    }
+
+    void populateMiniGhostList() {
+        this.setMiniGhosts(XMLParser.populateMiniGhosts(XMLParser.readXML("Ghosts"), "minighost"));
     }
 
     void printGhosts() {
@@ -366,6 +372,10 @@ public class Game implements java.io.Serializable {
 
     void setGhosts(List<Ghost> ghosts) {
         this.ghosts = ghosts;
+    }
+
+    void setMiniGhosts(List<MiniGhost> miniGhosts) {
+        this.miniGhosts = miniGhosts;
     }
 
     Ghost getCurrentGhost() {
