@@ -166,7 +166,7 @@ public class Game implements java.io.Serializable {
                             // In order to win, user has to have correct evidence and guessed right ghost
                             if (!checkIfHasAllEvidenceIsInJournal()) {
                                 narrate("It seems your journal does not have all of the evidence needed to determine the ghost." +
-                                        " Would you like to guess the ghost anyway or go back inside?");
+                                        " Would you like to GUESS the ghost anyway or go back INSIDE?");
                                 String ans = "";
                                 boolean validEntry = false;
                                 while (!validEntry) {
@@ -174,7 +174,7 @@ public class Game implements java.io.Serializable {
                                     if (ans.contains("guess") || ans.contains("inside")) {
                                         validEntry = true;
                                     } else {
-                                        narrate("Invalid input, please decide whether you want to guess or go back inside");
+                                        narrate("Invalid input, please decide whether you want to GUESS or go back INSIDE.");
                                     }
                                 }
                                 if (ans.contains("inside")) {
