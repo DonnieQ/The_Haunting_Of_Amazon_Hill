@@ -9,6 +9,7 @@ class Room implements java.io.Serializable {
     private String roomTitle;
     private String description;
     private String roomEvidence = "";
+    private MiniGhost roomMiniGhost = null;
     Map<String, Room> roomExits = new HashMap<>();
     private List<String> roomItems = new ArrayList<>();
     public Map<String, String> directionList = new HashMap<>();
@@ -26,6 +27,13 @@ class Room implements java.io.Serializable {
         this.description = description;
     }
 
+    public MiniGhost getRoomMiniGhost() {
+        return roomMiniGhost;
+    }
+
+    public void setRoomMiniGhost(MiniGhost roomMiniGhost) {
+        this.roomMiniGhost = roomMiniGhost;
+    }
 
     String getRoomTitle() {
         return roomTitle;
