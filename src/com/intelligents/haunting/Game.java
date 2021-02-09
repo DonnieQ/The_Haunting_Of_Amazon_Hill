@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Game implements java.io.Serializable {
     private World world = new World();
     private List<Ghost> ghosts = new ArrayList<>();
+    private List<MiniGhost> miniGhosts = new ArrayList<>();
     private final SaveGame SaveGame = new SaveGame();
     private Ghost currentGhost;
     private final Random r = new Random();
@@ -26,6 +27,7 @@ public class Game implements java.io.Serializable {
     public Game() {
         //populates the main ghost list and sets a random ghost for the current game session
         populateGhostList();
+        populateMiniGhostList();
         setCurrentGhost(getRandomGhost());
         assignRandomEvidenceToMap();
     }
@@ -43,7 +45,7 @@ public class Game implements java.io.Serializable {
 
             System.out.println("\n" + ConsoleColors.GREEN_BOLD + "Thank you for choosing to play The Haunting of Amazon Hill. " +
                     "What would you like your name to be? " + ConsoleColors.RESET);
-            System.out.println(">>");
+            System.out.print(">>>");
 
             input = scanner.nextLine().strip().split(" ");
 
@@ -74,7 +76,7 @@ public class Game implements java.io.Serializable {
 
             System.out.println();
 
-            System.out.println(">>");
+            System.out.print(">>>");
 
             input = scanner.nextLine().strip().toLowerCase().split(" ");
 
@@ -151,11 +153,11 @@ public class Game implements java.io.Serializable {
                         if (world.getCurrentRoom().getRoomEvidence().isEmpty()) {
                             narrate("Currently there are no items in "
                                     + world.getCurrentRoom().getRoomTitle() + "\n");
-                            narrate("Would you like to document anything about this room? [Yes/No]\n" + ">>>");
+                            narrate("Would you like to document anything about this room? [Yes/No]");
                             writeEntryInJournal();
                         } else {
-                            narrate("You look and notice: " + world.getCurrentRoom().getRoomEvidence() + "\n\n");
-                            narrate("Journal currently opened, would you like to document anything about this room? [Yes/No]\n " + ">>>");
+                            narrate("You look and notice: " + world.getCurrentRoom().getRoomEvidence() + "\n");
+                            narrate("Journal currently opened, would you like to document anything about this room? [Yes/No]");
                             writeEntryInJournal();
                         }
                         System.out.println(divider);
@@ -166,7 +168,7 @@ public class Game implements java.io.Serializable {
                             // In order to win, user has to have correct evidence and guessed right ghost
                             if (!checkIfHasAllEvidenceIsInJournal()) {
                                 narrate("It seems your journal does not have all of the evidence needed to determine the ghost." +
-                                        " Would you like to guess the ghost anyway or go back inside?");
+                                        " Would you like to GUESS the ghost anyway or go back INSIDE?");
                                 String ans = "";
                                 boolean validEntry = false;
                                 while (!validEntry) {
@@ -174,7 +176,7 @@ public class Game implements java.io.Serializable {
                                     if (ans.contains("guess") || ans.contains("inside")) {
                                         validEntry = true;
                                     } else {
-                                        narrate("Invalid input, please decide whether you want to guess or go back inside");
+                                        narrate("Invalid input, please decide whether you want to GUESS or go back INSIDE.");
                                     }
                                 }
                                 if (ans.contains("inside")) {
@@ -231,8 +233,8 @@ public class Game implements java.io.Serializable {
                                         e.printStackTrace();
                                     }
                                 default:
-                                    System.out.println("You hit wall. Try again: ");
-                                    System.out.println(">>");
+                                    System.out.println("You hit a wall. Try again: ");
+                                    System.out.print(">>>");
                                     input = scanner.nextLine().strip().toLowerCase().split(" ");
                                     break;
 
@@ -264,11 +266,13 @@ public class Game implements java.io.Serializable {
     }
 
     private void writeEntryInJournal() {
+        System.out.print(">>>");
         String journalEntry = scanner.nextLine().strip();
         if (journalEntry.equals("no")) {
             narrate("Journal Closed.");
         } else if (journalEntry.equalsIgnoreCase("yes")) {
             narrate("Your entry: ");
+            System.out.print(">>>");
             journalEntry = scanner.nextLine().strip();
             player.setJournal(journalEntry);
         } else {
@@ -291,7 +295,11 @@ public class Game implements java.io.Serializable {
     }
 
     void populateGhostList() {
-        this.setGhosts(XMLParser.populateGhosts(XMLParser.readGhosts()));
+        this.setGhosts(XMLParser.populateGhosts(XMLParser.readXML("Ghosts"), "ghost"));
+    }
+
+    void populateMiniGhostList() {
+        this.setMiniGhosts(XMLParser.populateMiniGhosts(XMLParser.readXML("Ghosts"), "minighost"));
     }
 
     void printGhosts() {
@@ -368,6 +376,10 @@ public class Game implements java.io.Serializable {
         this.ghosts = ghosts;
     }
 
+    void setMiniGhosts(List<MiniGhost> miniGhosts) {
+        this.miniGhosts = miniGhosts;
+    }
+
     Ghost getCurrentGhost() {
         return currentGhost;
     }
@@ -410,6 +422,7 @@ public class Game implements java.io.Serializable {
             removeAllEvidenceFromWorld();
             setCurrentGhost(getRandomGhost());
             assignRandomEvidenceToMap();
+            player.resetPlayer();
         } else {
             System.out.printf("%95s%n%n", ConsoleColors.YELLOW_BOLD + "Sorry, you've made too many incorrect guesses. GAME OVER." + ConsoleColors.RESET);
             isGameRunning = false;

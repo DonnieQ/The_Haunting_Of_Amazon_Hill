@@ -12,40 +12,9 @@ import java.util.ArrayList;
 
 class XMLParser implements java.io.Serializable {
 
-    static NodeList readGhosts() {
-        NodeList results = null;
-        try {
-            // class.xml is place in the folder data within the package structure
 
-            File inputFile = new File("resources/Ghosts.xml");
-
-            // three statements that result in loading the xml file and creating a Document object
-
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(inputFile);
-
-            // get the root node of the XML document
-
-            Element root = doc.getDocumentElement();
-
-            // normalize standarizes the XML format
-            root.normalize();
-
-            // print out the root node of the XML document
-            // System.out.println("Root is " + root.getNodeName());
-
-            // Get all "ghost" elements by tag name
-            results = doc.getElementsByTagName("ghost");
-
-            // Call populateGhosts to create ghosts for game
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return results;
-    }
-
-    static ArrayList<Ghost> populateGhosts(NodeList nList) {
+    static ArrayList<Ghost> populateGhosts(Document document, String element) {
+        NodeList nList = document.getElementsByTagName(element);
         //Instantiate new Ghost list
         ArrayList<Ghost> ghosts = new ArrayList<>();
         // With node list find each element and construct ghost object
@@ -73,40 +42,28 @@ class XMLParser implements java.io.Serializable {
         return ghosts;
     }
 
-    static NodeList readRooms() {
-        NodeList results = null;
-        try {
-            // class.xml is place in the folder data within the package structure
-
-            File inputFile = new File("resources/Rooms.xml");
-
-            // three statements that result in loading the xml file and creating a Document object
-
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(inputFile);
-
-            // get the root node of the XML document
-
-            Element root = doc.getDocumentElement();
-
-            // normalize standarizes the XML format
-            root.normalize();
-
-            // print out the root node of the XML document
-            //System.out.println("Root is " + root.getNodeName());
-
-            // Get all "room" elements by tag name
-            results = doc.getElementsByTagName("room");
-
-            // Call populateRooms to create ghosts for game
-        } catch (Exception e) {
-            e.printStackTrace();
+    static ArrayList<MiniGhost> populateMiniGhosts(Document document, String element) {
+        NodeList nList = document.getElementsByTagName(element);
+        //Instantiate new MiniGhost list
+        ArrayList<MiniGhost> miniGhosts = new ArrayList<>();
+        // With node list find each element and construct minighost object
+        for (int i = 0; i < nList.getLength(); i++) {
+            // Iterate through each node in nodeList
+            Node nNode = nList.item(i);
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                // Generate local variables from each "minighost" element in XML
+                Element minighost = (Element) nNode;
+                String name = minighost.getElementsByTagName("name").item(0).getTextContent();
+                String type = minighost.getElementsByTagName("type").item(0).getTextContent();
+                // Construct new minighost and add to minighost list
+                miniGhosts.add(new MiniGhost(name, type));
+            }
         }
-        return results;
+        return miniGhosts;
     }
 
-    static ArrayList<Room> populateRooms(NodeList nList) {
+    static ArrayList<Room> populateRooms(Document document, String element) {
+        NodeList nList = document.getElementsByTagName(element);
         //Instantiate new Room list
         ArrayList<Room> rooms = new ArrayList<>();
         // With node list find each element and construct room object
@@ -138,4 +95,105 @@ class XMLParser implements java.io.Serializable {
         }
         return rooms;
     }
+
+    // XML reader, returns the document based on the passed in String which is the filename before the extension
+    static Document readXML(String filename) {
+        NodeList results = null;
+        Document doc = null;
+        try {
+            // class.xml is place in the folder data within the package structure
+
+            File inputFile = new File("resources/" + filename + ".xml");
+
+            // three statements that result in loading the xml file and creating a Document object
+
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            doc = db.parse(inputFile);
+
+            // get the root node of the XML document
+
+            Element root = doc.getDocumentElement();
+
+            // normalize standarizes the XML format
+            root.normalize();
+
+            // print out the root node of the XML document
+            //System.out.println("Root is " + root.getNodeName());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return doc;
+    }
+
+
+//    static NodeList readRooms() {
+//        NodeList results = null;
+//        try {
+//            // class.xml is place in the folder data within the package structure
+//
+//            File inputFile = new File("resources/Rooms.xml");
+//
+//            // three statements that result in loading the xml file and creating a Document object
+//
+//            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+//            DocumentBuilder db = dbf.newDocumentBuilder();
+//            Document doc = db.parse(inputFile);
+//
+//            // get the root node of the XML document
+//
+//            Element root = doc.getDocumentElement();
+//
+//            // normalize standarizes the XML format
+//            root.normalize();
+//
+//            // print out the root node of the XML document
+//            //System.out.println("Root is " + root.getNodeName());
+//
+//            // Get all "room" elements by tag name
+//            results = doc.getElementsByTagName("room");
+//
+//            // Call populateRooms to create ghosts for game
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return results;
+//    }
+
+    //    static NodeList readGhosts() {
+//        NodeList results = null;
+//        try {
+//            // class.xml is place in the folder data within the package structure
+//
+//            File inputFile = new File("resources/Ghosts.xml");
+//
+//            // three statements that result in loading the xml file and creating a Document object
+//
+//            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+//            DocumentBuilder db = dbf.newDocumentBuilder();
+//            Document doc = db.parse(inputFile);
+//
+//            // get the root node of the XML document
+//
+//            Element root = doc.getDocumentElement();
+//
+//            // normalize standarizes the XML format
+//            root.normalize();
+//
+//            // print out the root node of the XML document
+//            // System.out.println("Root is " + root.getNodeName());
+//
+//            // Get all "ghost" elements by tag name
+//            results = doc.getElementsByTagName("ghost");
+//
+//            // Call populateGhosts to create ghosts for game
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return results;
+//    }
+
+
 }
