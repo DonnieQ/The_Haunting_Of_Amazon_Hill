@@ -21,8 +21,9 @@ public class SplashScreen implements java.io.Serializable {
                 "Chapter 2. Chasing Ghosts (COMING SOON!)\n " +
                 "Chapter 3. Hangman's Gallows (COMING SOON!)\n " +
                 "Press 4. to load saved game\n" +
-                "Please enter a number for Chapter: \n\n" +
+                "Please enter a number for Chapter: " +
                 ConsoleColors.RESET);
+        System.out.print(">>>");
         String gameType = getUserInput();
         // If 1 was selected then a new game is loaded
         if (gameType.matches("1")) {
