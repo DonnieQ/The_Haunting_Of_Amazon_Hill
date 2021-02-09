@@ -45,7 +45,7 @@ public class Game implements java.io.Serializable {
 
             System.out.println("\n" + ConsoleColors.GREEN_BOLD + "Thank you for choosing to play The Haunting of Amazon Hill. " +
                     "What would you like your name to be? " + ConsoleColors.RESET);
-            System.out.println(">>");
+            System.out.print(">>>");
 
             input = scanner.nextLine().strip().split(" ");
 
@@ -76,7 +76,7 @@ public class Game implements java.io.Serializable {
 
             System.out.println();
 
-            System.out.println(">>");
+            System.out.print(">>>");
 
             input = scanner.nextLine().strip().toLowerCase().split(" ");
 
@@ -153,11 +153,11 @@ public class Game implements java.io.Serializable {
                         if (world.getCurrentRoom().getRoomEvidence().isEmpty()) {
                             narrate("Currently there are no items in "
                                     + world.getCurrentRoom().getRoomTitle() + "\n");
-                            narrate("Would you like to document anything about this room? [Yes/No]\n" + ">>>");
+                            narrate("Would you like to document anything about this room? [Yes/No]");
                             writeEntryInJournal();
                         } else {
-                            narrate("You look and notice: " + world.getCurrentRoom().getRoomEvidence() + "\n\n");
-                            narrate("Journal currently opened, would you like to document anything about this room? [Yes/No]\n " + ">>>");
+                            narrate("You look and notice: " + world.getCurrentRoom().getRoomEvidence() + "\n");
+                            narrate("Journal currently opened, would you like to document anything about this room? [Yes/No]");
                             writeEntryInJournal();
                         }
                         System.out.println(divider);
@@ -233,8 +233,8 @@ public class Game implements java.io.Serializable {
                                         e.printStackTrace();
                                     }
                                 default:
-                                    System.out.println("You hit wall. Try again: ");
-                                    System.out.println(">>");
+                                    System.out.println("You hit a wall. Try again: ");
+                                    System.out.print(">>>");
                                     input = scanner.nextLine().strip().toLowerCase().split(" ");
                                     break;
 
@@ -266,11 +266,13 @@ public class Game implements java.io.Serializable {
     }
 
     private void writeEntryInJournal() {
+        System.out.print(">>>");
         String journalEntry = scanner.nextLine().strip();
         if (journalEntry.equals("no")) {
             narrate("Journal Closed.");
         } else if (journalEntry.equalsIgnoreCase("yes")) {
             narrate("Your entry: ");
+            System.out.print(">>>");
             journalEntry = scanner.nextLine().strip();
             player.setJournal(journalEntry);
         } else {
