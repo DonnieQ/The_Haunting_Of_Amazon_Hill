@@ -48,7 +48,7 @@ public class SplashScreen implements java.io.Serializable {
             }
 
         } else {
-            System.out.println("invalid selection , please choose 1.");
+            System.out.println("Invalid selection , please enter 1.");
             splash();
         }
     }
