@@ -194,7 +194,7 @@ public class Game implements java.io.Serializable {
                     case "move":
                     case "go":
 
-                        changeRoom(isValidInput, input);
+                        changeRoom(isValidInput, input, attempt);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Make sure to add a verb e.g. 'move', 'go', 'open', 'read' then a noun e.g. 'north', 'map', 'journal' ");
@@ -205,7 +205,7 @@ public class Game implements java.io.Serializable {
         System.out.println("Thank you for playing our game!!");
     }
 
-    private void changeRoom(boolean isValidInput, String[] input) {
+    private void changeRoom(boolean isValidInput, String[] input, int attemptCount) {
         while (isValidInput) {
             switch (input[1]) {
 
@@ -228,8 +228,8 @@ public class Game implements java.io.Serializable {
                 default:
                     System.out.println("You hit a wall. Try again: ");
                     System.out.print(">>>");
-                    attempt++;
-                    if (attempt >= 2) {
+                    attemptCount++;
+                    if (attemptCount >= 2) {
                         System.out.println();
                         openMap();
                         System.out.println("Where would you like to go? ");
