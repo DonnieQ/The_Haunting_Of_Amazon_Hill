@@ -17,7 +17,7 @@ class XMLParser implements java.io.Serializable {
         try {
             // class.xml is place in the folder data within the package structure
 
-            File inputFile = new File("The_Haunting_Of_Amazon_Hill/resources/Ghosts.xml");
+            File inputFile = new File("resources/Ghosts.xml");
 
             // three statements that result in loading the xml file and creating a Document object
 
@@ -78,7 +78,7 @@ class XMLParser implements java.io.Serializable {
         try {
             // class.xml is place in the folder data within the package structure
 
-            File inputFile = new File("The_Haunting_Of_Amazon_Hill/resources/Rooms.xml");
+            File inputFile = new File("resources/Rooms.xml");
 
             // three statements that result in loading the xml file and creating a Document object
 
