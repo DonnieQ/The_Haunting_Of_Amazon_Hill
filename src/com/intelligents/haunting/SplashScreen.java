@@ -6,7 +6,7 @@ public class SplashScreen implements java.io.Serializable {
     public static Scanner scanner = new Scanner(System.in);
     PrintFiles p = new PrintFiles();
     SaveGame save = new SaveGame();
-    private final MusicPlayer themeSong = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/VIKINGS THEME SONG.wav");
+    private final MusicPlayer themeSong = new MusicPlayer("resources/Sounds/VIKINGS THEME SONG.wav");
 
     public SplashScreen() {
         themeSong.playSoundEffect();
@@ -29,9 +29,9 @@ public class SplashScreen implements java.io.Serializable {
             themeSong.stopSoundEffect();
             Game g = new Game();
 
-            p.print("The_Haunting_Of_Amazon_Hill/resources", "introText");
+            p.print("resources", "introText");
 
-            p.printAlternateColor("The_Haunting_Of_Amazon_Hill/resources", "settingTheScene");
+            p.printAlternateColor("resources", "settingTheScene");
 
             g.start(false);
         //If loaded game was selected then the saved file is loaded
@@ -53,7 +53,7 @@ public class SplashScreen implements java.io.Serializable {
     }
 
     public void pressEnterToContinue() {
-        p.print("The_Haunting_Of_Amazon_Hill/resources", "splashScreen");
+        p.print("resources", "splashScreen");
         System.out.println(ConsoleColors.YELLOW + "Press Enter key to continue..." + ConsoleColors.RESET);
         try {
             System.in.read();

@@ -14,11 +14,11 @@ public class Game implements java.io.Serializable {
     private final String divider = "*******************************************************************************************";
     private Player player;
     private final transient PrintFiles p = new PrintFiles();
-    private final MusicPlayer mp = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/Haunted Mansion.wav");
-    private final MusicPlayer soundEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/page-flip-4.wav");
-    private final MusicPlayer walkEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/footsteps-4.wav");
-    private final MusicPlayer keyboardEffect = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/fast-pace-typing.wav");
-    private final MusicPlayer paperFalling = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/paper flutter (2).wav");
+    private final MusicPlayer mp = new MusicPlayer("resources/Sounds/Haunted Mansion.wav");
+    private final MusicPlayer soundEffect = new MusicPlayer("resources/Sounds/page-flip-4.wav");
+    private final MusicPlayer walkEffect = new MusicPlayer("resources/Sounds/footsteps-4.wav");
+    private final MusicPlayer keyboardEffect = new MusicPlayer("resources/Sounds/fast-pace-typing.wav");
+    private final MusicPlayer paperFalling = new MusicPlayer("resources/Sounds/paper flutter (2).wav");
     private final Scanner scanner = new Scanner(System.in);
     private int guessCounter = 0;
     boolean isGameRunning = true;
@@ -109,34 +109,34 @@ public class Game implements java.io.Serializable {
                         break;
                         //
                     case "help":
-                        p.print("The_Haunting_Of_Amazon_Hill/resources", "Rules");
+                        p.print("resources", "Rules");
                         break;
                     case "open":
                         //TODO: method in world????
                         switch (world.getCurrentRoom().getRoomTitle()) {
                             case "Dining Room":
-                                p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(DiningRoom)");
+                                p.print("resources", "Map(DiningRoom)");
                                 break;
                             case "Balcony":
-                                p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Balcony)");
+                                p.print("resources", "Map(Balcony)");
                                 break;
                             case "Attic":
-                                p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Attic)");
+                                p.print("resources", "Map(Attic)");
                                 break;
                             case "Dungeon":
-                                p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Dungeon)");
+                                p.print("resources", "Map(Dungeon)");
                                 break;
                             case "Furnace Room":
-                                p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(FurnaceRoom)");
+                                p.print("resources", "Map(FurnaceRoom)");
                                 break;
                             case "Garden Of Eden":
-                                p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(GardenOfEden)");
+                                p.print("resources", "Map(GardenOfEden)");
                                 break;
                             case "Library":
-                                p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Library)");
+                                p.print("resources", "Map(Library)");
                                 break;
                             case "Lobby":
-                                p.print("The_Haunting_Of_Amazon_Hill/resources", "Map(Lobby)");
+                                p.print("resources", "Map(Lobby)");
                                 break;
                             case "Secret Tunnel":
                                 System.out.println("You're in a super secret tunnel!!! ");
