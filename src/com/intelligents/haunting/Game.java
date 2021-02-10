@@ -30,9 +30,11 @@ public class Game implements java.io.Serializable {
         populateMiniGhostList();
         setCurrentGhost(getRandomGhost());
         assignRandomEvidenceToMap();
+        assignRandomMiniGhostToMap();
     }
 
     void start(boolean isGameLoaded) {
+        // this isn't actually used to error check anywhere - change so that it checks a parser to actually check validity
         boolean isValidInput;
 
 
@@ -61,13 +63,14 @@ public class Game implements java.io.Serializable {
         }
 
         narrateRooms(world.getCurrentRoom().getDescription());
-        
+
         //has access to entire Game object. tracking all changes
         SaveGame.setGame(this);
 
 
         while (isGameRunning) {
             isValidInput = true;
+            int attempt = 0;
 
             String currentLoc = ConsoleColors.BLUE_BOLD + "Your location is " + world.getCurrentRoom().getRoomTitle() + ConsoleColors.RESET;
             String moveGuide = ConsoleColors.RESET + ConsoleColors.YELLOW + "To move type: Go North, Go East, Go South, or Go West" + ConsoleColors.RESET;
@@ -96,60 +99,39 @@ public class Game implements java.io.Serializable {
                             mp.setVolume(-15.0f);
                         }
                         break;
-                        //Prints journal and plays page turning sound effect
+                    //Prints journal and plays page turning sound effect
                     case "read":
                         printJournal();
                         soundEffect.playSoundEffect();
                         break;
-                        //Creates a save file that can be loaded
+                    //Creates a save file that can be loaded
                     case "save":
                         SaveGame.save();
                         break;
-                        //Reads the loaded usr.save file
+                    //Reads the loaded usr.save file
                     case "load":
                         SaveGame.loadGame();
                         break;
-                        //
+                    //
                     case "help":
                         p.print("resources", "Rules");
                         break;
                     case "open":
                         //TODO: method in world????
-                        switch (world.getCurrentRoom().getRoomTitle()) {
-                            case "Dining Room":
-                                p.print("resources", "Map(DiningRoom)");
-                                break;
-                            case "Balcony":
-                                p.print("resources", "Map(Balcony)");
-                                break;
-                            case "Attic":
-                                p.print("resources", "Map(Attic)");
-                                break;
-                            case "Dungeon":
-                                p.print("resources", "Map(Dungeon)");
-                                break;
-                            case "Furnace Room":
-                                p.print("resources", "Map(FurnaceRoom)");
-                                break;
-                            case "Garden Of Eden":
-                                p.print("resources", "Map(GardenOfEden)");
-                                break;
-                            case "Library":
-                                p.print("resources", "Map(Library)");
-                                break;
-                            case "Lobby":
-                                p.print("resources", "Map(Lobby)");
-                                break;
-                            case "Secret Tunnel":
-                                System.out.println("You're in a super secret tunnel!!! ");
-                                break;
-                        }
+                        openMap();
                         break;
-                        //Displays room contents/evidence
+                    //Displays room contents/evidence
                     case "look":
                     case "show":
                         System.out.println(divider);
                         System.out.printf("%46s%n", currentLoc);
+                        if (world.getCurrentRoom().getRoomMiniGhost() != null){
+                            MiniGhost currentMiniGhost = world.getCurrentRoom().getRoomMiniGhost();
+                            narrate("You have run into a " + currentMiniGhost.getName() +
+                                    "what will you do? [Fight/Run]");
+                            runCombat(currentMiniGhost);
+
+                        }
                         if (world.getCurrentRoom().getRoomEvidence().isEmpty()) {
                             narrate("Currently there are no items in "
                                     + world.getCurrentRoom().getRoomTitle() + "\n");
@@ -162,7 +144,7 @@ public class Game implements java.io.Serializable {
                         }
                         System.out.println(divider);
                         break;
-                        //Allows user to leave if more than one room has been input into RoomsVisted
+                    //Allows user to leave if more than one room has been input into RoomsVisted
                     case "exit":
                         if (userAbleToExit()) {
                             // In order to win, user has to have correct evidence and guessed right ghost
@@ -212,35 +194,7 @@ public class Game implements java.io.Serializable {
                         break;
                     case "move":
                     case "go":
-
-                        while (isValidInput) {
-                            switch (input[1]) {
-
-                                case "north":
-                                case "east":
-                                case "south":
-                                case "west":
-                                    try {
-                                        if (world.getCurrentRoom().roomExits.containsKey(input[1])) {
-                                            world.setCurrentRoom(world.getCurrentRoom().roomExits.get(input[1]));
-                                            isValidInput = false;
-                                            walkEffect.playSoundEffect();
-                                            Thread.sleep(1800);
-                                            narrateRooms(world.getCurrentRoom().getDescription());
-                                            break;
-                                        }
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-                                default:
-                                    System.out.println("You hit a wall. Try again: ");
-                                    System.out.print(">>>");
-                                    input = scanner.nextLine().strip().toLowerCase().split(" ");
-                                    break;
-
-                            }
-
-                        }
+                        changeRoom(isValidInput, input, attempt);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("Make sure to add a verb e.g. 'move', 'go', 'open', 'read' then a noun e.g. 'north', 'map', 'journal' ");
@@ -249,6 +203,77 @@ public class Game implements java.io.Serializable {
         }
 
         System.out.println("Thank you for playing our game!!");
+    }
+
+    private void changeRoom(boolean isValidInput, String[] input, int attemptCount) {
+        while (isValidInput) {
+            switch (input[1]) {
+
+                case "north":
+                case "east":
+                case "south":
+                case "west":
+                    try {
+                        if (world.getCurrentRoom().roomExits.containsKey(input[1])) {
+                            player.setMostRecentExit(input[1]);
+                            world.setCurrentRoom(world.getCurrentRoom().roomExits.get(input[1]));
+                            isValidInput = false;
+                            walkEffect.playSoundEffect();
+                            Thread.sleep(1800);
+                            narrateRooms(world.getCurrentRoom().getDescription());
+                            break;
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                default:
+                    System.out.println("You hit a wall. Try again: ");
+                    System.out.print(">>>");
+                    attemptCount++;
+                    if (attemptCount >= 2) {
+                        System.out.println();
+                        openMap();
+                        System.out.println("Where would you like to go? ");
+                        System.out.print(">>>");
+                    }
+                    input = scanner.nextLine().strip().toLowerCase().split(" ");
+                    break;
+
+            }
+
+        }
+    }
+
+    private void openMap() {
+        switch (world.getCurrentRoom().getRoomTitle()) {
+            case "Dining Room":
+                p.print("resources", "Map(DiningRoom)");
+                break;
+            case "Balcony":
+                p.print("resources", "Map(Balcony)");
+                break;
+            case "Attic":
+                p.print("resources", "Map(Attic)");
+                break;
+            case "Dungeon":
+                p.print("resources", "Map(Dungeon)");
+                break;
+            case "Furnace Room":
+                p.print("resources", "Map(FurnaceRoom)");
+                break;
+            case "Garden Of Eden":
+                p.print("resources", "Map(GardenOfEden)");
+                break;
+            case "Library":
+                p.print("resources", "Map(Library)");
+                break;
+            case "Lobby":
+                p.print("resources", "Map(Lobby)");
+                break;
+            case "Secret Tunnel":
+                System.out.println("You're in a super secret tunnel!!! ");
+                break;
+        }
     }
 
     private String getTypeOfGhostFromUser() {
@@ -278,6 +303,40 @@ public class Game implements java.io.Serializable {
         } else {
             System.out.println("Invalid Journal entry. Please look/show again to document again.");
         }
+    }
+
+    private void runCombat(MiniGhost minighost) {
+        System.out.print(">>");
+        String userCommands = scanner.nextLine().strip().toLowerCase();
+        if (userCommands.equals("fight")) {
+            narrate("You punch the " + minighost.getName() + " in the face. Your hand passes through, but it dissipates anyways.");
+            world.getCurrentRoom().setRoomMiniGhost(null);
+            System.out.println(world.getCurrentRoom().getRoomMiniGhost());
+        }
+        if (userCommands.equals("run")){
+            narrate("Frightened to the point of tears, you flee back the way you came.");
+            changeRoom(true, invertPlayerRoom(player.getMostRecentExit()), 0);
+        }
+    }
+
+    private String[] invertPlayerRoom(String mostRecentExit) {
+        String[] opposite = new String[]{"go", null};
+        switch (mostRecentExit){
+            case "east":
+                opposite[1] = "west";
+                break;
+            case "north":
+                opposite[1] = "south";
+                break;
+            case "south":
+                opposite[1] = "north";
+                break;
+            // default case is west, which will make the player go east in case most recent exit is null from just starting
+            default:
+                opposite[1] = "east";
+                break;
+        }
+        return opposite;
     }
 
 
@@ -336,6 +395,29 @@ public class Game implements java.io.Serializable {
             System.out.println("The data given is empty, cannot perform function");
         }
     }
+    private void assignRandomMiniGhostToMap() {
+        try {
+            //for each minighost, get rooms from world.gamemap equivalent to the number of evidences.
+            for (int i = 0; i < miniGhosts.size(); i++) {
+                // Success condition
+                boolean addedMiniGhost = false;
+
+                // Loop while no success
+                while (!addedMiniGhost) {
+                    Room x = getRandomRoomFromWorld();
+                    // System.out.println("random room chosen is " + x.getRoomTitle());
+                    if (x.getRoomMiniGhost() == (null)) {
+                        x.setRoomMiniGhost(miniGhosts.get(i));
+                        // System.out.println("added " + currentGhost.getEvidence().get(i) + " to " + x.getRoomTitle());
+                        addedMiniGhost = true;
+                    }
+                }
+
+            }
+        } catch (NullPointerException e) {
+            System.out.println("There is no minighost to add to the room.");
+        }
+    }
 
     private Room getRandomRoomFromWorld() {
         int index = r.nextInt(world.gameMap.size());
@@ -372,6 +454,10 @@ public class Game implements java.io.Serializable {
         return ghosts;
     }
 
+    List<MiniGhost> getMiniGhosts() {
+        return miniGhosts;
+    }
+
     void setGhosts(List<Ghost> ghosts) {
         this.ghosts = ghosts;
     }
@@ -401,7 +487,6 @@ public class Game implements java.io.Serializable {
     }
 
     private boolean userAbleToExit() {
-        boolean ableToExit = true;
         // Is player currently in lobby? Has user visited any other rooms? Is so size of roomsVisited would be greater than 1
         if (!world.getCurrentRoom().getRoomTitle().equals("Lobby")) {
             System.out.println("You can only exit from Lobby");
@@ -411,7 +496,7 @@ public class Game implements java.io.Serializable {
             System.out.println("You must visit more than one room to exit");
             return false;
         }
-        return ableToExit;
+        return true;
     }
 
     private void resetWorld() {
@@ -508,5 +593,6 @@ public class Game implements java.io.Serializable {
         }
         System.out.print(ConsoleColors.RESET);
     }
+
 
 }

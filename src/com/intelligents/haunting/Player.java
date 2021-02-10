@@ -9,6 +9,7 @@ class Player implements java.io.Serializable {
 
     private static Player playerSingleton;
     private String name;
+    private String mostRecentExit;
     private final List<String> journal = new ArrayList<>();
     private final List<String> roomsVisited = new ArrayList<>();
 
@@ -25,6 +26,14 @@ class Player implements java.io.Serializable {
             playerSingleton = new Player();
         }
         return playerSingleton;
+    }
+
+    public String getMostRecentExit() {
+        return mostRecentExit;
+    }
+
+    public void setMostRecentExit(String mostRecentExit) {
+        this.mostRecentExit = mostRecentExit;
     }
 
     void addToRoomsVisited(String roomTitle) {
