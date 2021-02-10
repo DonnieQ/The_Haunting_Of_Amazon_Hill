@@ -31,7 +31,7 @@
         <background>A supernatural being, typically associated with evil.
             Is summoned to do works of malice, or to create chaos amongst those it haunts.</background>
         <evidence>The ghost has entered the physical realm and harmed your body causing lacerations</evidence>
-        <evidence>A flash of a figure pop up in the corner. likely to be hallucinations</evidence>
+        <evidence>A flash of a figure pop up in the corner, likely to be hallucinations</evidence>
         <backstory>When Edgar was just a little boy he would work very hard for his allowance.
             When he saved up enough money he would go down to the local hardware store. Amongst the items he bought,
             they were items always used for torture devices. First victim he used them on was his Skipper, his dog.
@@ -42,4 +42,10 @@
             The motives of Edgar's behavior are unknown. All we know is his sadism is very much apparent on the victims
             he haunts today.</backstory>
     </ghost>
+    <minighosts>
+        <minighost>
+            <name>Angry Grandma</name>
+            <type>apparition</type>
+        </minighost>
+    </minighosts>
 </ghosts>

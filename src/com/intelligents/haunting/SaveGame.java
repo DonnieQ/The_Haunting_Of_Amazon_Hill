@@ -29,6 +29,7 @@ class SaveGame {
             oos.writeObject(game.getWorld());
             oos.writeObject(game.getCurrentGhost());
             oos.writeObject(game.getGhosts());
+            oos.writeObject(game.getMiniGhosts());
             oos.writeObject(game.getPlayer());
             // make sure any buffered data is written before i close the stream
             oos.flush();
@@ -59,6 +60,7 @@ class SaveGame {
             game.setPlayer(player);
             game.setWorld(world);
             game.setCurrentGhost(ghost);
+            // // TODO: 2/10/2021 next line throws an exception cannot cast an arraylist to a player - need to troubleshoot 
             game.setGhosts(ghosts);
             ois.close();
         } catch (Exception e) {

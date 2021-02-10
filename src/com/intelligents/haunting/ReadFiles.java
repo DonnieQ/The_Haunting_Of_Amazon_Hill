@@ -15,7 +15,7 @@ class ReadFiles {
         String results = "";
         if (fileToRead != null) {
             try {
-                results = Files.readString(Path.of("The_Haunting_Of_Amazon_Hill/resources", fileToRead));
+                results = Files.readString(Path.of("resources", fileToRead));
             } catch (IOException e) {
                 e.printStackTrace();
             }

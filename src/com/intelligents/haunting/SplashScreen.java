@@ -6,7 +6,7 @@ public class SplashScreen implements java.io.Serializable {
     public static Scanner scanner = new Scanner(System.in);
     PrintFiles p = new PrintFiles();
     SaveGame save = new SaveGame();
-    private final MusicPlayer themeSong = new MusicPlayer("The_Haunting_Of_Amazon_Hill/resources/Sounds/VIKINGS THEME SONG.wav");
+    private final MusicPlayer themeSong = new MusicPlayer("resources/Sounds/VIKINGS THEME SONG.wav");
 
     public SplashScreen() {
         themeSong.playSoundEffect();
@@ -21,17 +21,18 @@ public class SplashScreen implements java.io.Serializable {
                 "Chapter 2. Chasing Ghosts (COMING SOON!)\n " +
                 "Chapter 3. Hangman's Gallows (COMING SOON!)\n " +
                 "Press 4. to load saved game\n" +
-                "Please enter a number for Chapter: \n\n" +
+                "Please enter a number for Chapter: " +
                 ConsoleColors.RESET);
+        System.out.print(">>>");
         String gameType = getUserInput();
         // If 1 was selected then a new game is loaded
         if (gameType.matches("1")) {
             themeSong.stopSoundEffect();
             Game g = new Game();
 
-            p.print("The_Haunting_Of_Amazon_Hill/resources", "introText");
+            p.print("resources", "introText");
 
-            p.printAlternateColor("The_Haunting_Of_Amazon_Hill/resources", "settingTheScene");
+            p.printAlternateColor("resources", "settingTheScene");
 
             g.start(false);
         //If loaded game was selected then the saved file is loaded
@@ -47,13 +48,13 @@ public class SplashScreen implements java.io.Serializable {
             }
 
         } else {
-            System.out.println("invalid selection , please choose 1.");
+            System.out.println("Invalid selection , please enter 1.");
             splash();
         }
     }
 
     public void pressEnterToContinue() {
-        p.print("The_Haunting_Of_Amazon_Hill/resources", "splashScreen");
+        p.print("resources", "splashScreen");
         System.out.println(ConsoleColors.YELLOW + "Press Enter key to continue..." + ConsoleColors.RESET);
         try {
             System.in.read();
