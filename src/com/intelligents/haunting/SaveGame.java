@@ -49,7 +49,7 @@ class SaveGame {
     void loadGame() {
         try {
             //pulling data from file with FileInputStream
-            FileInputStream fis = new FileInputStream("usr.save");
+            FileInputStream fis = new FileInputStream("D:\\Coding\\projects\\PracticalCapstone\\usr.save");
             //passing bytes to ObjectInputStream for the ability to read those bytes as data representing objects
             ObjectInputStream ois = new ObjectInputStream(fis);
 
@@ -60,6 +60,7 @@ class SaveGame {
             game.setPlayer(player);
             game.setWorld(world);
             game.setCurrentGhost(ghost);
+            // // TODO: 2/10/2021 next line throws an exception cannot cast an arraylist to a player - need to troubleshoot 
             game.setGhosts(ghosts);
             ois.close();
         } catch (Exception e) {
