@@ -44,7 +44,6 @@ class MusicPlayer {
 
     void quitMusic() {
         clip.close();
-
     }
 
     void playSoundEffect() {
