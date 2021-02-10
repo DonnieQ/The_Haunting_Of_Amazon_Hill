@@ -136,6 +136,10 @@ public class HauntingJFrame extends JWindow implements ActionListener{
         textDisplayGameWindow.setText(text);
     }
 
+    public String getUserResponse() {
+        return userResponse;
+    }
+
     private void showJournal() {
         frame = new JFrame("Journal");
         frame.setSize(500, 500);
