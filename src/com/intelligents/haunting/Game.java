@@ -1,5 +1,7 @@
 package com.intelligents.haunting;
 
+import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -16,6 +18,8 @@ public class Game implements java.io.Serializable {
     private final Random r = new Random();
     private final String divider = "*******************************************************************************************";
     private Player player;
+    private HauntingJFrame jFrame;
+    SaveGame save = new SaveGame();
     private final transient PrintFiles p = new PrintFiles();
     private final MusicPlayer mp = new MusicPlayer("resources/Sounds/Haunted Mansion.wav");
     private final MusicPlayer soundEffect = new MusicPlayer("resources/Sounds/page-flip-4.wav");
@@ -25,14 +29,72 @@ public class Game implements java.io.Serializable {
     private final Scanner scanner = new Scanner(System.in);
     private int guessCounter = 0;
     boolean isGameRunning = true;
+    private String currentLoc = "Your location is " + world.getCurrentRoom().getRoomTitle();
+    String moveGuide = "To move type: Go North, Go East, Go South, or Go West";
 
-    public Game() {
+    public Game(HauntingJFrame jFrame) throws IOException {
         //populates the main ghost list and sets a random ghost for the current game session
         populateGhostList();
         populateMiniGhostList();
         setCurrentGhost(getRandomGhost());
         assignRandomEvidenceToMap();
         assignRandomMiniGhostToMap();
+        this.jFrame = jFrame;
+    }
+
+    public void intro(String[] gameType) {
+        if (gameType[0].matches("1")) {
+//            themeSong.stopSoundEffect();
+            narrate("        ***********************************************************************************************************************\n" +
+                    "        ring...ring...ring...click\n" +
+                    "        *voicemail* \"Detective, we have a situation. There seems to be a disturbance over on Amazon Hill. The residents have\n" +
+                    "        been experiencing some unexplained events taking place in their home. After speaking to the madam, this may be up your\n" +
+                    "        alley. I know you may not be inclined due to the previous turning out to be a hoax... but I assure you, this one is\n" +
+                    "        not sitting right. The details have been sent by courier, happy hunting...\n" +
+                    "\n" +
+                    "        I slowly walked towards the house, the leaves crunching under my feet. The broken gates were open, creaking in the wind\n" +
+                    "        and felt wet and as cold as ice. On either side were demented gargoyles. It was a dark, cold night. The lightning lit up\n" +
+                    "        the house and the thunder sent shock-waves down my spine. The house was dark and gloomy. It had narrow broken windows and\n" +
+                    "        an open wooden porch, it looked abandoned but it shouldn't be, a light was on in the attic room. I started to hear faint\n" +
+                    "        singing in the distance as my heart began to beat faster as I continued to walk past the bare trees towards the front door.\n" +
+                    "        ***********************************************************************************************************************" +
+                    "\n" + "Thank you for choosing to play The Haunting of Amazon Hill. " +
+                    "What would you like your name to be? ");
+
+//            start(false);
+            jFrame.stopThemeSong();
+            mp.startMusic();
+            //If loaded game was selected then the saved file is loaded
+        } else if (gameType[0].matches("4")) {
+            try {
+//                themeSong.stopSoundEffect();
+                save.setGame(this);
+                save.loadGame();
+
+//                start(true);
+                jFrame.stopThemeSong();
+                mp.startMusic();
+                SaveGame.setGame(this);
+                System.out.println("Loading game!!!");
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            narrate("Invalid selection , please enter 1.");
+        }
+    }
+
+    void createPlayer(String[] nameInput) {
+        player = Player.getInstance();
+
+        player.setName(nameInput[0]);
+
+        narrate(" --> If you're new to the game type help for assistance\n" +
+                "Good luck to you, " + player.getName() + "\n" +
+                "\n" + currentLoc + "\n" +
+                moveGuide);
+
     }
 
     void start(boolean isGameLoaded) {
@@ -42,40 +104,18 @@ public class Game implements java.io.Serializable {
 
         String[] input;
 
-
-        mp.startMusic();
-        if (!isGameLoaded) {
-
-
-            System.out.println("\n" + ConsoleColors.GREEN_BOLD + "Thank you for choosing to play The Haunting of Amazon Hill. " +
-                    "What would you like your name to be? " + ConsoleColors.RESET);
-            System.out.print(">>>");
-
-            input = scanner.nextLine().strip().split(" ");
-
-            player = Player.getInstance();
-
-            player.setName(input[0]);
-
-            System.out.printf("%175s%n", ConsoleColors.CYAN_UNDERLINED + " --> If you're new to the game type help for assistance" + ConsoleColors.RESET);
-
-
-            System.out.printf("%70s%n%n", ConsoleColors.WHITE_BOLD_BRIGHT + "Good luck to you, " + player.getName() + ConsoleColors.RESET);
-
-        }
-
         narrateRooms(world.getCurrentRoom().getDescription());
 
         //has access to entire Game object. tracking all changes
-        SaveGame.setGame(this);
+
 
 
         while (isGameRunning) {
             isValidInput = true;
             int attempt = 0;
 
-            String currentLoc = ConsoleColors.BLUE_BOLD + "Your location is " + world.getCurrentRoom().getRoomTitle() + ConsoleColors.RESET;
-            String moveGuide = ConsoleColors.RESET + ConsoleColors.YELLOW + "To move type: Go North, Go East, Go South, or Go West" + ConsoleColors.RESET;
+//            String currentLoc = ConsoleColors.BLUE_BOLD + "Your location is " + world.getCurrentRoom().getRoomTitle() + ConsoleColors.RESET;
+//            String moveGuide = ConsoleColors.RESET + ConsoleColors.YELLOW + "To move type: Go North, Go East, Go South, or Go West" + ConsoleColors.RESET;
 
             System.out.printf("%45s %95s %n", currentLoc, moveGuide);
 
@@ -87,14 +127,14 @@ public class Game implements java.io.Serializable {
 
 
             // Checks if current room is in roomsVisited List. If not adds currentRoom to roomsVisited
-            processInput(isValidInput, input, attempt, currentLoc);
+            processInput(isValidInput, input, attempt);
 
         }
 
         System.out.println("Thank you for playing our game!!");
     }
 
-    private void processInput(boolean isValidInput, String[] input, int attempt, String currentLoc) {
+    void processInput(boolean isValidInput, String[] input, int attempt) {
         checkIfRoomVisited();
         try {
             switch (input[0]) {
@@ -526,19 +566,20 @@ public class Game implements java.io.Serializable {
         int seconds = 1;
         int numChars = input.toCharArray().length;
         long sleepTime = (long) seconds * 1000 / numChars;
-        System.out.print(ConsoleColors.RED);
-        try {
+        jFrame.textDisplayGameWindow.setForeground(Color.RED);
+//        try {
             keyboardEffect.playSoundEffect();
-            for (Character c : input.toCharArray()) {
-                System.out.print(c);
-                Thread.sleep(sleepTime);
-            }
+//            for (Character c : input.toCharArray()) {
+//                System.out.print(c);
+//                Thread.sleep(sleepTime);
+//            }
+            jFrame.setTextbox(input);
             keyboardEffect.stopSoundEffect();
-            System.out.println();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.print(ConsoleColors.RESET);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        jFrame.textDisplayGameWindow.setForeground(Color.white);
+
     }
 
     private void chrisIsCool() {
