@@ -4,12 +4,12 @@ import java.io.IOException;
 
 public class Controller {
     private boolean introScreen;
-    private boolean addPlayerName;
+    private boolean nameSet;
     private Game game;
 
     public Controller(Game game) throws IOException {
         introScreen = true;
-        addPlayerName = true;
+        nameSet = false;
         this.game = game;
     }
 
@@ -17,6 +17,14 @@ public class Controller {
         if (introScreen) {
             game.intro(response);
             introScreen = false;
+            return;
+        } else if (!introScreen && !nameSet) {
+            game.createPlayer(response);
+            nameSet = true;
+        } else {
+            game.processInput(true, response, 0);
         }
     }
+
+
 }
