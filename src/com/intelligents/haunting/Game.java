@@ -139,16 +139,18 @@ public class Game implements java.io.Serializable {
                     System.out.printf("%46s%n", currentLoc);
 
                     if (world.getCurrentRoom().getRoomEvidence().isEmpty()) {
-                        narrate("Currently there are no items in "
+                        narrate("Currently there is no evidence in the "
                                 + world.getCurrentRoom().getRoomTitle() + "\n");
-                        narrate("Would you like to document anything about this room? [Yes/No]");
-                        writeEntryInJournal();
                     } else {
+                        addEvidenceToJournal();
                         narrate("You look and notice: " + world.getCurrentRoom().getRoomEvidence() + "\n");
-                        narrate("Journal currently opened, would you like to document anything about this room? [Yes/No]");
-                        writeEntryInJournal();
+                        narrate("Evidence logged into your journal.");
                     }
                     System.out.println(divider);
+                    break;
+                case "write":
+                    narrate("Would you like to document anything in your journal? [Yes/No]");
+                    writeEntryInJournal();
                     break;
                 //Allows user to leave if more than one room has been input into RoomsVisted
                 case "exit":
@@ -311,6 +313,13 @@ public class Game implements java.io.Serializable {
         String userGuessed = scanner.nextLine().strip();
         narrate("Good job gathering evidence " + player.getName() + "\nYou guessed " + userGuessed);
         return userGuessed;
+    }
+
+    private void addEvidenceToJournal() {
+        if(!world.getCurrentRoom().getRoomEvidence().isEmpty()) {
+            String journalEntry = (world.getCurrentRoom().getRoomTitle() + ": " + world.getCurrentRoom().getRoomEvidence() + "(Automatically Logged)");
+            player.setJournal(journalEntry);
+        }
     }
 
     private void writeEntryInJournal() {
