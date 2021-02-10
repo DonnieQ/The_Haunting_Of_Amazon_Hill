@@ -99,42 +99,6 @@ public class Game implements java.io.Serializable {
 
     }
 
-    void start(boolean isGameLoaded) {
-        // this isn't actually used to error check anywhere - change so that it checks a parser to actually check validity
-        boolean isValidInput;
-
-
-        String[] input;
-
-        narrateRooms(world.getCurrentRoom().getDescription());
-
-        //has access to entire Game object. tracking all changes
-
-
-
-        while (isGameRunning) {
-            isValidInput = true;
-            int attempt = 0;
-
-//            String currentLoc = ConsoleColors.BLUE_BOLD + "Your location is " + world.getCurrentRoom().getRoomTitle() + ConsoleColors.RESET;
-//            String moveGuide = ConsoleColors.RESET + ConsoleColors.YELLOW + "To move type: Go North, Go East, Go South, or Go West" + ConsoleColors.RESET;
-
-            System.out.printf("%45s %95s %n", currentLoc, moveGuide);
-
-            System.out.println();
-
-            System.out.print(">>>");
-
-            input = scanner.nextLine().strip().toLowerCase().split(" ");
-
-
-            // Checks if current room is in roomsVisited List. If not adds currentRoom to roomsVisited
-            processInput(isValidInput, input, attempt);
-
-        }
-        System.out.println("Thank you for playing our game!!");
-    }
-
 
     void processInput(boolean isValidInput, String[] input, int attempt) {
         checkIfRoomVisited();
@@ -181,13 +145,14 @@ public class Game implements java.io.Serializable {
 
                     if (world.getCurrentRoom().getRoomEvidence().isEmpty()) {
                         narrate("Currently there is no evidence in the "
-                                + world.getCurrentRoom().getRoomTitle() + "\n");
+                                + world.getCurrentRoom().getRoomTitle() + "\n" +
+                                divider);
                     } else {
                         addEvidenceToJournal();
-                        narrate("You look and notice: " + world.getCurrentRoom().getRoomEvidence() + "\n");
-                        narrate("Evidence logged into your journal.");
+                        narrate("You look and notice: " + world.getCurrentRoom().getRoomEvidence() + "\n" +
+                                "Evidence logged into your journal.\n" +
+                                divider);
                     }
-                    System.out.println(divider);
                     break;
                 case "write":
                     narrate("Would you like to document anything in your journal? [Yes/No]");
@@ -250,7 +215,7 @@ public class Game implements java.io.Serializable {
                     changeRoom(isValidInput, input, attempt);
             }
         } catch (ArrayIndexOutOfBoundsException | IOException e) {
-            System.out.println("Make sure to add a verb e.g. 'move', 'go', 'open', 'read' then a noun e.g. 'north', 'map', 'journal' ");
+            narrate("Make sure to add a verb e.g. 'move', 'go', 'open', 'read' then a noun e.g. 'north', 'map', 'journal' ");
         }
     }
 
@@ -286,16 +251,13 @@ public class Game implements java.io.Serializable {
                         e.printStackTrace();
                     }
                 default:
-                    System.out.println("You hit a wall. Try again: ");
-                    System.out.print(">>>");
+                    narrate("You hit a wall. Try again: ");
                     attemptCount++;
                     if (attemptCount >= 2) {
-                        System.out.println();
                         openMap();
-                        System.out.println("Where would you like to go? ");
-                        System.out.print(">>>");
+                        narrate("Where would you like to go? ");
                     }
-                    input = scanner.nextLine().strip().toLowerCase().split(" ");
+                    input = jFrame.userResponse;
                     break;
 
             }
@@ -305,7 +267,7 @@ public class Game implements java.io.Serializable {
             narrate("You have run into a " + world.getCurrentRoom().getRoomMiniGhost().getName() +
                     ". What will you do? [Fight/Run]");
             System.out.print(">>");
-            input = scanner.nextLine().strip().toLowerCase().split(" ");
+            input = jFrame.userResponse;
             narrate(runCombat(input, this, scanner));
         }
     }
@@ -346,11 +308,9 @@ public class Game implements java.io.Serializable {
     private String getTypeOfGhostFromUser() {
         narrate("You've collected all the evidence you could find. " +
                 "Based on your expertise, make an informed decision on what type of " +
-                "ghost is haunting Amazon Hill.");
-        narrate("Here are all the possible ghosts");
-        System.out.print(ConsoleColors.GREEN_BOLD_BRIGHT);
+                "ghost is haunting Amazon Hill.\n" +
+                "Here are all the possible ghosts");
         ghosts.forEach(ghost -> System.out.println(ghost.getType()));
-        System.out.print(ConsoleColors.RESET);
         narrate("Which Ghost do you think it is?");
         String userGuessed = scanner.nextLine().strip();
         narrate("Good job gathering evidence " + player.getName() + "\nYou guessed " + userGuessed);
@@ -365,17 +325,15 @@ public class Game implements java.io.Serializable {
     }
 
     private void writeEntryInJournal() {
-        System.out.print(">>>");
         String journalEntry = scanner.nextLine().strip();
         if (journalEntry.equals("no")) {
             narrate("Journal Closed.");
         } else if (journalEntry.equalsIgnoreCase("yes")) {
-            narrate("Your entry: ");
-            System.out.print(">>>");
-            journalEntry = scanner.nextLine().strip();
+            narrate("Your entry: \n" +
+                    ">>>");
             player.setJournal(journalEntry);
         } else {
-            System.out.println("Invalid Journal entry. Please look/show again to document again.");
+            narrate("Invalid Journal entry. Please look/show again to document again.");
         }
     }
 
@@ -383,13 +341,12 @@ public class Game implements java.io.Serializable {
         String ghostEmoji = "\uD83D\uDC7B ";
         String houseEmoji = "\uD83C\uDFE0";
         String bookEmoji = "\uD83D\uDCD6";
-        System.out.println(divider + "\n");
-        System.out.println(ConsoleColors.BLACK_BACKGROUND + bookEmoji + " " + player + ConsoleColors.RESET + "\n");
-        System.out.printf("%45s%n%n", ConsoleColors.BLACK_BACKGROUND + ghostEmoji + "Possible Ghosts " + ghostEmoji + ConsoleColors.RESET);
-        System.out.println(ConsoleColors.GREEN_BOLD + ghosts.toString() + ConsoleColors.RESET + "\n");
-        System.out.printf("%43s%n%n", ConsoleColors.BLACK_BACKGROUND + houseEmoji + " Rooms visited " + houseEmoji + ConsoleColors.RESET);
-        System.out.println(ConsoleColors.BLUE_BOLD + player.getRoomsVisited() + ConsoleColors.RESET);
-        System.out.println(divider);
+        narrate(divider + "\n" +
+                bookEmoji + " " + player + "\n" +
+                ghostEmoji + "Possible Ghosts " + ghostEmoji +
+                ghosts.toString() + "\n" + houseEmoji + " Rooms visited " + houseEmoji +
+                player.getRoomsVisited() +
+                divider);
     }
 
     void populateGhostList() {
@@ -431,7 +388,7 @@ public class Game implements java.io.Serializable {
 
             }
         } catch (NullPointerException e) {
-            System.out.println("The data given is empty, cannot perform function");
+            narrate("The data given is empty, cannot perform function");
         }
     }
 
@@ -529,11 +486,11 @@ public class Game implements java.io.Serializable {
     private boolean userAbleToExit() {
         // Is player currently in lobby? Has user visited any other rooms? Is so size of roomsVisited would be greater than 1
         if (!world.getCurrentRoom().getRoomTitle().equals("Lobby")) {
-            System.out.println("You can only exit from Lobby");
+            narrate("You can only exit from Lobby");
             return false;
         }
         if (player.getRoomsVisited().size() == 1) {
-            System.out.println("You must visit more than one room to exit");
+            narrate("You must visit more than one room to exit");
             return false;
         }
         return true;
@@ -549,7 +506,7 @@ public class Game implements java.io.Serializable {
             assignRandomEvidenceToMap();
             player.resetPlayer();
         } else {
-            System.out.printf("%95s%n%n", ConsoleColors.YELLOW_BOLD + "Sorry, you've made too many incorrect guesses. GAME OVER." + ConsoleColors.RESET);
+            narrate("Sorry, you've made too many incorrect guesses. GAME OVER.");
             isGameRunning = false;
         }
     }
@@ -611,20 +568,21 @@ public class Game implements java.io.Serializable {
         int seconds = 1;
         int numChars = input.toCharArray().length;
         long sleepTime = (long) seconds * 1000 / numChars;
-        System.out.print(ConsoleColors.RED);
-        try {
+//        System.out.print(ConsoleColors.RED);
+//        try {
             if (isSound) {
                 keyboardEffect.playSoundEffect();
             }
-            for (Character c : input.toCharArray()) {
-                System.out.print(c);
-                Thread.sleep(sleepTime);
-            }
+//            for (Character c : input.toCharArray()) {
+//                System.out.print(c);
+//                Thread.sleep(sleepTime);
+//            }
+        jFrame.setTextbox(input);
             keyboardEffect.stopSoundEffect();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.print(ConsoleColors.RESET);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.print(ConsoleColors.RESET);
     }
 
     private void chrisIsCool() {
@@ -642,21 +600,21 @@ public class Game implements java.io.Serializable {
         int seconds = 1;
         int numChars = input.toCharArray().length;
         long sleepTime = (long) seconds * 4000 / numChars;
-        System.out.print(ConsoleColors.RED_BRIGHT);
-        try {
+//        System.out.print(ConsoleColors.RED_BRIGHT);
+//        try {
             if (isSound) {
                 paperFalling.playSoundEffect();
             }
-            for (Character c : input.toCharArray()) {
-                System.out.print(c);
-                Thread.sleep(sleepTime);
-            }
+//            for (Character c : input.toCharArray()) {
+//                System.out.print(c);
+//                Thread.sleep(sleepTime);
+//            }
+        jFrame.setTextbox(input);
             paperFalling.stopSoundEffect();
-            System.out.println();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.print(ConsoleColors.RESET);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.print(ConsoleColors.RESET);
     }
 }
 
