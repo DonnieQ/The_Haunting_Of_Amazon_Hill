@@ -60,6 +60,7 @@ class SaveGame {
             game.setPlayer(player);
             game.setWorld(world);
             game.setCurrentGhost(ghost);
+            // // TODO: 2/10/2021 next line throws an exception cannot cast an arraylist to a player - need to troubleshoot 
             game.setGhosts(ghosts);
             ois.close();
         } catch (Exception e) {
