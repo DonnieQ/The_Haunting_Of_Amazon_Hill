@@ -1,10 +1,11 @@
 package com.intelligents.haunting;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class CombatEngine {
 
-    public static String runCombat(String[] userCommands, Game game, Scanner scanner) {
+    public static String runCombat(String[] userCommands, Game game, Scanner scanner) throws IOException {
         String result = "";
         if (userCommands[0].equals("fight")) {
             boolean inFight = true;
