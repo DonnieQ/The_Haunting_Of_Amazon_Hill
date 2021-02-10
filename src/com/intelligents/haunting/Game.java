@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import static com.intelligents.haunting.CombatEngine.runCombat;
+
 public class Game implements java.io.Serializable {
     private World world = new World();
     private List<Ghost> ghosts = new ArrayList<>();
@@ -85,130 +87,128 @@ public class Game implements java.io.Serializable {
 
 
             // Checks if current room is in roomsVisited List. If not adds currentRoom to roomsVisited
-            checkIfRoomVisited();
-            try {
-                switch (input[0]) {
-                    case "chris":
-                        chrisIsCool();
-                        break;
-                    //Allows for volume to be increased or decreased
-                    case "volume":
-                        if (input[1].equals("up")) {
-                            mp.setVolume(5.0f);
-                        } else {
-                            mp.setVolume(-15.0f);
-                        }
-                        break;
-                    //Prints journal and plays page turning sound effect
-                    case "read":
-                        printJournal();
-                        soundEffect.playSoundEffect();
-                        break;
-                    //Creates a save file that can be loaded
-                    case "save":
-                        SaveGame.save();
-                        break;
-                    //Reads the loaded usr.save file
-                    case "load":
-                        SaveGame.loadGame();
-                        break;
-                    //
-                    case "help":
-                        p.print("resources", "Rules");
-                        break;
-                    case "open":
-                        //TODO: method in world????
-                        openMap();
-                        break;
-                    //Displays room contents/evidence
-                    case "look":
-                    case "show":
-                        System.out.println(divider);
-                        System.out.printf("%46s%n", currentLoc);
-                        if (world.getCurrentRoom().getRoomMiniGhost() != null){
-                            MiniGhost currentMiniGhost = world.getCurrentRoom().getRoomMiniGhost();
-                            narrate("You have run into a " + currentMiniGhost.getName() +
-                                    "what will you do? [Fight/Run]");
-                            runCombat(currentMiniGhost);
-
-                        }
-                        if (world.getCurrentRoom().getRoomEvidence().isEmpty()) {
-                            narrate("Currently there are no items in "
-                                    + world.getCurrentRoom().getRoomTitle() + "\n");
-                            narrate("Would you like to document anything about this room? [Yes/No]");
-                            writeEntryInJournal();
-                        } else {
-                            narrate("You look and notice: " + world.getCurrentRoom().getRoomEvidence() + "\n");
-                            narrate("Journal currently opened, would you like to document anything about this room? [Yes/No]");
-                            writeEntryInJournal();
-                        }
-                        System.out.println(divider);
-                        break;
-                    //Allows user to leave if more than one room has been input into RoomsVisted
-                    case "exit":
-                        if (userAbleToExit()) {
-                            // In order to win, user has to have correct evidence and guessed right ghost
-                            if (!checkIfHasAllEvidenceIsInJournal()) {
-                                narrate("It seems your journal does not have all of the evidence needed to determine the ghost." +
-                                        " Would you like to GUESS the ghost anyway or go back INSIDE?");
-                                String ans = "";
-                                boolean validEntry = false;
-                                while (!validEntry) {
-                                    ans = scanner.nextLine().strip().toLowerCase();
-                                    if (ans.contains("guess") || ans.contains("inside")) {
-                                        validEntry = true;
-                                    } else {
-                                        narrate("Invalid input, please decide whether you want to GUESS or go back INSIDE.");
-                                    }
-                                }
-                                if (ans.contains("inside")) {
-                                    break;
-                                }
-                            }
-                            String userGuess = getTypeOfGhostFromUser();
-                            if (userGuess.equalsIgnoreCase(currentGhost.getType())) {
-                                narrate("You won");
-                                narrate(getGhostBackstory());
-                                isGameRunning = false;
-                            } else {
-                                if (guessCounter < 1) {
-                                    narrate("Unfortunately, the ghost you determined was incorrect. The correct ghost was \n"
-                                            + currentGhost.toString() + "You have been loaded into a new world. Good luck trying again.\n");
-                                    resetWorld();
-                                } else {
-                                    resetWorld();
-                                }
-                            }
-                        }
-                        break;
-                    case "quit":
-                    case "q":
-                        mp.quitMusic();
-                        isGameRunning = false;
-                        break;
-                    case "pause":
-                        mp.pauseMusic();
-                        break;
-                    case "play":
-                        mp.startMusic();
-                        break;
-                    case "move":
-                    case "go":
-                        changeRoom(isValidInput, input, attempt);
-                }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Make sure to add a verb e.g. 'move', 'go', 'open', 'read' then a noun e.g. 'north', 'map', 'journal' ");
-            }
+            processInput(isValidInput, input, attempt, currentLoc);
 
         }
 
         System.out.println("Thank you for playing our game!!");
     }
 
-    private void changeRoom(boolean isValidInput, String[] input, int attemptCount) {
+    private void processInput(boolean isValidInput, String[] input, int attempt, String currentLoc) {
+        checkIfRoomVisited();
+        try {
+            switch (input[0]) {
+                case "chris":
+                    chrisIsCool();
+                    break;
+                //Allows for volume to be increased or decreased
+                case "volume":
+                    if (input[1].equals("up")) {
+                        mp.setVolume(5.0f);
+                    } else {
+                        mp.setVolume(-15.0f);
+                    }
+                    break;
+                //Prints journal and plays page turning sound effect
+                case "read":
+                    printJournal();
+                    soundEffect.playSoundEffect();
+                    break;
+                //Creates a save file that can be loaded
+                case "save":
+                    SaveGame.save();
+                    break;
+                //Reads the loaded usr.save file
+                case "load":
+                    SaveGame.loadGame();
+                    break;
+                //
+                case "help":
+                    p.print("resources", "Rules");
+                    break;
+                case "open":
+                    //TODO: method in world????
+                    openMap();
+                    break;
+                //Displays room contents/evidence
+                case "look":
+                case "show":
+                    System.out.println(divider);
+                    System.out.printf("%46s%n", currentLoc);
+
+                    if (world.getCurrentRoom().getRoomEvidence().isEmpty()) {
+                        narrate("Currently there are no items in "
+                                + world.getCurrentRoom().getRoomTitle() + "\n");
+                        narrate("Would you like to document anything about this room? [Yes/No]");
+                        writeEntryInJournal();
+                    } else {
+                        narrate("You look and notice: " + world.getCurrentRoom().getRoomEvidence() + "\n");
+                        narrate("Journal currently opened, would you like to document anything about this room? [Yes/No]");
+                        writeEntryInJournal();
+                    }
+                    System.out.println(divider);
+                    break;
+                //Allows user to leave if more than one room has been input into RoomsVisted
+                case "exit":
+                    if (userAbleToExit()) {
+                        // In order to win, user has to have correct evidence and guessed right ghost
+                        if (!checkIfHasAllEvidenceIsInJournal()) {
+                            narrate("It seems your journal does not have all of the evidence needed to determine the ghost." +
+                                    " Would you like to GUESS the ghost anyway or go back INSIDE?");
+                            String ans = "";
+                            boolean validEntry = false;
+                            while (!validEntry) {
+                                ans = scanner.nextLine().strip().toLowerCase();
+                                if (ans.contains("guess") || ans.contains("inside")) {
+                                    validEntry = true;
+                                } else {
+                                    narrate("Invalid input, please decide whether you want to GUESS or go back INSIDE.");
+                                }
+                            }
+                            if (ans.contains("inside")) {
+                                break;
+                            }
+                        }
+                        String userGuess = getTypeOfGhostFromUser();
+                        if (userGuess.equalsIgnoreCase(currentGhost.getType())) {
+                            narrate("You won");
+                            narrate(getGhostBackstory());
+                            isGameRunning = false;
+                        } else {
+                            if (guessCounter < 1) {
+                                narrate("Unfortunately, the ghost you determined was incorrect. The correct ghost was \n"
+                                        + currentGhost.toString() + "You have been loaded into a new world. Good luck trying again.\n");
+                                resetWorld();
+                            } else {
+                                resetWorld();
+                            }
+                        }
+                    }
+                    break;
+                case "quit":
+                case "q":
+                    mp.quitMusic();
+                    isGameRunning = false;
+                    break;
+                case "pause":
+                    mp.pauseMusic();
+                    break;
+                case "play":
+                    mp.startMusic();
+                    break;
+                case "move":
+                case "go":
+
+                    changeRoom(isValidInput, input, attempt);
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Make sure to add a verb e.g. 'move', 'go', 'open', 'read' then a noun e.g. 'north', 'map', 'journal' ");
+        }
+    }
+
+    public void changeRoom(boolean isValidInput, String[] input, int attemptCount) {
         while (isValidInput) {
             switch (input[1]) {
-
                 case "north":
                 case "east":
                 case "south":
@@ -241,6 +241,13 @@ public class Game implements java.io.Serializable {
 
             }
 
+        }
+        if (world.getCurrentRoom().getRoomMiniGhost() != null){
+            narrate("You have run into a " + world.getCurrentRoom().getRoomMiniGhost().getName() +
+                    ". What will you do? [Fight/Run]");
+            System.out.print(">>");
+            input = scanner.nextLine().strip().toLowerCase().split(" ");
+            narrate(runCombat(input, this));
         }
     }
 
@@ -305,39 +312,9 @@ public class Game implements java.io.Serializable {
         }
     }
 
-    private void runCombat(MiniGhost minighost) {
-        System.out.print(">>");
-        String userCommands = scanner.nextLine().strip().toLowerCase();
-        if (userCommands.equals("fight")) {
-            narrate("You punch the " + minighost.getName() + " in the face. Your hand passes through, but it dissipates anyways.");
-            world.getCurrentRoom().setRoomMiniGhost(null);
-            System.out.println(world.getCurrentRoom().getRoomMiniGhost());
-        }
-        if (userCommands.equals("run")){
-            narrate("Frightened to the point of tears, you flee back the way you came.");
-            changeRoom(true, invertPlayerRoom(player.getMostRecentExit()), 0);
-        }
-    }
 
-    private String[] invertPlayerRoom(String mostRecentExit) {
-        String[] opposite = new String[]{"go", null};
-        switch (mostRecentExit){
-            case "east":
-                opposite[1] = "west";
-                break;
-            case "north":
-                opposite[1] = "south";
-                break;
-            case "south":
-                opposite[1] = "north";
-                break;
-            // default case is west, which will make the player go east in case most recent exit is null from just starting
-            default:
-                opposite[1] = "east";
-                break;
-        }
-        return opposite;
-    }
+
+
 
 
     private void printJournal() {
