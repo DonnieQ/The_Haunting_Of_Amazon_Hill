@@ -91,9 +91,9 @@ public class Game implements java.io.Serializable {
             processInput(isValidInput, input, attempt, currentLoc);
 
         }
-
         System.out.println("Thank you for playing our game!!");
     }
+
 
     private void processInput(boolean isValidInput, String[] input, int attempt, String currentLoc) {
         checkIfRoomVisited();
@@ -113,8 +113,8 @@ public class Game implements java.io.Serializable {
                 //Prints journal and plays page turning sound effect
                 case "read":
                     printJournal();
-                    if(isSound) {
-                    soundEffect.playSoundEffect();
+                    if (isSound) {
+                        soundEffect.playSoundEffect();
                     }
                     break;
                 //Creates a save file that can be loaded
@@ -195,6 +195,9 @@ public class Game implements java.io.Serializable {
                 case "pause":
                     mp.pauseMusic();
                     break;
+                case "stop":
+                    stopSound();
+                    break;
                 case "play":
                     mp.startMusic();
                     break;
@@ -207,10 +210,6 @@ public class Game implements java.io.Serializable {
             System.out.println("Make sure to add a verb e.g. 'move', 'go', 'open', 'read' then a noun e.g. 'north', 'map', 'journal' ");
         }
     }
-
-        System.out.println("Thank you for playing our game!!");
-    }
-
 
     private void stopSound() {
         mp.pauseMusic();
@@ -259,7 +258,7 @@ public class Game implements java.io.Serializable {
             }
 
         }
-        if (world.getCurrentRoom().getRoomMiniGhost() != null){
+        if (world.getCurrentRoom().getRoomMiniGhost() != null) {
             narrate("You have run into a " + world.getCurrentRoom().getRoomMiniGhost().getName() +
                     ". What will you do? [Fight/Run]");
             System.out.print(">>");
@@ -572,20 +571,20 @@ public class Game implements java.io.Serializable {
         int numChars = input.toCharArray().length;
         long sleepTime = (long) seconds * 4000 / numChars;
         System.out.print(ConsoleColors.RED_BRIGHT);
-            try {
-                if (isSound) {
-                    paperFalling.playSoundEffect();
-                }
-                for (Character c : input.toCharArray()) {
-                    System.out.print(c);
-                    Thread.sleep(sleepTime);
-                }
-                paperFalling.stopSoundEffect();
-                System.out.println();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        try {
+            if (isSound) {
+                paperFalling.playSoundEffect();
             }
-            System.out.print(ConsoleColors.RESET);
+            for (Character c : input.toCharArray()) {
+                System.out.print(c);
+                Thread.sleep(sleepTime);
+            }
+            paperFalling.stopSoundEffect();
+            System.out.println();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        System.out.print(ConsoleColors.RESET);
     }
+}
 
