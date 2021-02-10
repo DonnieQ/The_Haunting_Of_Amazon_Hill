@@ -17,7 +17,7 @@ public class HauntingJFrame extends JWindow implements ActionListener{
     JPanel promptPanel;
     JScrollPane scrollPane;
     boolean bossDead = false;
-    String result;
+    String userResponse;
     JLabel questionToUser = new JLabel();
     JTextField userInput = new JTextField();
     JButton showJournal = new JButton("Journal");
@@ -34,12 +34,13 @@ public class HauntingJFrame extends JWindow implements ActionListener{
     JPanel panel_04;
     JTextField numInput;
     boolean calledOnce=false;
+    String openingRoom;
 
 
     public HauntingJFrame() throws IOException {
         splashWindow();
         gameWindow();
-
+        openingRoom = "resources/Images/Map(Lobby).png";
     }
 
 
@@ -118,13 +119,14 @@ public class HauntingJFrame extends JWindow implements ActionListener{
         }
         if (e.getActionCommand().equals("Map")) {
             try {
-                showMap();
+                showMap(openingRoom);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
         }
         if (e.getSource() == userInput) {
             System.out.println(userInput.getText());
+            userResponse = userInput.getText();
             userInput.setText("");
         }
 
@@ -153,24 +155,21 @@ public class HauntingJFrame extends JWindow implements ActionListener{
 
         frame.add(textDisplayJournal, BorderLayout.CENTER);
 
-//        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        window.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
-    private void showMap() throws IOException {
+    void showMap(String mapFilePath) throws IOException {
+        File currentRoom = new File(mapFilePath);
         frame = new JFrame("Map");
         frame.setSize(500, 500);
 
-        BufferedImage mapImage = ImageIO.read(new File("resources/Images/Map(Lobby).png"));
+        BufferedImage mapImage = ImageIO.read(currentRoom);
         JLabel picLabel = new JLabel(new ImageIcon(mapImage));
 
 
         frame.add(picLabel, BorderLayout.CENTER);
 
-//        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        window.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
