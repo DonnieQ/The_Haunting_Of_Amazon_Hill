@@ -534,7 +534,7 @@ public class Game implements java.io.Serializable {
         return hasAllEvidence;
     }
 
-    private void narrate(String input) {
+    public void narrate(String input) {
         int seconds = 1;
         int numChars = input.toCharArray().length;
         long sleepTime = (long) seconds * 1000 / numChars;
@@ -549,6 +549,26 @@ public class Game implements java.io.Serializable {
             }
             keyboardEffect.stopSoundEffect();
             System.out.println();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.print(ConsoleColors.RESET);
+    }
+
+    public void narrateNoNewLine(String input) {
+        int seconds = 1;
+        int numChars = input.toCharArray().length;
+        long sleepTime = (long) seconds * 1000 / numChars;
+        System.out.print(ConsoleColors.RED);
+        try {
+            if (isSound) {
+                keyboardEffect.playSoundEffect();
+            }
+            for (Character c : input.toCharArray()) {
+                System.out.print(c);
+                Thread.sleep(sleepTime);
+            }
+            keyboardEffect.stopSoundEffect();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
