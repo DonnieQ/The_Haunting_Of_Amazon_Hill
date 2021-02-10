@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import static com.intelligents.haunting.CombatEngine.runCombat;
+
 public class Game implements java.io.Serializable {
     private World world = new World();
     private List<Ghost> ghosts = new ArrayList<>();
@@ -125,13 +127,7 @@ public class Game implements java.io.Serializable {
                     case "show":
                         System.out.println(divider);
                         System.out.printf("%46s%n", currentLoc);
-                        if (world.getCurrentRoom().getRoomMiniGhost() != null){
-                            MiniGhost currentMiniGhost = world.getCurrentRoom().getRoomMiniGhost();
-                            narrate("You have run into a " + currentMiniGhost.getName() +
-                                    "what will you do? [Fight/Run]");
-                            runCombat(currentMiniGhost);
 
-                        }
                         if (world.getCurrentRoom().getRoomEvidence().isEmpty()) {
                             narrate("Currently there are no items in "
                                     + world.getCurrentRoom().getRoomTitle() + "\n");
@@ -194,6 +190,7 @@ public class Game implements java.io.Serializable {
                         break;
                     case "move":
                     case "go":
+
                         changeRoom(isValidInput, input, attempt);
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -205,10 +202,9 @@ public class Game implements java.io.Serializable {
         System.out.println("Thank you for playing our game!!");
     }
 
-    private void changeRoom(boolean isValidInput, String[] input, int attemptCount) {
+    public void changeRoom(boolean isValidInput, String[] input, int attemptCount) {
         while (isValidInput) {
             switch (input[1]) {
-
                 case "north":
                 case "east":
                 case "south":
@@ -241,6 +237,13 @@ public class Game implements java.io.Serializable {
 
             }
 
+        }
+        if (world.getCurrentRoom().getRoomMiniGhost() != null){
+            narrate("You have run into a " + world.getCurrentRoom().getRoomMiniGhost().getName() +
+                    ". What will you do? [Fight/Run]");
+            System.out.print(">>");
+            input = scanner.nextLine().strip().toLowerCase().split(" ");
+            narrate(runCombat(input, this));
         }
     }
 
@@ -305,39 +308,9 @@ public class Game implements java.io.Serializable {
         }
     }
 
-    private void runCombat(MiniGhost minighost) {
-        System.out.print(">>");
-        String userCommands = scanner.nextLine().strip().toLowerCase();
-        if (userCommands.equals("fight")) {
-            narrate("You punch the " + minighost.getName() + " in the face. Your hand passes through, but it dissipates anyways.");
-            world.getCurrentRoom().setRoomMiniGhost(null);
-            System.out.println(world.getCurrentRoom().getRoomMiniGhost());
-        }
-        if (userCommands.equals("run")){
-            narrate("Frightened to the point of tears, you flee back the way you came.");
-            changeRoom(true, invertPlayerRoom(player.getMostRecentExit()), 0);
-        }
-    }
 
-    private String[] invertPlayerRoom(String mostRecentExit) {
-        String[] opposite = new String[]{"go", null};
-        switch (mostRecentExit){
-            case "east":
-                opposite[1] = "west";
-                break;
-            case "north":
-                opposite[1] = "south";
-                break;
-            case "south":
-                opposite[1] = "north";
-                break;
-            // default case is west, which will make the player go east in case most recent exit is null from just starting
-            default:
-                opposite[1] = "east";
-                break;
-        }
-        return opposite;
-    }
+
+
 
 
     private void printJournal() {
