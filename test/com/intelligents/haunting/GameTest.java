@@ -14,7 +14,8 @@ public class GameTest {
 
     @Before
     public void setUp() throws Exception {
-        g = new Game();
+        HauntingJFrame jFrame = new HauntingJFrame();
+        g = new Game(jFrame);
         p = Player.getInstance();
     }
 

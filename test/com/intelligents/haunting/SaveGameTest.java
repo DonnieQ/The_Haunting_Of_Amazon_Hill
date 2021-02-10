@@ -9,7 +9,8 @@ public class SaveGameTest {
 
     @Before
     public void setUp() throws Exception {
-        Game g = new Game();
+        HauntingJFrame jFrame = new HauntingJFrame();
+        Game g = new Game(jFrame);
         World world = new World();
         SaveGame saveGame = new SaveGame();
     }
