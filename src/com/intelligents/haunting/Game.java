@@ -23,6 +23,7 @@ public class Game implements java.io.Serializable {
     private final Scanner scanner = new Scanner(System.in);
     private int guessCounter = 0;
     boolean isGameRunning = true;
+    private boolean isSound = true;
 
     public Game() {
         //populates the main ghost list and sets a random ghost for the current game session
@@ -101,7 +102,11 @@ public class Game implements java.io.Serializable {
                     //Prints journal and plays page turning sound effect
                     case "read":
                         printJournal();
-                        soundEffect.playSoundEffect();
+                        if(isSound) {
+                            soundEffect.playSoundEffect();
+                        } else {
+                            stopSound();
+                        }
                         break;
                     //Creates a save file that can be loaded
                     case "save":
@@ -116,7 +121,6 @@ public class Game implements java.io.Serializable {
                         p.print("resources", "Rules");
                         break;
                     case "open":
-                        //TODO: method in world????
                         openMap();
                         break;
                     //Displays room contents/evidence
@@ -124,7 +128,7 @@ public class Game implements java.io.Serializable {
                     case "show":
                         System.out.println(divider);
                         System.out.printf("%46s%n", currentLoc);
-                        if (world.getCurrentRoom().getRoomMiniGhost() != null){
+                        if (world.getCurrentRoom().getRoomMiniGhost() != null) {
                             MiniGhost currentMiniGhost = world.getCurrentRoom().getRoomMiniGhost();
                             narrate("You have run into a " + currentMiniGhost.getName() +
                                     "what will you do? [Fight/Run]");
@@ -191,6 +195,9 @@ public class Game implements java.io.Serializable {
                     case "play":
                         mp.startMusic();
                         break;
+                    case "stop":
+                        stopSound();
+                        break;
                     case "move":
                     case "go":
 
@@ -205,6 +212,16 @@ public class Game implements java.io.Serializable {
         System.out.println("Thank you for playing our game!!");
     }
 
+
+    private void stopSound() {
+        mp.pauseMusic();
+        soundEffect.stopSoundEffect();
+        walkEffect.stopSoundEffect();
+        keyboardEffect.stopSoundEffect();
+        paperFalling.stopSoundEffect();
+        isSound = false;
+    }
+
     private void changeRoom(boolean isValidInput, String[] input, int attemptCount) {
         while (isValidInput) {
             switch (input[1]) {
@@ -217,7 +234,11 @@ public class Game implements java.io.Serializable {
                         if (world.getCurrentRoom().roomExits.containsKey(input[1])) {
                             world.setCurrentRoom(world.getCurrentRoom().roomExits.get(input[1]));
                             isValidInput = false;
-                            walkEffect.playSoundEffect();
+                            if (isSound) {
+                                walkEffect.playSoundEffect();
+                            }else {
+                                stopSound();
+                            }
                             Thread.sleep(1800);
                             narrateRooms(world.getCurrentRoom().getDescription());
                             break;
@@ -312,7 +333,7 @@ public class Game implements java.io.Serializable {
             world.getCurrentRoom().setRoomMiniGhost(null);
             System.out.println(world.getCurrentRoom().getRoomMiniGhost());
         }
-        if (userCommands.equals("run")){
+        if (userCommands.equals("run")) {
             narrate("Frightened to the point of tears, you flee back the way you came.");
         }
     }
@@ -373,6 +394,7 @@ public class Game implements java.io.Serializable {
             System.out.println("The data given is empty, cannot perform function");
         }
     }
+
     private void assignRandomMiniGhostToMap() {
         try {
             //for each minighost, get rooms from world.gamemap equivalent to the number of evidences.
@@ -529,7 +551,9 @@ public class Game implements java.io.Serializable {
         long sleepTime = (long) seconds * 1000 / numChars;
         System.out.print(ConsoleColors.RED);
         try {
-            keyboardEffect.playSoundEffect();
+            if (isSound) {
+                keyboardEffect.playSoundEffect();
+            }
             for (Character c : input.toCharArray()) {
                 System.out.print(c);
                 Thread.sleep(sleepTime);
@@ -558,19 +582,20 @@ public class Game implements java.io.Serializable {
         int numChars = input.toCharArray().length;
         long sleepTime = (long) seconds * 4000 / numChars;
         System.out.print(ConsoleColors.RED_BRIGHT);
-        try {
-            paperFalling.playSoundEffect();
-            for (Character c : input.toCharArray()) {
-                System.out.print(c);
-                Thread.sleep(sleepTime);
+            try {
+                if (isSound) {
+                    paperFalling.playSoundEffect();
+                }
+                for (Character c : input.toCharArray()) {
+                    System.out.print(c);
+                    Thread.sleep(sleepTime);
+                }
+                paperFalling.stopSoundEffect();
+                System.out.println();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            paperFalling.stopSoundEffect();
-            System.out.println();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.print(ConsoleColors.RESET);
         }
-        System.out.print(ConsoleColors.RESET);
     }
 
-
-}

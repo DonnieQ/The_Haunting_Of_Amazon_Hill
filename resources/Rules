@@ -30,6 +30,8 @@
 
                 - pause = pause music
 
+                - stop = turn off all game sounds
+
                 - volume up = increases volume
 
                 - volume down = decreases volume
