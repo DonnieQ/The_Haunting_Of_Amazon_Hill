@@ -49,7 +49,7 @@ class SaveGame {
     void loadGame() {
         try {
             //pulling data from file with FileInputStream
-            FileInputStream fis = new FileInputStream("D:\\Coding\\projects\\PracticalCapstone\\usr.save");
+            FileInputStream fis = new FileInputStream("usr.save");
             //passing bytes to ObjectInputStream for the ability to read those bytes as data representing objects
             ObjectInputStream ois = new ObjectInputStream(fis);
 
