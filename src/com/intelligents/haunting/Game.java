@@ -29,7 +29,8 @@ public class Game implements java.io.Serializable {
     private final Scanner scanner = new Scanner(System.in);
     private int guessCounter = 0;
     boolean isGameRunning = true;
-    private String currentLoc = "Your location is " + world.getCurrentRoom().getRoomTitle();
+    String currentRoom = world.getCurrentRoom().getRoomTitle();
+    private String currentLoc = "Your location is " + currentRoom;
     String moveGuide = "To move type: Go North, Go East, Go South, or Go West";
     private boolean isSound = true;
 
@@ -76,7 +77,7 @@ public class Game implements java.io.Serializable {
                 jFrame.stopThemeSong();
                 mp.startMusic();
                 SaveGame.setGame(this);
-                System.out.println("Loading game!!!");
+                narrate("Loading game!!!");
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }
@@ -246,7 +247,7 @@ public class Game implements java.io.Serializable {
 
                     changeRoom(isValidInput, input, attempt);
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | IOException e) {
             System.out.println("Make sure to add a verb e.g. 'move', 'go', 'open', 'read' then a noun e.g. 'north', 'map', 'journal' ");
         }
     }
@@ -260,7 +261,7 @@ public class Game implements java.io.Serializable {
         isSound = false;
     }
 
-    public void changeRoom(boolean isValidInput, String[] input, int attemptCount) {
+    public void changeRoom(boolean isValidInput, String[] input, int attemptCount) throws IOException {
         while (isValidInput) {
             switch (input[1]) {
                 case "north":
@@ -307,34 +308,35 @@ public class Game implements java.io.Serializable {
         }
     }
 
-    private void openMap() {
+    private void openMap() throws IOException {
         switch (world.getCurrentRoom().getRoomTitle()) {
             case "Dining Room":
-                p.print("resources", "Map(DiningRoom)");
+                jFrame.showMap("resources/Images/Map(DiningRoom)");
                 break;
             case "Balcony":
-                p.print("resources", "Map(Balcony)");
+                jFrame.showMap("resources/Images/Map(Balcony)");
                 break;
             case "Attic":
-                p.print("resources", "Map(Attic)");
+                jFrame.showMap("resources/Images/Map(Attic)");
                 break;
             case "Dungeon":
-                p.print("resources", "Map(Dungeon)");
+                jFrame.showMap("resources/Images/Map(Dungeon)");
                 break;
             case "Furnace Room":
-                p.print("resources", "Map(FurnaceRoom)");
+                jFrame.showMap("resources/Images/Map(FurnaceRoom)");
                 break;
             case "Garden Of Eden":
-                p.print("resources", "Map(GardenOfEden)");
+                jFrame.showMap("resources/Images/Map(GardenOfEden)");
                 break;
             case "Library":
-                p.print("resources", "Map(Library)");
+                jFrame.showMap("resources/Images/Map(Library)");
                 break;
             case "Lobby":
-                p.print("resources", "Map(Lobby)");
+                System.out.println("HIT");
+                jFrame.showMap("resources/Images/Map(Lobby)");
                 break;
             case "Secret Tunnel":
-                System.out.println("You're in a super secret tunnel!!! ");
+                jFrame.showMap("resources/Images/Map(SecretTunnel)");
                 break;
         }
     }
