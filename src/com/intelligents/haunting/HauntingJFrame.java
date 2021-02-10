@@ -241,6 +241,9 @@ public class HauntingJFrame extends JWindow implements ActionListener{
 
         window.setVisible(false);
         window.dispose();
+    }
+
+    public void stopThemeSong() {
         themeSong.stopSoundEffect();
     }
 
