@@ -38,16 +38,20 @@ public class HauntingJFrame extends JWindow implements ActionListener{
     boolean calledOnce=false;
     String openingRoom;
     private final MusicPlayer themeSong = new MusicPlayer("resources/Sounds/VIKINGS THEME SONG.wav");
+    Game game;
+    Controller controller;
 
 
     public HauntingJFrame() throws IOException {
         splashWindow();
-//        gameWindow();
+        gameWindow();
+        game = new Game(this);
+        controller = new Controller(game);
         openingRoom = "resources/Images/Map(Lobby).png";
     }
 
 
-     void gameWindow() {
+     private void gameWindow() {
         frame = new JFrame("The Haunting of Amazon Hill");
         frame.setSize(700, 700);
 
@@ -134,6 +138,7 @@ public class HauntingJFrame extends JWindow implements ActionListener{
             System.out.println(userInput.getText());
             userResponse = userInput.getText().strip().toLowerCase().split(" ");
             userInput.setText("");
+            controller.kickoffResponse(userResponse);
         }
 
     }
@@ -238,5 +243,6 @@ public class HauntingJFrame extends JWindow implements ActionListener{
         window.dispose();
         themeSong.stopSoundEffect();
     }
+
 }
 
