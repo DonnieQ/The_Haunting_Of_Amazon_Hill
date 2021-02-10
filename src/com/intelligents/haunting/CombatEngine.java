@@ -39,7 +39,7 @@ public class CombatEngine {
     }
 
     private static void showStatus(Game game) {
-        game.narrate("Combat commencing...");
+        game.narrateNoNewLine("Combat commencing...");
     }
 
     private static String processChoice(Game game, String result, Scanner scanner) {
