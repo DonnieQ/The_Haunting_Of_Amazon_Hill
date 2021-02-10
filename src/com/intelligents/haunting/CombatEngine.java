@@ -12,7 +12,7 @@ public class CombatEngine {
                 String fightResult = mortalCombat(game, result, scanner);
                 if (fightResult.contains("invalid") || fightResult.contains("hoping")) {
                     //output result message and loop again
-                    System.out.println(fightResult);
+                    game.narrate(fightResult);
                 }
                 else if (fightResult.contains("dissipates") || fightResult.contains("whence")) {
                     game.getWorld().getCurrentRoom().setRoomMiniGhost(null);
@@ -49,7 +49,7 @@ public class CombatEngine {
                 "2 - Sweat on it!\n" +
                 "3 - Punch it!\n" +
                 "4 - Run!\n";
-        game.narrate(choices + ">>");
+        game.narrateNoNewLine(choices + ">>");
         String input = scanner.nextLine().strip().toLowerCase();
         switch (input) {
             case "1":
