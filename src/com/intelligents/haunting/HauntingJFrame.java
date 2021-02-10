@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class HauntingJFrame extends JWindow implements ActionListener{
 
@@ -17,7 +19,7 @@ public class HauntingJFrame extends JWindow implements ActionListener{
     JPanel promptPanel;
     JScrollPane scrollPane;
     boolean bossDead = false;
-    String userResponse;
+    String[] userResponse;
     JLabel questionToUser = new JLabel();
     JTextField userInput = new JTextField();
     JButton showJournal = new JButton("Journal");
@@ -126,7 +128,7 @@ public class HauntingJFrame extends JWindow implements ActionListener{
         }
         if (e.getSource() == userInput) {
             System.out.println(userInput.getText());
-            userResponse = userInput.getText();
+            userResponse = userInput.getText().strip().toLowerCase().split(" ");
             userInput.setText("");
         }
 
@@ -136,7 +138,7 @@ public class HauntingJFrame extends JWindow implements ActionListener{
         textDisplayGameWindow.setText(text);
     }
 
-    public String getUserResponse() {
+    public String[] getUserResponse() {
         return userResponse;
     }
 
