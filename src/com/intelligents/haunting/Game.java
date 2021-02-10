@@ -263,7 +263,7 @@ public class Game implements java.io.Serializable {
                     ". What will you do? [Fight/Run]");
             System.out.print(">>");
             input = scanner.nextLine().strip().toLowerCase().split(" ");
-            narrate(runCombat(input, this));
+            narrate(runCombat(input, this, scanner));
         }
     }
 
