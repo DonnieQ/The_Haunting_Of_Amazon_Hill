@@ -534,7 +534,7 @@ public class Game implements java.io.Serializable {
         return hasAllEvidence;
     }
 
-    private void narrate(String input) {
+    public void narrate(String input) {
         int seconds = 1;
         int numChars = input.toCharArray().length;
         long sleepTime = (long) seconds * 1000 / numChars;
