@@ -8,38 +8,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class HauntingJFrame extends JWindow implements ActionListener{
 
     JWindow window = new JWindow();
 
-    JTextArea rpsGame;
-    JPanel promptPanel;
-    JScrollPane scrollPane;
-    boolean bossDead = false;
     String[] userResponse;
-    JLabel questionToUser = new JLabel();
     JTextField userInput = new JTextField();
     JButton showJournal = new JButton("Journal");
     JButton showMap = new JButton("Map");
     JTextArea textDisplayGameWindow = new JTextArea();
     JTextArea textDisplayJournal = new JTextArea();
-    JTextField desicionField = new JTextField();
-    boolean decisionListener = false;
     JFrame frame;
     JPanel panel_00;
     JPanel panel_01;
     JPanel panel_02;
-    JPanel panel_03;
-    JPanel panel_04;
-    JTextField numInput;
     boolean calledOnce=false;
     String openingRoom;
-    private final MusicPlayer themeSong = new MusicPlayer("resources/Sounds/VIKINGS THEME SONG.wav");
     Game game;
     Controller controller;
+
+    private final MusicPlayer themeSong = new MusicPlayer("resources/Sounds/VIKINGS THEME SONG.wav");
 
 
     public HauntingJFrame() throws IOException {
@@ -93,7 +82,6 @@ public class HauntingJFrame extends JWindow implements ActionListener{
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         // Text field for user to input
-//        userInput.setText("What do you want to do?");
         userInput.setSize(new Dimension(500,100));
         userInput.setFont(new Font("Consolas", Font.CENTER_BASELINE, 15));
         userInput.setForeground(Color.white);
@@ -103,8 +91,6 @@ public class HauntingJFrame extends JWindow implements ActionListener{
         panel_01.setBackground(Color.BLACK);
         panel_00.add(scrollPane);
         panel_01.setLayout(new GridLayout(1,2));
-//        panel_01.add(questionToUser);
-//        panel_01.add(Box.createHorizontalGlue());
         panel_01.add(userInput);
 
         frame.add(panel_00, BorderLayout.NORTH);
@@ -135,20 +121,14 @@ public class HauntingJFrame extends JWindow implements ActionListener{
             }
         }
         if (e.getSource() == userInput) {
-            System.out.println(userInput.getText());
             userResponse = userInput.getText().strip().toLowerCase().split(" ");
             userInput.setText("");
             controller.kickoffResponse(userResponse);
         }
-
     }
 
     public void setTextbox(String text) {
         textDisplayGameWindow.setText(text);
-    }
-
-    public String[] getUserResponse() {
-        return userResponse;
     }
 
     private void showJournal() {
@@ -190,49 +170,18 @@ public class HauntingJFrame extends JWindow implements ActionListener{
     }
 
     private void splashWindow() throws IOException {
-//        // Read the ascii file line by line and build it into a string
-//        FileInputStream asciiSplashScreen = new FileInputStream("resources/splashScreen");
-//        DataInputStream in = new DataInputStream(asciiSplashScreen);
-//        BufferedReader br = new BufferedReader(new InputStreamReader(in));
-//        StringBuilder sb = new StringBuilder();
-//        String strLine;
-////        JLabel ascii = new JLabel("");
-//        while ((strLine = br.readLine()) != null)   {
-//            // Print the content on the console
-//            System.out.println (strLine);
-//            sb.append(strLine);
-//            JTextField ascii = new JTextField(String.valueOf(sb));
-//            JPanel panel = new JPanel();
-//            ascii.setFont(new Font("Monospaced", Font.PLAIN, 12));
-////        ascii.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
-//            ascii.setSize(1000, 1000);
-//            panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-//            panel.add(ascii);
-//            panel.setVisible(true);
-//            window.getContentPane().add(panel);
-//            window.setBounds(500, 150, 300, 200);
-//        }
-//        in.close();
         themeSong.playSoundEffect();
         themeSong.setVolume((float) -10.69);
 
         ImageIcon splashScreenImage = new ImageIcon("resources/Images/asciiSplashScreen.png");
         JLabel image = new JLabel(splashScreenImage);
+
         window.getContentPane().add(image);
-//        window.setBounds(500, 150, 300, 200);
-//
-//        window.pack();
-//        JLabel ascii = new JLabel(String.valueOf(sb));
-//        ascii.setFont(new Font("Monospaced", Font.PLAIN, 12));
-////        ascii.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
-//        ascii.setSize(100, 100);
-//        window.getContentPane().add(ascii);
         window.setBounds(500, 150, 300, 200);
-//
         window.pack();
-//        window.setSize(window.getWidth() * 3, window.getHeight() * 3);
         window.setLocationRelativeTo(null);
         window.setVisible(true);
+
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
