@@ -14,13 +14,15 @@
 
                        ****Commands****
 
-                - help = displays this screen
+                - help/? = displays this screen
 
                 - open = displays the game map and current location
 
                 - read = to view what's in your character's journal
 
-                - look/show = displays any evidence located in your current room
+                - write = to write in your character's journal
+
+                - look/view/show = displays any evidence located in your current room
 
                 - move/go + direction e.g. "move north" or "go west"
 
