@@ -16,14 +16,13 @@ public class SplashScreen implements java.io.Serializable {
     public void splash() {
 //generates game selection
 
-        System.out.println(ConsoleColors.YELLOW_BRIGHT + "What game would you like to play?\n " +
+        System.out.print(ConsoleColors.YELLOW_BRIGHT + "What game would you like to play?\n " +
                 "Chapter 1. The Haunting of Amazon Hill\n " +
                 "Chapter 2. Chasing Ghosts (COMING SOON!)\n " +
                 "Chapter 3. Hangman's Gallows (COMING SOON!)\n " +
                 "Press 4. to load saved game\n" +
-                "Please enter a number for Chapter: " +
-                ConsoleColors.RESET);
-        System.out.print(">>>");
+                "Please enter a number for Chapter:\n" +
+                ConsoleColors.RESET + ">>");
         String gameType = getUserInput();
         // If 1 was selected then a new game is loaded
         if (gameType.matches("1")) {

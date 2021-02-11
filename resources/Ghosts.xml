@@ -2,11 +2,12 @@
 <ghosts>
     <ghost>
         <name>Elizabeth Williams</name>
-        <type>SAMCA</type>
-        <background>An evil spirit, said to curse children and pregnant women with illness</background>
+        <type>Samca</type>
+        <background>An evil spirit, said to curse children and pregnant women with illness.</background>
         <evidence>Remanence of Moldy Cheese</evidence>
         <evidence>Oozing Slime</evidence>
-        <backstory>Ms. Williams was always jealous that her colleagues were having children, but she couldn't.
+        <backstory>Samca - Romanian Folklore
+            Ms. Williams was always jealous that her colleagues were having children, but she couldn't.
             Of course this wasn't a fault of her own. Her medical history prevented her from getting pregnant.
             Its was a normal amount of jealousy at first. In order to cope with her emotions she always offered to
             watch her friend's kids. Becoming what she called herself, their "second mom." One day her current
@@ -19,8 +20,9 @@
     <ghost>
         <name>Jackson Smith</name>
         <type>Poltergeist</type>
-        <background>A clown doll, likes to mess with the mind of intruders on it's property.
-              Will laugh behind you randomly and when you turn around, it will vanish once eye contact is made</background>
+        <background>
+            A clown doll, likes to mess with the mind of intruders on it's property.
+            Will laugh behind you randomly and when you turn around, it will vanish once eye contact is made</background>
         <evidence>Ghost messed with your mind causing hallucinations</evidence>
         <evidence>Room has a slight scent of sulfur</evidence>
         <backstory>TODO BRUDDAH</backstory>
@@ -28,11 +30,13 @@
     <ghost>
         <name>Edgar Miller</name>
         <type>Demon</type>
-        <background>A supernatural being, typically associated with evil.
+        <background>
+            A supernatural being, typically associated with evil.
             Is summoned to do works of malice, or to create chaos amongst those it haunts.</background>
         <evidence>The ghost has entered the physical realm and harmed your body causing lacerations</evidence>
-        <evidence>A flash of a figure pop up in the corner, likely to be hallucinations</evidence>
-        <backstory>When Edgar was just a little boy he would work very hard for his allowance.
+        <evidence>A flash of a figure pops up in the corner. Likely to be hallucinations.</evidence>
+        <backstory>Demon - Multiple Folklore
+            When Edgar was just a little boy he would work very hard for his allowance.
             When he saved up enough money he would go down to the local hardware store. Amongst the items he bought,
             they were items always used for torture devices. First victim he used them on was his Skipper, his dog.
             It was just a little nick at first, then slowly it progressed. As he got older his victims started to vary.
@@ -45,7 +49,19 @@
     <minighosts>
         <minighost>
             <name>Angry Grandma</name>
-            <type>apparition</type>
+            <type>Apparition</type>
+        </minighost>
+        <minighost>
+            <name>Cranky Boss</name>
+            <type>Haunt</type>
+        </minighost>
+        <minighost>
+            <name>Sultry Maiden</name>
+            <type>Shade</type>
+        </minighost>
+        <minighost>
+            <name>Saucy Ferret</name>
+            <type>Specter</type>
         </minighost>
     </minighosts>
 </ghosts>
