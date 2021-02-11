@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 import static com.intelligents.haunting.CombatEngine.runCombat;
 
@@ -26,7 +25,6 @@ public class Game implements java.io.Serializable {
     private final MusicPlayer walkEffect = new MusicPlayer("resources/Sounds/footsteps-4.wav");
     private final MusicPlayer keyboardEffect = new MusicPlayer("resources/Sounds/fast-pace-typing.wav");
     private final MusicPlayer paperFalling = new MusicPlayer("resources/Sounds/paper flutter (2).wav");
-    private final Scanner scanner = new Scanner(System.in);
     private int guessCounter = 0;
     boolean isGameRunning = true;
     String moveGuide = "To move type: Go North, Go East, Go South, or Go West";
@@ -178,7 +176,8 @@ public class Game implements java.io.Serializable {
                             String ans = "";
                             boolean validEntry = false;
                             while (!validEntry) {
-                                ans = scanner.nextLine().strip().toLowerCase();
+//                                ans = scanner.nextLine().strip().toLowerCase();
+                                System.out.println("Scanner was here... needs to be revised - line 180ish");
                                 if (ans.contains("guess") || ans.contains("inside")) {
                                     validEntry = true;
                                 } else {
@@ -267,7 +266,8 @@ public class Game implements java.io.Serializable {
                         openMap();
                         simpleOutputInlineSetting("Where would you like to go?\n>> ");
                     }
-                    input = scanner.nextLine().strip().toLowerCase().split(" ");
+//                    input = scanner.nextLine().strip().toLowerCase().split(" ");
+                    System.out.println("Scanner was here... needs to be revised - line 270ish");
                     break;
 
             }
@@ -276,8 +276,10 @@ public class Game implements java.io.Serializable {
         if (world.getCurrentRoom().getRoomMiniGhost() != null) {
             narrateNoNewLine("You have run into a " + world.getCurrentRoom().getRoomMiniGhost().getName() +
                     ". What will you do? [Fight/Run]\n>>");
-            input = scanner.nextLine().strip().toLowerCase().split(" ");
-            narrateNoNewLine(runCombat(input, this, scanner) + "\n");
+//            input = scanner.nextLine().strip().toLowerCase().split(" ");
+//            narrateNoNewLine(runCombat(input, this, scanner) + "\n");
+            System.out.println("Scanner was here... needs to be revised - line 281ish");
+
         }
     }
 
@@ -322,9 +324,11 @@ public class Game implements java.io.Serializable {
                 ConsoleColors.RESET + "\n"));
         simpleOutputInlineSetting(ConsoleColors.RED + "Which Ghost do you think it is?\n" +
                 ConsoleColors.RESET + ">>");
-        String userGuessed = scanner.nextLine().strip();
-        narrateNoNewLine("Good job gathering evidence, " + player.getName() + ".\nYou guessed: " + userGuessed + "\n");
-        return userGuessed;
+//        String userGuessed = scanner.nextLine().strip();
+//        narrateNoNewLine("Good job gathering evidence, " + player.getName() + ".\nYou guessed: " + userGuessed + "\n");
+//        return userGuessed;
+        System.out.println("Scanner was here... needs to be revised - line 330ish");
+        return null;
     }
 
     private void addEvidenceToJournal() {
@@ -336,16 +340,17 @@ public class Game implements java.io.Serializable {
 
     private void writeEntryInJournal() {
         simpleOutputInlineSetting(">>");
-        String journalEntry = scanner.nextLine().strip();
-        if (journalEntry.equals("no")) {
-            narrateNoNewLine("Journal Closed.\n");
-        } else if (journalEntry.equalsIgnoreCase("yes")) {
-            simpleOutputInlineSetting("Your entry:\n>> ");
-            journalEntry = scanner.nextLine().strip();
-            player.setJournal(journalEntry);
-        } else {
-            narrateNoNewLine("Invalid Journal entry. Please look/show again to document again.\n");
-        }
+//        String journalEntry = scanner.nextLine().strip();
+//        if (journalEntry.equals("no")) {
+//            narrateNoNewLine("Journal Closed.\n");
+//        } else if (journalEntry.equalsIgnoreCase("yes")) {
+//            simpleOutputInlineSetting("Your entry:\n>> ");
+//            journalEntry = scanner.nextLine().strip();
+//            player.setJournal(journalEntry);
+//        } else {
+//            narrateNoNewLine("Invalid Journal entry. Please look/show again to document again.\n");
+//        }
+        System.out.println("Scanner was here... needs to be revised - line 352ish");
     }
 
     private void printJournal() {
