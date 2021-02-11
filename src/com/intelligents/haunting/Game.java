@@ -29,9 +29,9 @@ public class Game implements java.io.Serializable {
     private final Scanner scanner = new Scanner(System.in);
     private int guessCounter = 0;
     boolean isGameRunning = true;
+    String moveGuide = "To move type: Go North, Go East, Go South, or Go West";
     String currentRoom = world.getCurrentRoom().getRoomTitle();
     private String currentLoc = "Your location is " + currentRoom;
-    String moveGuide = "To move type: Go North, Go East, Go South, or Go West";
     private boolean isSound = true;
 
     public Game(HauntingJFrame jFrame) throws IOException {
@@ -88,6 +88,8 @@ public class Game implements java.io.Serializable {
     }
 
     void createPlayer(String[] nameInput) {
+        updateCurrentRoom();
+
         player = Player.getInstance();
 
         player.setName(nameInput[0]);
@@ -99,8 +101,14 @@ public class Game implements java.io.Serializable {
 
     }
 
+    private void updateCurrentRoom() {
+        currentRoom = world.getCurrentRoom().getRoomTitle();
+        currentLoc = "Your location is " + currentRoom;
+    }
+
 
     void processInput(boolean isValidInput, String[] input, int attempt) {
+        updateCurrentRoom();
         checkIfRoomVisited();
         try {
             switch (input[0]) {
@@ -275,32 +283,31 @@ public class Game implements java.io.Serializable {
     private void openMap() throws IOException {
         switch (world.getCurrentRoom().getRoomTitle()) {
             case "Dining Room":
-                jFrame.showMap("resources/Images/Map(DiningRoom)");
+                jFrame.showMap();
                 break;
             case "Balcony":
-                jFrame.showMap("resources/Images/Map(Balcony)");
+                jFrame.showMap();
                 break;
             case "Attic":
-                jFrame.showMap("resources/Images/Map(Attic)");
+                jFrame.showMap();
                 break;
             case "Dungeon":
-                jFrame.showMap("resources/Images/Map(Dungeon)");
+                jFrame.showMap();
                 break;
             case "Furnace Room":
-                jFrame.showMap("resources/Images/Map(FurnaceRoom)");
+                jFrame.showMap();
                 break;
             case "Garden Of Eden":
-                jFrame.showMap("resources/Images/Map(GardenOfEden)");
+                jFrame.showMap();
                 break;
             case "Library":
-                jFrame.showMap("resources/Images/Map(Library)");
+                jFrame.showMap();
                 break;
             case "Lobby":
-                System.out.println("HIT");
-                jFrame.showMap("resources/Images/Map(Lobby)");
+                jFrame.showMap();
                 break;
             case "Secret Tunnel":
-                jFrame.showMap("resources/Images/Map(SecretTunnel)");
+                jFrame.showMap();
                 break;
         }
     }

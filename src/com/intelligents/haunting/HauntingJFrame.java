@@ -24,7 +24,7 @@ public class HauntingJFrame extends JWindow implements ActionListener{
     JPanel panel_01;
     JPanel panel_02;
     boolean calledOnce=false;
-    String openingRoom;
+    String currentRoom;
     Game game;
     Controller controller;
 
@@ -36,7 +36,7 @@ public class HauntingJFrame extends JWindow implements ActionListener{
         gameWindow();
         game = new Game(this);
         controller = new Controller(game);
-        openingRoom = "resources/Images/Map(Lobby).png";
+//        currentRoom = "resources/Images/Map(Lobby).png";
     }
 
 
@@ -114,11 +114,7 @@ public class HauntingJFrame extends JWindow implements ActionListener{
             showJournal();
         }
         if (e.getActionCommand().equals("Map")) {
-            try {
-                showMap(openingRoom);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            game.processInput(true, new String[]{"open"}, 0);
         }
         if (e.getSource() == userInput) {
             userResponse = userInput.getText().strip().toLowerCase().split(" ");
@@ -154,12 +150,14 @@ public class HauntingJFrame extends JWindow implements ActionListener{
         frame.setVisible(true);
     }
 
-    void showMap(String mapFilePath) throws IOException {
-        File currentRoom = new File(mapFilePath);
+    void showMap() throws IOException {
+        currentRoom = game.currentRoom.replaceAll("\\s", "");
+
+        File currentRoomMap = new File("resources/Images/Map(" + currentRoom + ").png");
         frame = new JFrame("Map");
         frame.setSize(500, 500);
 
-        BufferedImage mapImage = ImageIO.read(currentRoom);
+        BufferedImage mapImage = ImageIO.read(currentRoomMap);
         JLabel picLabel = new JLabel(new ImageIcon(mapImage));
 
 
