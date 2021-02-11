@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import java.util.*;
+
 import static com.intelligents.haunting.CombatEngine.runCombat;
 
 public class Game implements java.io.Serializable {
@@ -138,6 +140,7 @@ public class Game implements java.io.Serializable {
                     SaveGame.loadGame();
                     break;
                 //
+                case "?":
                 case "help":
                     p.print("resources", "Rules");
                     break;
@@ -146,6 +149,7 @@ public class Game implements java.io.Serializable {
                     break;
                 //Displays room contents/evidence
                 case "look":
+                case "view":
                 case "show":
                     narrateNoNewLine(divider + "\n");
 
@@ -236,30 +240,43 @@ public class Game implements java.io.Serializable {
         isSound = false;
     }
 
-    public void changeRoom(boolean isValidInput, String[] input, int attemptCount) throws IOException {
+
+    public String normalizeText(String input) {
+        List<String> northOptions = Arrays.asList("north", "up");
+        List<String> southOptions = Arrays.asList("south", "down");
+        List<String> eastOptions = Arrays.asList("east", "right");
+        List<String> westOptions = Arrays.asList("west", "left");
+        if (northOptions.contains(input.toLowerCase())) {
+            return "north";
+        }
+        if (southOptions.contains(input.toLowerCase())) {
+            return "south";
+        }
+        if (eastOptions.contains(input.toLowerCase())) {
+            return "east";
+        }
+        if (westOptions.contains(input.toLowerCase())) {
+            return "west";
+        }
+        return "";
+    }
+
+    public void changeRoom(boolean isValidInput, String[] input, int attemptCount) {
         while (isValidInput) {
-            switch (input[1]) {
-                case "north":
-                case "east":
-                case "south":
-                case "west":
-                    try {
-                        if (world.getCurrentRoom().roomExits.containsKey(input[1])) {
-                            player.setMostRecentExit(input[1]);
-                            world.setCurrentRoom(world.getCurrentRoom().roomExits.get(input[1]));
-                            isValidInput = false;
-                            if (isSound) {
-                                walkEffect.playSoundEffect();
-                            }
-                            Thread.sleep(1800);
-                            narrateRooms(world.getCurrentRoom().getDescription());
-                            break;
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+            String normalize = normalizeText(input[1]);
+            try {
+                if (world.getCurrentRoom().roomExits.containsKey(normalize)) {
+                    player.setMostRecentExit(normalize);
+                    world.setCurrentRoom(world.getCurrentRoom().roomExits.get(normalize));
+                    isValidInput = false;
+                    if (isSound) {
+                        walkEffect.playSoundEffect();
                     }
-                default:
-                    quickNarrateFormatted("You hit a wall. Try again!\n>> ");
+                    Thread.sleep(1800);
+                    narrateRooms(world.getCurrentRoom().getDescription());
+                    break;
+                } else {
+                    simpleOutputInlineSetting("You hit a wall. Try again:\n>> ");
                     attemptCount++;
                     if (attemptCount >= 2) {
                         simpleOutputInlineSetting("\n");
@@ -269,9 +286,10 @@ public class Game implements java.io.Serializable {
 //                    input = scanner.nextLine().strip().toLowerCase().split(" ");
                     System.out.println("Scanner was here... needs to be revised - line 270ish");
                     break;
-
+                }
+            } catch (InterruptedException | IOException e) {
+                e.printStackTrace();
             }
-
         }
         if (world.getCurrentRoom().getRoomMiniGhost() != null) {
             narrateNoNewLine("You have run into a " + world.getCurrentRoom().getRoomMiniGhost().getName() +
@@ -332,7 +350,7 @@ public class Game implements java.io.Serializable {
     }
 
     private void addEvidenceToJournal() {
-        if(!world.getCurrentRoom().getRoomEvidence().isEmpty()) {
+        if (!world.getCurrentRoom().getRoomEvidence().isEmpty()) {
             String journalEntry = (world.getCurrentRoom().getRoomTitle() + ": " + world.getCurrentRoom().getRoomEvidence() + "(Automatically Logged)");
             player.setJournal(journalEntry);
         }
