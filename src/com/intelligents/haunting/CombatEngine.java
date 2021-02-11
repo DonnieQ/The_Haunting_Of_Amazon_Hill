@@ -12,14 +12,12 @@ public class CombatEngine {
                 String fightResult = mortalCombat(game, result, scanner);
                 if (fightResult.contains("invalid") || fightResult.contains("hoping")) {
                     //output result message and loop again
-                    game.narrate(fightResult);
-                }
-                else if (fightResult.contains("dissipates") || fightResult.contains("whence")) {
+                    game.narrateNoNewLine(fightResult + "\n");
+                } else if (fightResult.contains("dissipates") || fightResult.contains("whence")) {
                     game.getWorld().getCurrentRoom().setRoomMiniGhost(null);
                     result = fightResult;
                     inFight = false;
-                }
-                else {
+                } else {
                     result = fightResult;
                     inFight = false;
                     game.changeRoom(true, invertPlayerRoom(game.getPlayer().getMostRecentExit()), 0);
@@ -87,7 +85,7 @@ public class CombatEngine {
             case "south":
                 opposite[1] = "north";
                 break;
-// default case is west, which will make the player go east in case most recent exit is null from just starting
+            // default case is west, which will make the player go east in case most recent exit is null from just starting
             default:
                 opposite[1] = "east";
                 break;
