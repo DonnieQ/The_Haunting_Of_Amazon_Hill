@@ -144,14 +144,16 @@ public class Game implements java.io.Serializable {
                     if (world.getCurrentRoom().getRoomEvidence().isEmpty()) {
                         narrateNoNewLine("Currently there are no items in "
                                 + world.getCurrentRoom().getRoomTitle() + "\n\n");
-                        narrateNoNewLine("Would you like to document anything about this room? [Yes/No]\n");
-                        writeEntryInJournal();
                     } else {
+                        addEvidenceToJournal();
                         narrateNoNewLine("You look and notice: " + world.getCurrentRoom().getRoomEvidence() + "\n\n");
-                        narrateNoNewLine("Journal currently opened, would you like to document anything about this room? [Yes/No]\n");
-                        writeEntryInJournal();
+                        narrateNoNewLine("Evidence logged into your journal.\n");
                     }
                     narrateNoNewLine(divider + "\n");
+                    break;
+                case "write":
+                    narrateNoNewLine("Would you like to document anything in your journal? [Yes/No]\n");
+                    writeEntryInJournal();
                     break;
                 //Allows user to leave if more than one room has been input into RoomsVisted
                 case "exit":
@@ -312,6 +314,13 @@ public class Game implements java.io.Serializable {
         return userGuessed;
     }
 
+    private void addEvidenceToJournal() {
+        if(!world.getCurrentRoom().getRoomEvidence().isEmpty()) {
+            String journalEntry = (world.getCurrentRoom().getRoomTitle() + ": " + world.getCurrentRoom().getRoomEvidence() + "(Automatically Logged)");
+            player.setJournal(journalEntry);
+        }
+    }
+
     private void writeEntryInJournal() {
         simpleOutputInlineSetting(">>");
         String journalEntry = scanner.nextLine().strip();
@@ -327,7 +336,6 @@ public class Game implements java.io.Serializable {
     }
 
     private void printJournal() {
-
         String ghostEmoji = "\uD83D\uDC7B ";
         String houseEmoji = "\uD83C\uDFE0";
         String bookEmoji = "\uD83D\uDCD6";
