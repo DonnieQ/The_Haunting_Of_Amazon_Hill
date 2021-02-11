@@ -123,8 +123,12 @@ public class HauntingJFrame extends JWindow implements ActionListener{
         }
     }
 
-    public void setTextbox(String text) {
+    public void setTextBox(String text) {
         textDisplayGameWindow.setText(text);
+    }
+
+    public  void appendToTextBox(String text) {
+        textDisplayGameWindow.append(text);
     }
 
     private void showJournal() {
