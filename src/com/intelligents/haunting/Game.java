@@ -44,7 +44,7 @@ public class Game implements java.io.Serializable {
 
     public void intro(String[] gameType) {
         if (gameType[0].matches("1")) {
-            narrateNoNewLine("        ***********************************************************************************************************************\n" +
+            quickNarrateFormatted("        ***********************************************************************************************************************\n" +
                     "        ring...ring...ring...click\n" +
                     "        *voicemail* \"Detective, we have a situation. There seems to be a disturbance over on Amazon Hill. The residents have\n" +
                     "        been experiencing some unexplained events taking place in their home. After speaking to the madam, this may be up your\n" +
@@ -78,7 +78,7 @@ public class Game implements java.io.Serializable {
             }
 
         } else {
-            narrateNoNewLine("Invalid selection , please enter 1.");
+            simpleOutputInlineSetting("Invalid selection , please enter 1.");
         }
     }
 
@@ -93,7 +93,7 @@ public class Game implements java.io.Serializable {
         quickNarrateFormatted(formatted);
 
         formatted = String.format("%70s%n%n", ConsoleColors.WHITE_BOLD_BRIGHT + "Good luck to you, " + player.getName() + ConsoleColors.RESET);
-        quickNarrateFormatted(formatted);
+        narrateNoNewLine(formatted);
 
     }
 
@@ -259,7 +259,7 @@ public class Game implements java.io.Serializable {
                         e.printStackTrace();
                     }
                 default:
-                    simpleOutputInlineSetting("You hit a wall. Try again!\n>> ");
+                    quickNarrateFormatted("You hit a wall. Try again!\n>> ");
                     attemptCount++;
                     if (attemptCount >= 2) {
                         simpleOutputInlineSetting("\n");
@@ -366,6 +366,19 @@ public class Game implements java.io.Serializable {
         simpleOutputInlineSetting(formatted);
         narrateNoNewLine(ConsoleColors.BLUE_BOLD + player.getRoomsVisited() + ConsoleColors.RESET + "\n");
         simpleOutputInlineSetting(ConsoleColors.RED + divider + ConsoleColors.RESET + "\n");
+    }
+
+    public void openNewWindowJournalWithUpdatedInfo() {
+        String ghostEmoji = "\uD83D\uDC7B ";
+        String houseEmoji = "\uD83C\uDFE0";
+        String bookEmoji = "\uD83D\uDCD6";
+        jFrame.textDisplayJournal.setText(
+                bookEmoji + " " + player + "\n" +
+                        ghostEmoji + "Possible Ghosts " + ghostEmoji +
+                        ghosts.toString() + "\n" +
+                        houseEmoji + " Rooms visited " + houseEmoji +
+                        player.getRoomsVisited() + ConsoleColors.RESET + "\n"
+        );
     }
 
     void populateGhostList() {
@@ -580,64 +593,72 @@ public class Game implements java.io.Serializable {
     }
      */
 
+    // Used to add narration by appending to the GUI without removing any currently displayed text
     public void narrateNoNewLine(String input) {
         int seconds = 1;
         int numChars = input.toCharArray().length;
         long sleepTime = (long) seconds * 1000 / numChars;
         System.out.print(ConsoleColors.RED);
-        try {
+//        try {
             if (isSound) {
                 keyboardEffect.playSoundEffect();
             }
-            for (Character c : input.toCharArray()) {
-                System.out.print(c);
-                Thread.sleep(sleepTime);
-            }
+//            for (Character c : input.toCharArray()) {
+//                System.out.print(c);
+//                Thread.sleep(sleepTime);
+//            }
+        jFrame.appendToTextBox(input);
             keyboardEffect.stopSoundEffect();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         System.out.print(ConsoleColors.RESET);
     }
 
+    // Add narration to the GUI by removing all prior text added
     public void quickNarrateFormatted(String input) {
-        try {
+//        try {
             if (isSound) {
                 keyboardEffect.playSoundEffect();
             }
-            for (Character c : input.toCharArray()) {
-                System.out.print(c);
-                Thread.sleep(1);
-            }
+//            for (Character c : input.toCharArray()) {
+//                System.out.print(c);
+//                Thread.sleep(1);
+//            }
+        jFrame.setTextBox(input);
             keyboardEffect.stopSoundEffect();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
+    // Removes all prior text presented in GUI and displays new room narration
     private void narrateRooms(String input) {
         int seconds = 1;
         int numChars = input.toCharArray().length;
         long sleepTime = (long) seconds * 4000 / numChars;
         System.out.print(ConsoleColors.RED_BRIGHT);
-        try {
+//        try {
             if (isSound) {
                 paperFalling.playSoundEffect();
             }
-            for (Character c : input.toCharArray()) {
-                System.out.print(c);
-                Thread.sleep(sleepTime);
-            }
+//            for (Character c : input.toCharArray()) {
+//                System.out.print(c);
+//                Thread.sleep(sleepTime);
+//            }
+        jFrame.setTextBox(input);
             paperFalling.stopSoundEffect();
-            simpleOutputInlineSetting("\n");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//            simpleOutputInlineSetting("\n");
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         System.out.print(ConsoleColors.RESET);
     }
 
+    // Appends to GUI without altering prior added text
     public void simpleOutputInlineSetting(String input) {
         System.out.print(input);
+        jFrame.appendToTextBox(input);
     }
 
     /* Possible use for this function to feed in colors if inline colors don't work in jframe

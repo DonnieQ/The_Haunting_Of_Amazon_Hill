@@ -76,7 +76,7 @@ public class HauntingJFrame extends JWindow implements ActionListener{
         textDisplayGameWindow.setEditable(false);
         textDisplayGameWindow.setBackground(Color.DARK_GRAY);
 
-        // Allows for scrolling is text extends panel
+        // Allows for scrolling if text extends beyond panel
         JScrollPane scrollPane = new JScrollPane(textDisplayGameWindow);
         scrollPane.setPreferredSize(new Dimension(700,500));
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -139,7 +139,8 @@ public class HauntingJFrame extends JWindow implements ActionListener{
         DefaultCaret caret = (DefaultCaret) textDisplayJournal.getCaret();
         caret.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
         textDisplayJournal.setCaretPosition(0);
-        textDisplayJournal.setText("This is your journal! There is text added here... blah blah blah");
+//        textDisplayJournal.setText("This is your journal! There is text added here... blah blah blah");
+        game.openNewWindowJournalWithUpdatedInfo();
         textDisplayJournal.setLineWrap(true);
         textDisplayJournal.setWrapStyleWord(true);
         textDisplayJournal.setBorder(BorderFactory.createBevelBorder(1));
@@ -148,7 +149,12 @@ public class HauntingJFrame extends JWindow implements ActionListener{
         textDisplayJournal.setEditable(false);
         textDisplayJournal.setBackground(new Color(196, 223, 230));
 
-        frame.add(textDisplayJournal, BorderLayout.CENTER);
+        // Allows for scrolling if text extends beyond panel
+        JScrollPane scrollPane = new JScrollPane(textDisplayJournal);
+        scrollPane.setPreferredSize(new Dimension(700,500));
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        frame.add(scrollPane, BorderLayout.CENTER);
 
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
