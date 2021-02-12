@@ -21,7 +21,7 @@ public class Game implements java.io.Serializable {
     private final SaveGame SaveGame = new SaveGame();
     private Ghost currentGhost;
     private final Random r = new Random();
-    private final String divider = "*******************************************************************************************";
+    private final String divider = "************************************************************************************************";
     private Player player;
     private HauntingJFrame jFrame;
     SaveGame save = new SaveGame();
@@ -86,10 +86,10 @@ public class Game implements java.io.Serializable {
         player.setName(nameInput[0]);
 
         jFrame.textDisplayGameWindow.setForeground(Color.cyan);
-        String formatted = String.format("%175s%n", " --> If you're new to the game type help for assistance");
+        String formatted = String.format("If you're new to the game type help for assistance.");
         quickNarrateFormatted(formatted);
 
-        formatted = String.format("%70s%n%n", "Good luck to you, " + player.getName());
+        formatted = String.format("\nGood luck to you, " + player.getName() + "!");
         narrateNoNewLine(formatted);
 
     }
@@ -343,32 +343,26 @@ public class Game implements java.io.Serializable {
     }
 
     private void printJournal() {
-        String ghostEmoji = "\uD83D\uDC7B ";
-        String houseEmoji = "\uD83C\uDFE0";
-        String bookEmoji = "\uD83D\uDCD6";
         jFrame.textDisplayGameWindow.setForeground(Color.yellow);
-        simpleOutputInlineSetting(divider + "\n");
-        narrateNoNewLine( bookEmoji + " " + player + "\n");
-        String formatted = String.format("%45s%n%n", ghostEmoji + "Possible Ghosts " + ghostEmoji);
+        quickNarrateFormatted(divider + "\n");
+        narrateNoNewLine(  player + "\n");
+        String formatted = String.format("Possible Ghosts ");
         simpleOutputInlineSetting(formatted);
         narrateNoNewLine(ghosts.toString() + "\n");
-        formatted = String.format("%43s%n%n", houseEmoji + " Rooms visited " + houseEmoji);
+        formatted = String.format(" Rooms visited ");
         simpleOutputInlineSetting(formatted);
         narrateNoNewLine(player.getRoomsVisited() + "\n");
         simpleOutputInlineSetting(divider + "\n");
     }
 
     public void openNewWindowJournalWithUpdatedInfo() {
-        String ghostEmoji = "\uD83D\uDC7B ";
-        String houseEmoji = "\uD83C\uDFE0";
-        String bookEmoji = "\uD83D\uDCD6";
 
         jFrame.textDisplayGameWindow.setForeground(Color.yellow);
         jFrame.textDisplayJournal.setText(
-                bookEmoji + " " + player + "\n" +
-                        ghostEmoji + "Possible Ghosts " + ghostEmoji +
+                        player + "\n" +
+                        "Possible Ghosts " +
                         ghosts.toString() + "\n" +
-                        houseEmoji + " Rooms visited " + houseEmoji +
+                        " Rooms visited " +
                         player.getRoomsVisited() + "\n"
         );
     }
@@ -526,7 +520,7 @@ public class Game implements java.io.Serializable {
             assignRandomEvidenceToMap();
             player.resetPlayer();
         } else {
-            String formatted = String.format("%95s%n%n", "Sorry, you've made too many incorrect guesses. GAME OVER.");
+            String formatted = String.format("Sorry, you've made too many incorrect guesses. GAME OVER.");
             simpleOutputInlineSetting(formatted);
             isGameRunning = false;
         }

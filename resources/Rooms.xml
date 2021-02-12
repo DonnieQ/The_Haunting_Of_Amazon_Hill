@@ -3,10 +3,9 @@
     <room>
         <title>Lobby</title>
         <description>
-            ************************************************************************************************************************
-            The room sits perfectly still...too still. I see four possible routes i can take. I breathe in and out, maybe the best
-            advice that therapist has given me. Time to make a decision, the waiting is killing me....
-            ***********************************************************************************************************************
+************************************************************************************************
+The room sits perfectly still...too still. I see four possible routes i can take. I breathe in and out, maybe the best advice that therapist has given me. Time to make a decision, the waiting is killing me....
+************************************************************************************************
         </description>
         <exit>
             <direction>north</direction>
@@ -28,10 +27,9 @@
     <room>
         <title>Dungeon</title>
         <description>
-            ************************************************************************************************************************
-            Blackness does not describe this room. For blackness foretells the death of light. Thus this is not the case, there was
-            never light here. This darkness embodies emptiness, a void. There is no life here. There never was....
-            ************************************************************************************************************************
+************************************************************************************************
+Blackness does not describe this room. For blackness foretells the death of light. Thus this is not the case, there was never light here. This darkness embodies emptiness, a void. There is no life here. There never was....
+************************************************************************************************
         </description>
         <exit>
             <direction>north</direction>
@@ -41,11 +39,9 @@
     <room>
         <title>Furnace Room</title>
         <description>
-            ************************************************************************************************************************
-            The Devil's perspiration, oh how thy glimmers as waterfalls. The glow from the fire place cracks and sends devils
-            dancing on these walls. My heart thumps intensely, the beat increases sevenfold.... I stand amidst the fire, yet why am
-            I so cold?
-            ************************************************************************************************************************
+************************************************************************************************
+The Devil's perspiration, oh how thy glimmers as waterfalls. The glow from the fire place cracks and sends devils dancing on these walls. My heart thumps intensely, the beat increases sevenfold.... I stand amidst the fire, yet why am I so cold?
+************************************************************************************************
         </description>
         <exit>
             <direction>west</direction>
@@ -63,14 +59,9 @@
     <room>
         <title>Attic</title>
         <description>
-            *************************************************************************************************************************************
-            I stood still in this super forbidden room. The room smelt of an disturbingly, horrible smell, an odor imprisoned here. It
-            nearly made me faint. I see the extremely blazed wallpaper. Charred wood terribly destroyed, smelling of wet decaying wood and stone.
-            I could hear an eerie sound of a broken radio ,which was perfectly hidden in the corner, deafen my ears. From the corner of my eyes
-            I see a harrowing baby’s cradle. It rocked side to side, ignoring the lack of wind in this room. I walked silently towards a pair
-            of black drawers. I notice an old book. Gold speckles glistened on the the edges, archaic writing engulfing the covers. I knew
-            I had to go soon, so I retreated from the old book shelf, to see something as quick as flash run out of the room......
-            **************************************************************************************************************************************
+************************************************************************************************
+I stood still in this super forbidden room. The room smelt of an disturbingly, horrible smell, an odor imprisoned here. It nearly made me faint. I see the extremely blazed wallpaper. Charred wood terribly destroyed, smelling of wet decaying wood and stone. I could hear an eerie sound of a broken radio ,which was perfectly hidden in the corner, deafen my ears. From the corner of my eyes I see a harrowing baby’s cradle. It rocked side to side, ignoring the lack of wind in this room. I walked silently towards a pair of black drawers. I notice an old book. Gold speckles glistened on the the edges, archaic writing engulfing the covers. I knew I had to go soon, so I retreated from the old book shelf, to see something as quick as flash run out of the room......
+************************************************************************************************
         </description>
         <exit>
             <direction>south</direction>
@@ -80,15 +71,9 @@
     <room>
         <title>Library</title>
         <description>
-            ************************************************************************************************************
-            The Library, oval in its shape, shelves hugging the surface of the walls, volumes of tomes dating back to
-            before Christ. The amount of knowledge here is impeccable. In the center stands an impressive display of
-            wealth.There, in the heart of this room, stands a giant globe of the world, as gold as Zeus's armor, as
-            tall as Goliath himself. As I traverse the room, I trace my hands over the dust, over the edges of every
-            book, feeling the print upon my skin. This room, lays as it has been untouched for years, how can this be
-            so? As my mind begins to wonder, I hear a gust of wind... I notice a small glass oval shaped door,
-            overgrown with weeds, could this be another way forward?
-            ************************************************************************************************************
+************************************************************************************************
+The Library, oval in its shape, shelves hugging the surface of the walls, volumes of tomes dating back to before Christ. The amount of knowledge here is impeccable. In the center stands an impressive display of wealth.There, in the heart of this room, stands a giant globe of the world, as gold as Zeus's armor, as tall as Goliath himself. As I traverse the room, I trace my hands over the dust, over the edges of every book, feeling the print upon my skin. This room, lays as it has been untouched for years, how can this be so? As my mind begins to wonder, I hear a gust of wind... I notice a small glass oval shaped door, overgrown with weeds, could this be another way forward?
+************************************************************************************************
         </description>
         <exit>
             <direction>west</direction>
@@ -102,16 +87,9 @@
     <room>
         <title>Garden Of Eden</title>
         <description>
-            ******************************************************************************************************************
-            From the oval door, a small flight of steps descended to a garden. An iron gate led into an immense gazebo
-            stretching far into the darkness. The place was secluded and protected, overflowing with weeds and exotic plants.
-            From here, you could make out the the laughter kids of a little coastal village miles over the body of water. The
-            gazebo's ceiling hung massively, steep, covered with olive branches, its gracefully old-fashioned wooden beams
-            drained of life by the sun, its rails spiked and menacing, covered in cobwebs. An old fishing boat painted red, and
-            mint green, laid to rest in the gardens corner, succumbed to the weeds surrounding it. Three wooden benches shaded
-            by dark clouds, sit dismembered and no longer functional. The crimson splashes of geraniums in terracotta pots oddly
-            are the only color in these fifty shades of grey.....
-            ********************************************************************************************************************
+************************************************************************************************
+From the oval door, a small flight of steps descended to a garden. An iron gate led into an immense gazebo stretching far into the darkness. The place was secluded and protected, overflowing with weeds and exotic plants. From here, you could make out the the laughter kids of a little coastal village miles over the body of water. The gazebo's ceiling hung massively, steep, covered with olive branches, its gracefully old-fashioned wooden beams drained of life by the sun, its rails spiked and menacing, covered in cobwebs. An old fishing boat painted red, and mint green, laid to rest in the gardens corner, succumbed to the weeds surrounding it. Three wooden benches shaded by dark clouds, sit dismembered and no longer functional. The crimson splashes of geraniums in terracotta pots oddly are the only color in these fifty shades of grey.....
+************************************************************************************************
         </description>
         <exit>
             <direction>north</direction>
@@ -129,18 +107,9 @@
     <room>
         <title>Dining Room</title>
         <description>
-            ******************************************************************************************************************************
-            The room where it all happens, the thoughts, the joys, the painful memories. Oh if these walls could talk, their echoes
-            would would be overpowering. The stained glass windows, darkened in their nature, mysterious in their design, stay black
-            without the rippling effect of the light, never knowing that the dust that clings, the dirt over years, could so easily
-            be washed away. The walls are so cold to the touch, stealing the heat from my warm fingers, never caring if my own heart
-            froze. There seems to be a small opening to the north of this wall. The presence of death inside this room may have been
-            a certainty, that the walls peeling may show truth where the the home may wish to bury. There are skeletons in the cupboards,
-            muffled in their screams, yet only the truth can usher them out. Until that, the paint will peel and the wood will rot, forever
-            wishing for the warmth of a touch. The table stays set, the candles shine brightly off the chandeliers. Portraits of the
-            deceased hang smartly, pondering my intrusion. Their eyes telling stories I will never know. I get the eerily feeling they
-            are not watching me....
-            ********************************************************************************************************************************
+************************************************************************************************
+The room where it all happens, the thoughts, the joys, the painful memories. Oh if these walls could talk, their echoes would would be overpowering. The stained glass windows, darkened in their nature, mysterious in their design, stay black without the rippling effect of the light, never knowing that the dust that clings, the dirt over years, could so easily be washed away. The walls are so cold to the touch, stealing the heat from my warm fingers, never caring if my own heart froze. There seems to be a small opening to the north of this wall. The presence of death inside this room may have been a certainty, that the walls peeling may show truth where the the home may wish to bury. There are skeletons in the cupboards, muffled in their screams, yet only the truth can usher them out. Until that, the paint will peel and the wood will rot, forever wishing for the warmth of a touch. The table stays set, the candles shine brightly off the chandeliers. Portraits of the deceased hang smartly, pondering my intrusion. Their eyes telling stories I will never know. I get the eerily feeling they are not watching me....
+************************************************************************************************
         </description>
         <exit>
             <direction>east</direction>
@@ -154,10 +123,9 @@
     <room>
         <title>Balcony</title>
         <description>
-            ************************************************************************************************************************
-            Finally fresh air... Somehow I can never appreciate the air from below. Here i feel above my sorrows, above my demons,
-            above my past. Closer to my maker, I feel at ease... Yet i fear something is watching me.....
-            ************************************************************************************************************************
+************************************************************************************************
+Finally fresh air... Somehow I can never appreciate the air from below. Here i feel above my sorrows, above my demons, above my past. Closer to my maker, I feel at ease... Yet i fear something is watching me.....
+************************************************************************************************
         </description>
         <exit>
             <direction>south</direction>
