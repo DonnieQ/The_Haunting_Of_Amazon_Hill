@@ -25,10 +25,13 @@ hs_err_pid*
 # IntelliJ IDEA specific
 *.iml
 out/
+/out/
+/.idea/
 .idea/
 
 # tests
 test/
+/test/
 
 #local save file
 usr.save
