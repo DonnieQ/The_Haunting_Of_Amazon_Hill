@@ -6,7 +6,9 @@ public class SplashScreen implements java.io.Serializable {
     public static Scanner scanner = new Scanner(System.in);
     PrintFiles p = new PrintFiles();
     SaveGame save = new SaveGame();
-    private final MusicPlayer themeSong = new MusicPlayer("resources/Sounds/VIKINGS THEME SONG.wav");
+    ClassLoader cl = this.getClass().getClassLoader();
+    String pathStart = "com/intelligents/resources/Sounds/";
+    private final MusicPlayer themeSong = new MusicPlayer(pathStart + "VIKINGS THEME SONG.wav", cl);
 
     public SplashScreen() {
         themeSong.playSoundEffect();
@@ -28,7 +30,7 @@ public class SplashScreen implements java.io.Serializable {
         // If 1 was selected then a new game is loaded
         if (gameType.matches("1")) {
             themeSong.stopSoundEffect();
-            Game g = new Game();
+            Game g = new Game(pathStart, cl);
 
             p.print("resources", "introText");
 
@@ -39,7 +41,7 @@ public class SplashScreen implements java.io.Serializable {
         } else if (gameType.matches("4")) {
             try {
                 themeSong.stopSoundEffect();
-                Game g = new Game();
+                Game g = new Game(, );
                 save.setGame(g);
                 save.loadGame();
                 g.start(true);

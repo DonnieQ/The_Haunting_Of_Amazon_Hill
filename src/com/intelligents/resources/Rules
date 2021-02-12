@@ -1,0 +1,43 @@
+                        ****RULES****
+
+                Traverse through the rooms to look for evidence of ghostly visitors.
+                If anything looks suspicious, make sure to take note
+                in your journal.
+
+                To be victorious you must be in lobby and request to exit; once out, you must use the evidence that you have collected
+                to correctly answer which ghost is guilty of the haunting.
+
+                You will only have 2 attempts before the game ends! After each wrong guess, the world resets and you are
+                thrown back in!
+
+                Happy hunting!!
+
+                       ****Commands****
+
+                - help = displays this screen
+
+                - open = displays the game map and current location
+
+                - read = to view what's in your character's journal
+
+                - look/show = displays any evidence located in your current room
+
+                - move/go + direction e.g. "move north" or "go west"
+
+                - save = save game progress
+
+                - play = start music
+
+                - pause = pause music
+
+                - stop = turn off all game sounds
+
+                - volume up = increases volume
+
+                - volume down = decreases volume
+
+                - exit = if in lobby it allows you to a temporarily leave the home to guess the ghost
+
+                - q/quit will stop the game.
+
+

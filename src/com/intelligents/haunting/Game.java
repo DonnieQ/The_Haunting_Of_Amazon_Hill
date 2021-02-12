@@ -17,23 +17,32 @@ public class Game implements java.io.Serializable {
     private final String divider = "*******************************************************************************************";
     private Player player;
     private final transient PrintFiles p = new PrintFiles();
-    private final MusicPlayer mp = new MusicPlayer("resources/Sounds/Haunted Mansion.wav");
-    private final MusicPlayer soundEffect = new MusicPlayer("resources/Sounds/page-flip-4.wav");
-    private final MusicPlayer walkEffect = new MusicPlayer("resources/Sounds/footsteps-4.wav");
-    private final MusicPlayer keyboardEffect = new MusicPlayer("resources/Sounds/fast-pace-typing.wav");
-    private final MusicPlayer paperFalling = new MusicPlayer("resources/Sounds/paper flutter (2).wav");
+    private MusicPlayer mp;
+    private MusicPlayer soundEffect;
+    private MusicPlayer walkEffect;
+    private MusicPlayer keyboardEffect;
+    private MusicPlayer paperFalling;
     private final Scanner scanner = new Scanner(System.in);
     private int guessCounter = 0;
     boolean isGameRunning = true;
     private boolean isSound = true;
 
-    public Game() {
+    public Game(String pathStart, ClassLoader cl) {
         //populates the main ghost list and sets a random ghost for the current game session
+        setMusic(pathStart, cl);
         populateGhostList();
         populateMiniGhostList();
         setCurrentGhost(getRandomGhost());
         assignRandomEvidenceToMap();
         assignRandomMiniGhostToMap();
+    }
+
+    private void setMusic(String pathStart, ClassLoader cl){
+        mp = new MusicPlayer(pathStart + "Haunted Mansion.wav",cl);
+        soundEffect = new MusicPlayer(pathStart + "page-flip-4.wav", cl);
+        walkEffect = new MusicPlayer(pathStart + "footsteps-4.wav", cl);
+        keyboardEffect = new MusicPlayer(pathStart + "fast-pace-typing.wav",cl );
+        paperFalling = new MusicPlayer(pathStart + "paper flutter (2).wav",cl );
     }
 
     void start(boolean isGameLoaded) {

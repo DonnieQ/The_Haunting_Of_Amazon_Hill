@@ -3,9 +3,6 @@ package com.intelligents.haunting;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.Assert.*;
 
 public class GameTest {
@@ -14,7 +11,7 @@ public class GameTest {
 
     @Before
     public void setUp() throws Exception {
-        g = new Game();
+        g = new Game(, );
         p = Player.getInstance();
     }
 
