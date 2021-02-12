@@ -33,6 +33,7 @@ public class Game implements java.io.Serializable {
     String currentRoom = world.getCurrentRoom().getRoomTitle();
     private String currentLoc = ConsoleColors.BLUE_BOLD + "Your location is " + currentRoom + ConsoleColors.RESET;
     private boolean isSound = true;
+    int attemptCount = 0;
 
     public Game(HauntingJFrame jFrame) throws IOException {
         //populates the main ghost list and sets a random ghost for the current game session
@@ -167,44 +168,18 @@ public class Game implements java.io.Serializable {
                     narrateNoNewLine(divider + "\n");
                     break;
                 case "write":
-                    narrateNoNewLine("Would you like to document anything in your journal? [Yes/No]\n");
-                    writeEntryInJournal();
+                    quickNarrateFormatted("Would you like to document anything in your journal? [Yes/No]\n");
                     break;
                 //Allows user to leave if more than one room has been input into RoomsVisted
                 case "exit":
                     if (userAbleToExit()) {
                         // In order to win, user has to have correct evidence and guessed right ghost
                         if (!checkIfHasAllEvidenceIsInJournal()) {
-                            narrateNoNewLine("It seems your journal does not have all of the evidence needed to determine the ghost." +
+                            quickNarrateFormatted("It seems your journal does not have all of the evidence needed to determine the ghost." +
                                     " Would you like to GUESS the ghost anyway or go back INSIDE?\n>>");
-                            String ans = "";
-                            boolean validEntry = false;
-                            while (!validEntry) {
-//                                ans = scanner.nextLine().strip().toLowerCase();
-                                System.out.println("Scanner was here... needs to be revised - line 180ish");
-                                if (ans.contains("guess") || ans.contains("inside")) {
-                                    validEntry = true;
-                                } else {
-                                    simpleOutputInlineSetting("Invalid input, please decide whether you want to GUESS or go back INSIDE.\n>>");
-                                }
-                            }
-                            if (ans.contains("inside")) {
-                                break;
-                            }
-                        }
-                        String userGuess = getTypeOfGhostFromUser();
-                        if (userGuess.equalsIgnoreCase(currentGhost.getType())) {
-                            narrateNoNewLine("You won!\n");
-                            narrateNoNewLine(getGhostBackstory() + "\n");
-                            isGameRunning = false;
                         } else {
-                            if (guessCounter < 1) {
-                                narrateNoNewLine("Unfortunately, the ghost you determined was incorrect. The correct ghost was \n"
-                                        + currentGhost.toString() + "\nYou have been loaded into a new world. Good luck trying again.\n");
-                                resetWorld();
-                            } else {
-                                resetWorld();
-                            }
+                            quickNarrateFormatted("It seems like you could be ready to determine the ghost." +
+                                    " Would you like to GUESS the ghost or go back INSIDE to continue exploring?\n>>");
                         }
                     }
                     break;
@@ -230,6 +205,41 @@ public class Game implements java.io.Serializable {
             narrateNoNewLine("Make sure to add a verb e.g. 'move', 'go', 'open', 'read' then a noun e.g. 'north', 'map', 'journal'.\n");
         }
     }
+
+    void guessOrGoBackInside(String ans) {
+        if (ans.contains("guess")) {
+            quickNarrateFormatted("You've collected all the evidence you could find.\n" +
+                    "Based on your expertise, make an informed decision on what type of " +
+                    "ghost is haunting Amazon Hill?\n" +
+                    "Here are all the possible ghosts:\n");
+            ghosts.forEach(ghost -> simpleOutputInlineSetting(ConsoleColors.GREEN_BOLD_BRIGHT + ghost.getType() +
+                    ConsoleColors.RESET + "\n"));
+            simpleOutputInlineSetting(ConsoleColors.RED + "Which Ghost do you think it is?\n" +
+                    ConsoleColors.RESET + ">>");
+        } else if (ans.contains("inside")) {
+            quickNarrateFormatted("You are back inside");
+        } else {
+            quickNarrateFormatted("Invalid input, please decide whether you want to GUESS or go back INSIDE.\n>>");
+        }
+    }
+
+    void userGuess(String ans) {
+        quickNarrateFormatted("Good job gathering evidence, " + player.getName() + ".\nYou guessed: " + ans + "\n");
+        if (ans.equalsIgnoreCase(currentGhost.getType())) {
+            narrateNoNewLine("You won!\n");
+            narrateNoNewLine(getGhostBackstory() + "\n");
+            isGameRunning = false;
+        } else {
+            if (guessCounter < 1) {
+                narrateNoNewLine("Unfortunately, the ghost you determined was incorrect. The correct ghost was \n"
+                        + currentGhost.toString() + "\nYou have been loaded into a new world. Good luck trying again.\n");
+                resetWorld();
+            } else {
+                resetWorld();
+            }
+        }
+    }
+
 
     private void stopSound() {
         mp.pauseMusic();
@@ -276,15 +286,13 @@ public class Game implements java.io.Serializable {
                     narrateRooms(world.getCurrentRoom().getDescription());
                     break;
                 } else {
-                    simpleOutputInlineSetting("You hit a wall. Try again:\n>> ");
+                    quickNarrateFormatted("You hit a wall. Try again:\n>> ");
                     attemptCount++;
                     if (attemptCount >= 2) {
                         simpleOutputInlineSetting("\n");
                         openMap();
                         simpleOutputInlineSetting("Where would you like to go?\n>> ");
                     }
-//                    input = scanner.nextLine().strip().toLowerCase().split(" ");
-                    System.out.println("Scanner was here... needs to be revised - line 270ish");
                     break;
                 }
             } catch (InterruptedException | IOException e) {
@@ -296,8 +304,6 @@ public class Game implements java.io.Serializable {
                     ". What will you do? [Fight/Run]\n>>");
 //            input = scanner.nextLine().strip().toLowerCase().split(" ");
 //            narrateNoNewLine(runCombat(input, this, scanner) + "\n");
-            System.out.println("Scanner was here... needs to be revised - line 281ish");
-
         }
     }
 
@@ -333,21 +339,7 @@ public class Game implements java.io.Serializable {
         }
     }
 
-    private String getTypeOfGhostFromUser() {
-        narrateNoNewLine("You've collected all the evidence you could find.\n" +
-                "Based on your expertise, make an informed decision on what type of " +
-                "ghost is haunting Amazon Hill?\n" +
-                "Here are all the possible ghosts:\n");
-        ghosts.forEach(ghost -> simpleOutputInlineSetting(ConsoleColors.GREEN_BOLD_BRIGHT + ghost.getType() +
-                ConsoleColors.RESET + "\n"));
-        simpleOutputInlineSetting(ConsoleColors.RED + "Which Ghost do you think it is?\n" +
-                ConsoleColors.RESET + ">>");
-//        String userGuessed = scanner.nextLine().strip();
-//        narrateNoNewLine("Good job gathering evidence, " + player.getName() + ".\nYou guessed: " + userGuessed + "\n");
-//        return userGuessed;
-        System.out.println("Scanner was here... needs to be revised - line 330ish");
-        return null;
-    }
+
 
     private void addEvidenceToJournal() {
         if (!world.getCurrentRoom().getRoomEvidence().isEmpty()) {
@@ -356,19 +348,20 @@ public class Game implements java.io.Serializable {
         }
     }
 
-    private void writeEntryInJournal() {
-        simpleOutputInlineSetting(">>");
-//        String journalEntry = scanner.nextLine().strip();
-//        if (journalEntry.equals("no")) {
-//            narrateNoNewLine("Journal Closed.\n");
-//        } else if (journalEntry.equalsIgnoreCase("yes")) {
-//            simpleOutputInlineSetting("Your entry:\n>> ");
-//            journalEntry = scanner.nextLine().strip();
-//            player.setJournal(journalEntry);
-//        } else {
-//            narrateNoNewLine("Invalid Journal entry. Please look/show again to document again.\n");
-//        }
-        System.out.println("Scanner was here... needs to be revised - line 352ish");
+
+     void writeEntryInJournal(String journalEntry) {
+        if (journalEntry.equals("no")) {
+            narrateNoNewLine("Journal Closed.\n");
+        } else if (journalEntry.equalsIgnoreCase("yes")) {
+            quickNarrateFormatted("Your entry:\n>> ");
+        } else {
+            narrateNoNewLine("Invalid Journal entry. Please look/show again to document again.\n");
+        }
+    }
+
+    void inputEntryInJournal(String journalEntry) {
+        player.setJournal(journalEntry);
+        quickNarrateFormatted("Entry Saved!");
     }
 
     private void printJournal() {
@@ -675,7 +668,6 @@ public class Game implements java.io.Serializable {
 
     // Appends to GUI without altering prior added text
     public void simpleOutputInlineSetting(String input) {
-        System.out.print(input);
         jFrame.appendToTextBox(input);
     }
 
