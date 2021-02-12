@@ -44,7 +44,6 @@ public class Controller {
         } else if (promptToUser.equals("Would you like to document anything in your journal? [Yes/No]\n") || promptToUser.equals("Invalid Journal entry. Please look/show again to document again.\n")) {
             game.writeEntryInJournal(response[0]);
         } else if (promptToUser.equals("Your entry:\n>> ")) {
-            System.out.println("HIT");
             game.inputEntryInJournal(response[0]);
         } else {
             game.processInput(true, response, game.attemptCount);
