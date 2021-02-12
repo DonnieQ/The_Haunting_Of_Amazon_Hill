@@ -1,6 +1,6 @@
 package com.intelligents.haunting;
 
-import java.awt.*;
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,7 +121,7 @@ public class Game implements java.io.Serializable {
                 case "volume":
                     if (input[1].equals("up")) {
                         mp.setVolume(5.0f);
-                    } else if (input[1].equals("down")){
+                    } else if (input[1].equals("down")) {
                         mp.setVolume(-5.0f);
                     }
                     break;
@@ -200,6 +200,12 @@ public class Game implements java.io.Serializable {
                 case "move":
                 case "go":
                     changeRoom(isValidInput, input, attempt);
+                    break;
+//                case "fight":
+//                case "run":
+//                    narrateNoNewLine(runCombat(input, this) + "\n");
+//                    break;
+
             }
         } catch (ArrayIndexOutOfBoundsException | IOException e) {
             narrateNoNewLine("Make sure to add a verb e.g. 'move', 'go', 'open', 'read' then a noun e.g. 'north', 'map', 'journal'.\n");
@@ -271,7 +277,7 @@ public class Game implements java.io.Serializable {
         return "";
     }
 
-    public void changeRoom(boolean isValidInput, String[] input, int attemptCount) {
+    public void changeRoom(boolean isValidInput, String[] input, int attemptCount) throws IOException {
         while (isValidInput) {
             String normalize = normalizeText(input[1]);
             try {
@@ -300,10 +306,15 @@ public class Game implements java.io.Serializable {
             }
         }
         if (world.getCurrentRoom().getRoomMiniGhost() != null) {
-            narrateNoNewLine("You have run into a " + world.getCurrentRoom().getRoomMiniGhost().getName() +
-                    ". What will you do? [Fight/Run]\n>>");
-//            input = scanner.nextLine().strip().toLowerCase().split(" ");
-//            narrateNoNewLine(runCombat(input, this, scanner) + "\n");
+            String fightChoice = JOptionPane.showInputDialog("You have run into a " + world.getCurrentRoom().getRoomMiniGhost().getName() +
+                    ". What will you do? [Fight/Run]\n>>").strip().toLowerCase();
+            switch (fightChoice) {
+                case "fight":
+                case "run":
+                    simpleOutputInlineSetting(runCombat(fightChoice, this));
+                    break;
+            }
+
         }
     }
 
@@ -340,7 +351,6 @@ public class Game implements java.io.Serializable {
     }
 
 
-
     private void addEvidenceToJournal() {
         if (!world.getCurrentRoom().getRoomEvidence().isEmpty()) {
             String journalEntry = (world.getCurrentRoom().getRoomTitle() + ": " + world.getCurrentRoom().getRoomEvidence() + "(Automatically Logged)");
@@ -349,7 +359,7 @@ public class Game implements java.io.Serializable {
     }
 
 
-     void writeEntryInJournal(String journalEntry) {
+    void writeEntryInJournal(String journalEntry) {
         if (journalEntry.equals("no")) {
             narrateNoNewLine("Journal Closed.\n");
         } else if (journalEntry.equalsIgnoreCase("yes")) {
@@ -611,15 +621,15 @@ public class Game implements java.io.Serializable {
         long sleepTime = (long) seconds * 1000 / numChars;
         System.out.print(ConsoleColors.RED);
 //        try {
-            if (isSound) {
-                keyboardEffect.playSoundEffect();
-            }
+        if (isSound) {
+            keyboardEffect.playSoundEffect();
+        }
 //            for (Character c : input.toCharArray()) {
 //                System.out.print(c);
 //                Thread.sleep(sleepTime);
 //            }
         jFrame.appendToTextBox(input);
-            keyboardEffect.stopSoundEffect();
+        keyboardEffect.stopSoundEffect();
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
@@ -629,15 +639,15 @@ public class Game implements java.io.Serializable {
     // Add narration to the GUI by removing all prior text added
     public void quickNarrateFormatted(String input) {
 //        try {
-            if (isSound) {
-                keyboardEffect.playSoundEffect();
-            }
+        if (isSound) {
+            keyboardEffect.playSoundEffect();
+        }
 //            for (Character c : input.toCharArray()) {
 //                System.out.print(c);
 //                Thread.sleep(1);
 //            }
         jFrame.setTextBox(input);
-            keyboardEffect.stopSoundEffect();
+        keyboardEffect.stopSoundEffect();
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
@@ -650,15 +660,15 @@ public class Game implements java.io.Serializable {
         long sleepTime = (long) seconds * 4000 / numChars;
         System.out.print(ConsoleColors.RED_BRIGHT);
 //        try {
-            if (isSound) {
-                paperFalling.playSoundEffect();
-            }
+        if (isSound) {
+            paperFalling.playSoundEffect();
+        }
 //            for (Character c : input.toCharArray()) {
 //                System.out.print(c);
 //                Thread.sleep(sleepTime);
 //            }
         jFrame.setTextBox(input);
-            paperFalling.stopSoundEffect();
+        paperFalling.stopSoundEffect();
 //            simpleOutputInlineSetting("\n");
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();

@@ -1,16 +1,16 @@
 package com.intelligents.haunting;
 
+import javax.swing.*;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class CombatEngine {
 
-    public static String runCombat(String[] userCommands, Game game, Scanner scanner) throws IOException {
+    public static String runCombat(String userChoice, Game game) throws IOException {
         String result = "";
-        if (userCommands[0].equals("fight")) {
+        if (userChoice.equals("fight")) {
             boolean inFight = true;
             while (inFight) {
-                String fightResult = mortalCombat(game, result, scanner);
+                String fightResult = mortalCombat(game, result);
                 if (fightResult.contains("invalid") || fightResult.contains("hoping")) {
                     //output result message and loop again
                     game.narrateNoNewLine(fightResult + "\n");
@@ -25,32 +25,33 @@ public class CombatEngine {
                 }
             }
         }
-        if (userCommands[0].equals("run")) {
+        // adding comment for github connection
+        if (userChoice.equals("run")) {
             result = "Frightened to the point of tears, you flee back the way you came.";
             game.changeRoom(true, invertPlayerRoom(game.getPlayer().getMostRecentExit()), 0);
         }
         return result;
     }
 
-    private static String mortalCombat(Game game, String result, Scanner scanner) {
+    private static String mortalCombat(Game game, String result) {
         showStatus(game);
-        return processChoice(game, result, scanner);
+        return processChoice(game, result);
     }
 
     private static void showStatus(Game game) {
         game.narrateNoNewLine("Combat commencing...");
     }
 
-    private static String processChoice(Game game, String result, Scanner scanner) {
+    private static String processChoice(Game game, String result) {
         MiniGhost battleGhost = game.getWorld().getCurrentRoom().getRoomMiniGhost();
-        String choices = "Choose your action: \n" +
+        String choices = JOptionPane.showInputDialog("Choose your action: \n" +
                 "1 - Swing Iron Bar!\n" +
                 "2 - Sweat on it!\n" +
                 "3 - Punch it!\n" +
-                "4 - Run!\n";
+                "4 - Run!\n");
         game.narrateNoNewLine(choices + ">>");
-        String input = scanner.nextLine().strip().toLowerCase();
-        switch (input) {
+//        String input = userInput.getText().strip().toLowerCase();
+        switch (choices) {
             case "1":
                 result = "You swing the iron bar, and the " + battleGhost.getName() + " dissipates.";
                 break;
