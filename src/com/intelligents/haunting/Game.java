@@ -2,6 +2,10 @@ package com.intelligents.haunting;
 
 import java.awt.*;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -45,22 +49,10 @@ public class Game implements java.io.Serializable {
         this.jFrame = jFrame;
     }
 
-    public void intro(String[] gameType) {
+    public void intro(String[] gameType) throws IOException {
         if (gameType[0].matches("1")) {
             jFrame.textDisplayGameWindow.setForeground(Color.green);
-            quickNarrateFormatted("        ***********************************************************************************************************************\n" +
-                    "        ring...ring...ring...click\n" +
-                    "        *voicemail* \"Detective, we have a situation. There seems to be a disturbance over on Amazon Hill. The residents have\n" +
-                    "        been experiencing some unexplained events taking place in their home. After speaking to the madam, this may be up your\n" +
-                    "        alley. I know you may not be inclined due to the previous turning out to be a hoax... but I assure you, this one is\n" +
-                    "        not sitting right. The details have been sent by courier, happy hunting...\n" +
-                    "\n" +
-                    "        I slowly walked towards the house, the leaves crunching under my feet. The broken gates were open, creaking in the wind\n" +
-                    "        and felt wet and as cold as ice. On either side were demented gargoyles. It was a dark, cold night. The lightning lit up\n" +
-                    "        the house and the thunder sent shock-waves down my spine. The house was dark and gloomy. It had narrow broken windows and\n" +
-                    "        an open wooden porch, it looked abandoned but it shouldn't be, a light was on in the attic room. I started to hear faint\n" +
-                    "        singing in the distance as my heart began to beat faster as I continued to walk past the bare trees towards the front door.\n" +
-                    "        ***********************************************************************************************************************");
+            quickNarrateFormatted(Files.readString(Paths.get("resources/settingTheScene"), StandardCharsets.UTF_8));
 
             simpleOutputInlineSetting("\n" + "Thank you for choosing to play The Haunting of Amazon Hill. " +
                     "What would you like your name to be?\n" + ">>");
@@ -145,7 +137,8 @@ public class Game implements java.io.Serializable {
                 //
                 case "?":
                 case "help":
-                    p.print("resources", "Rules");
+                    jFrame.textDisplayGameWindow.setForeground(Color.PINK);
+                    quickNarrateFormatted(Files.readString(Paths.get("resources/Rules"), StandardCharsets.UTF_8));
                     break;
                 case "open":
                     openMap();
