@@ -1,6 +1,7 @@
 package com.intelligents.client;
 
 
+import com.intelligents.haunting.Game;
 import com.intelligents.haunting.HauntingJFrame;
 
 import java.io.IOException;
