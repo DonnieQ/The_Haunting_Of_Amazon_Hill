@@ -74,12 +74,12 @@ public class Ghost implements java.io.Serializable {
 
     @Override
     public String toString() {
-        return getType() + ":\n" +
+        return "\n" + getType() + ":\n" +
                 "\tBackground: " + getBackground() + "\n" +
                 "\tEvidence: " +
                 getEvidence()
                         .stream()
                         .map(x -> x.substring(x.lastIndexOf(" ") + 1))
-                        .collect(Collectors.toList()) + "\n\n";
+                        .collect(Collectors.toList()) + "\n";
     }
 }
