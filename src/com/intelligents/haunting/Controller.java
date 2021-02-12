@@ -17,7 +17,7 @@ public class Controller {
         this.game = game;
     }
 
-    public void kickoffResponse(String[] response, String promptToUser) {
+    public void kickoffResponse(String[] response, String promptToUser) throws IOException {
         // Get what chapter the user wants
         if (introScreen) {
             game.intro(response);

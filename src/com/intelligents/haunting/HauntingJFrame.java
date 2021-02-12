@@ -119,7 +119,11 @@ public class HauntingJFrame extends JWindow implements ActionListener{
         if (e.getSource() == userInput) {
             userResponse = userInput.getText().strip().toLowerCase().split(" ");
             userInput.setText("");
-            controller.kickoffResponse(userResponse, textDisplayGameWindow.getText());
+            try {
+                controller.kickoffResponse(userResponse, textDisplayGameWindow.getText());
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         }
     }
 
