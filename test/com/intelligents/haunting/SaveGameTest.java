@@ -9,8 +9,8 @@ public class SaveGameTest {
 
     @Before
     public void setUp() throws Exception {
-        Game g = new Game();
-        World world = new World();
+//        Game g = new Game(, );
+//        World world = new World();
         SaveGame saveGame = new SaveGame();
     }
 

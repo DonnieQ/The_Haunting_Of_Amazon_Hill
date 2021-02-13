@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-class World implements java.io.Serializable {
+public class World implements java.io.Serializable {
 
     private final transient ReadFiles r = new ReadFiles();
 
@@ -20,9 +20,9 @@ class World implements java.io.Serializable {
         this.currentRoom = currentRoom;
     }
 
-    World() {
+    World(ClassLoader classLoader, String resourcePath) {
         //read all room objects in
-        populateRoomList();
+        populateRoomList(classLoader,resourcePath);
         currentRoom = rooms.get(0);
 
         HashMap<String, Room> map = new HashMap<>();
@@ -41,8 +41,8 @@ class World implements java.io.Serializable {
 
     }
 
-    void populateRoomList() {
-        this.setRooms(XMLParser.populateRooms(XMLParser.readXML("Rooms"), "room"));
+    void populateRoomList(ClassLoader cl, String resourcePath) {
+        this.setRooms(XMLParser.populateRooms(XMLParser.readXML(resourcePath + "Rooms",cl) , "room"));
     }
 
     List<Room> getRooms() {

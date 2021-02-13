@@ -7,7 +7,9 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 class XMLParser implements java.io.Serializable {
@@ -97,30 +99,29 @@ class XMLParser implements java.io.Serializable {
     }
 
     // XML reader, returns the document based on the passed in String which is the filename before the extension
-    static Document readXML(String filename) {
-        NodeList results = null;
+    static Document readXML(String filename, ClassLoader classLoader) {
         Document doc = null;
         try {
             // class.xml is place in the folder data within the package structure
+            if (filename != null) {
+//            File inputFile = new File("resources/" + filename + ".xml");
+                InputStream xmlToParse = classLoader.getResourceAsStream(filename + ".xml");
+                // three statements that result in loading the xml file and creating a Document object
 
-            File inputFile = new File("resources/" + filename + ".xml");
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                DocumentBuilder db = dbf.newDocumentBuilder();
+                doc = db.parse(xmlToParse);
 
-            // three statements that result in loading the xml file and creating a Document object
+                // get the root node of the XML document
 
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            doc = db.parse(inputFile);
+                Element root = doc.getDocumentElement();
 
-            // get the root node of the XML document
+                // normalize standarizes the XML format
+                root.normalize();
 
-            Element root = doc.getDocumentElement();
-
-            // normalize standarizes the XML format
-            root.normalize();
-
-            // print out the root node of the XML document
-            //System.out.println("Root is " + root.getNodeName());
-
+                // print out the root node of the XML document
+                //System.out.println("Root is " + root.getNodeName());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

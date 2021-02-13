@@ -1,19 +1,24 @@
 package com.intelligents.haunting;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class SplashScreen implements java.io.Serializable {
     public static Scanner scanner = new Scanner(System.in);
+    ClassLoader cl = getClass().getClassLoader();
+    String pathStartResources = "com/intelligents/resources/";
+    String pathStartSounds = pathStartResources + "Sounds/";
     PrintFiles p = new PrintFiles();
     SaveGame save = new SaveGame();
-    private final MusicPlayer themeSong = new MusicPlayer("resources/Sounds/VIKINGS THEME SONG.wav");
+    private final MusicPlayer themeSong = new MusicPlayer(pathStartSounds + "VIKINGS THEME SONG.wav", cl);
 
     public SplashScreen() {
         themeSong.playSoundEffect();
         themeSong.setVolume((float) -10.69);
     }
 
-    public void splash() {
+    public void splash() throws IOException {
 //generates game selection
 
         System.out.print(ConsoleColors.YELLOW_BRIGHT + "What game would you like to play?\n " +
@@ -27,18 +32,18 @@ public class SplashScreen implements java.io.Serializable {
         // If 1 was selected then a new game is loaded
         if (gameType.matches("1")) {
             themeSong.stopSoundEffect();
-            Game g = new Game();
+            Game g = new Game(pathStartSounds, pathStartResources, cl, p);
 
-            p.print("resources", "introText");
+            p.print(pathStartResources, "introText", cl);
 
-            p.printAlternateColor("resources", "settingTheScene");
+            p.printAlternateColor(pathStartResources, "settingTheScene", cl);
 
             g.start(false);
         //If loaded game was selected then the saved file is loaded
         } else if (gameType.matches("4")) {
             try {
                 themeSong.stopSoundEffect();
-                Game g = new Game();
+                Game g = new Game(pathStartSounds, pathStartSounds, cl, p);
                 save.setGame(g);
                 save.loadGame();
                 g.start(true);
@@ -52,8 +57,8 @@ public class SplashScreen implements java.io.Serializable {
         }
     }
 
-    public void pressEnterToContinue() {
-        p.print("resources", "splashScreen");
+    public void pressEnterToContinue() throws IOException {
+        p.print(pathStartResources, "splashScreen", cl);
         System.out.println(ConsoleColors.YELLOW + "Press Enter key to continue..." + ConsoleColors.RESET);
         try {
             System.in.read();

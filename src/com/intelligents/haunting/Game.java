@@ -1,11 +1,16 @@
 package com.intelligents.haunting;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 import static com.intelligents.haunting.CombatEngine.runCombat;
 
 public class Game implements java.io.Serializable {
-    private World world = new World();
+    private final PrintFiles p;
+    private final String resourcePath;
+    private final ClassLoader cl;
+    private World world;
     private List<Ghost> ghosts = new ArrayList<>();
     private List<MiniGhost> miniGhosts = new ArrayList<>();
     private final SaveGame SaveGame = new SaveGame();
@@ -13,24 +18,39 @@ public class Game implements java.io.Serializable {
     private final Random r = new Random();
     private final String divider = "*******************************************************************************************";
     private Player player;
-    private final transient PrintFiles p = new PrintFiles();
-    private final MusicPlayer mp = new MusicPlayer("resources/Sounds/Haunted Mansion.wav");
-    private final MusicPlayer soundEffect = new MusicPlayer("resources/Sounds/page-flip-4.wav");
-    private final MusicPlayer walkEffect = new MusicPlayer("resources/Sounds/footsteps-4.wav");
-    private final MusicPlayer keyboardEffect = new MusicPlayer("resources/Sounds/fast-pace-typing.wav");
-    private final MusicPlayer paperFalling = new MusicPlayer("resources/Sounds/paper flutter (2).wav");
+    private MusicPlayer mp;
+    private MusicPlayer soundEffect;
+    private MusicPlayer walkEffect;
+    private MusicPlayer keyboardEffect;
+    private MusicPlayer paperFalling;
     private final Scanner scanner = new Scanner(System.in);
     private int guessCounter = 0;
     boolean isGameRunning = true;
     private boolean isSound = true;
 
-    public Game() {
+
+    public Game(String pathStartSounds, String pathStartResources, ClassLoader classLoader
+            , PrintFiles printer) {
         //populates the main ghost list and sets a random ghost for the current game session
+        p = printer;
+        resourcePath = pathStartResources;
+        cl = classLoader;
+        world = new World(cl,resourcePath);
+        setMusic(pathStartSounds);
         populateGhostList();
         populateMiniGhostList();
         setCurrentGhost(getRandomGhost());
         assignRandomEvidenceToMap();
         assignRandomMiniGhostToMap();
+
+    }
+
+    private void setMusic(String pathStart){
+        mp = new MusicPlayer(pathStart + "Haunted Mansion.wav",cl);
+        soundEffect = new MusicPlayer(pathStart + "page-flip-4.wav", cl);
+        walkEffect = new MusicPlayer(pathStart + "footsteps-4.wav", cl);
+        keyboardEffect = new MusicPlayer(pathStart + "fast-pace-typing.wav",cl );
+        paperFalling = new MusicPlayer(pathStart + "paper flutter (2).wav",cl );
     }
 
     void start(boolean isGameLoaded) {
@@ -126,7 +146,7 @@ public class Game implements java.io.Serializable {
                 //
                 case "?":
                 case "help":
-                    p.print("resources", "Rules");
+                    p.print(resourcePath, "Rules", cl);
                     break;
                 case "open":
                     openMap();
@@ -209,8 +229,10 @@ public class Game implements java.io.Serializable {
                 case "go":
                     changeRoom(isValidInput, input, attempt);
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException | FileNotFoundException e) {
             narrateNoNewLine("Make sure to add a verb e.g. 'move', 'go', 'open', 'read' then a noun e.g. 'north', 'map', 'journal'.\n");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -268,7 +290,7 @@ public class Game implements java.io.Serializable {
                     input = scanner.nextLine().strip().toLowerCase().split(" ");
                     //break;
                 }
-            } catch (InterruptedException e) {
+            } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
             }
         }
@@ -280,31 +302,31 @@ public class Game implements java.io.Serializable {
         }
     }
 
-    private void openMap() {
+    private void openMap() throws IOException {
         switch (world.getCurrentRoom().getRoomTitle()) {
             case "Dining Room":
-                p.print("resources", "Map(DiningRoom)");
+                p.print(resourcePath, "Map(DiningRoom)", cl);
                 break;
             case "Balcony":
-                p.print("resources", "Map(Balcony)");
+                p.print(resourcePath, "Map(Balcony)", cl);
                 break;
             case "Attic":
-                p.print("resources", "Map(Attic)");
+                p.print(resourcePath, "Map(Attic)", cl);
                 break;
             case "Dungeon":
-                p.print("resources", "Map(Dungeon)");
+                p.print(resourcePath, "Map(Dungeon)", cl);
                 break;
             case "Furnace Room":
-                p.print("resources", "Map(FurnaceRoom)");
+                p.print(resourcePath, "Map(FurnaceRoom)", cl);
                 break;
             case "Garden Of Eden":
-                p.print("resources", "Map(GardenOfEden)");
+                p.print(resourcePath, "Map(GardenOfEden)", cl);
                 break;
             case "Library":
-                p.print("resources", "Map(Library)");
+                p.print(resourcePath, "Map(Library)", cl);
                 break;
             case "Lobby":
-                p.print("resources", "Map(Lobby)");
+                p.print(resourcePath, "Map(Lobby)", cl);
                 break;
             case "Secret Tunnel":
                 simpleOutputInlineSetting("You're in a super secret tunnel!!!");
@@ -363,11 +385,11 @@ public class Game implements java.io.Serializable {
     }
 
     void populateGhostList() {
-        this.setGhosts(XMLParser.populateGhosts(XMLParser.readXML("Ghosts"), "ghost"));
+        this.setGhosts(XMLParser.populateGhosts(XMLParser.readXML(resourcePath + "Ghosts",cl ), "ghost"));
     }
 
     void populateMiniGhostList() {
-        this.setMiniGhosts(XMLParser.populateMiniGhosts(XMLParser.readXML("Ghosts"), "minighost"));
+        this.setMiniGhosts(XMLParser.populateMiniGhosts(XMLParser.readXML(resourcePath + "Ghosts",cl ), "minighost"));
     }
 
     void printGhosts() {
