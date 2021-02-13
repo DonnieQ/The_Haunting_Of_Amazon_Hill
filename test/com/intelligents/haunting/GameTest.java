@@ -11,8 +11,8 @@ public class GameTest {
 
     @Before
     public void setUp() throws Exception {
-        g = new Game(, );
-        p = Player.getInstance();
+//        g = new Game(, );
+//        p = Player.getInstance();
     }
 
     @Test

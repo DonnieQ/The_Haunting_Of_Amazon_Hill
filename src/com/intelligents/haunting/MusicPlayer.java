@@ -24,7 +24,8 @@ class MusicPlayer {
 
         {
             try {
-                AudioInputStream audioStream = AudioSystem.getAudioInputStream(cl.getResourceAsStream(filepath));
+
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(cl.getResource(filepath));
                 clip = AudioSystem.getClip();
                 clip.open(audioStream);
                 controller = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
