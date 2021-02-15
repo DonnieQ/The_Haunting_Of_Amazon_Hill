@@ -1,6 +1,7 @@
 package com.intelligents.haunting;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
