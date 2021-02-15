@@ -595,38 +595,20 @@ public class Game implements java.io.Serializable {
         int seconds = 1;
         int numChars = input.toCharArray().length;
         long sleepTime = (long) seconds * 1000 / numChars;
-        System.out.print(ConsoleColors.RED);
-//        try {
         if (isSound) {
             keyboardEffect.playSoundEffect();
         }
-//            for (Character c : input.toCharArray()) {
-//                System.out.print(c);
-//                Thread.sleep(sleepTime);
-//            }
         jFrame.appendToTextBox(input);
         keyboardEffect.stopSoundEffect();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        System.out.print(ConsoleColors.RESET);
     }
 
     // Add narration to the GUI by removing all prior text added
     public void quickNarrateFormatted(String input) {
-//        try {
         if (isSound) {
             keyboardEffect.playSoundEffect();
         }
-//            for (Character c : input.toCharArray()) {
-//                System.out.print(c);
-//                Thread.sleep(1);
-//            }
         jFrame.setTextBox(input);
         keyboardEffect.stopSoundEffect();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
     }
 
     // Removes all prior text presented in GUI and displays new room narration
@@ -639,17 +621,8 @@ public class Game implements java.io.Serializable {
         if (isSound) {
             paperFalling.playSoundEffect();
         }
-//            for (Character c : input.toCharArray()) {
-//                System.out.print(c);
-//                Thread.sleep(sleepTime);
-//            }
         jFrame.setTextBox(input);
         paperFalling.stopSoundEffect();
-//            simpleOutputInlineSetting("\n");
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-        System.out.print(ConsoleColors.RESET);
     }
 
     // Appends to GUI without altering prior added text
