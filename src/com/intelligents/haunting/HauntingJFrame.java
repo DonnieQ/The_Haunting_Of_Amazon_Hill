@@ -41,6 +41,7 @@ public class HauntingJFrame extends JWindow implements ActionListener{
         cl = getClass().getClassLoader();
         themeSong = new MusicPlayer(pathStartSounds + "VIKINGS THEME SONG.wav", cl);
 //        splashWindow();
+        
         gameWindow();
         game = new Game(this, pathStartSounds, pathStartResources, cl, p);
         controller = new Controller(game);
