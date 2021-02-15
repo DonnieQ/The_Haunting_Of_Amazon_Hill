@@ -1,6 +1,8 @@
 package com.intelligents.haunting;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.FileImageInputStream;
+import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 import java.awt.*;
@@ -8,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.URL;
 
 public class HauntingJFrame extends JWindow implements ActionListener{
 
@@ -27,16 +30,20 @@ public class HauntingJFrame extends JWindow implements ActionListener{
     String currentRoom;
     Game game;
     Controller controller;
-
-    private final MusicPlayer themeSong = new MusicPlayer("resources/Sounds/VIKINGS THEME SONG.wav");
-
+    PrintFiles p = new PrintFiles();
+    ClassLoader cl;
+    String pathStartResources = "com/intelligents/resources/";
+    String pathStartSounds = pathStartResources + "Sounds/";
+    String pathStartImages = pathStartResources + "Images/";
+    private MusicPlayer themeSong;
 
     public HauntingJFrame() throws IOException {
-        splashWindow();
+        cl = getClass().getClassLoader();
+        themeSong = new MusicPlayer(pathStartSounds + "VIKINGS THEME SONG.wav", cl);
+//        splashWindow();
         gameWindow();
-        game = new Game(this);
+        game = new Game(this, pathStartSounds, pathStartResources, cl, p);
         controller = new Controller(game);
-//        currentRoom = "resources/Images/Map(Lobby).png";
     }
 
 
@@ -167,12 +174,13 @@ public class HauntingJFrame extends JWindow implements ActionListener{
     void showMap() throws IOException {
         currentRoom = game.currentRoom.replaceAll("\\s", "");
 
-        File currentRoomMap = new File("resources/Images/Map(" + currentRoom + ").png");
+        InputStream currentRoomMap = new FileInputStream(String.valueOf(cl.getResourceAsStream(pathStartImages + "Map(" + currentRoom + ").png")));
         frame = new JFrame("Map");
         frame.setSize(500, 500);
 
-        BufferedImage mapImage = ImageIO.read(currentRoomMap);
-        JLabel picLabel = new JLabel(new ImageIcon(mapImage));
+        ImageInputStream mapImage = ImageIO.createImageInputStream(currentRoomMap);
+        BufferedImage bufferedImage = ImageIO.read(mapImage);
+        JLabel picLabel = new JLabel(new ImageIcon(bufferedImage));
 
 
         frame.add(picLabel, BorderLayout.CENTER);
@@ -182,11 +190,15 @@ public class HauntingJFrame extends JWindow implements ActionListener{
     }
 
     private void splashWindow() throws IOException {
-        themeSong.playSoundEffect();
-        themeSong.setVolume((float) -10.69);
+//        themeSong.playSoundEffect();
+//        themeSong.setVolume((float) -10.69);
 
-        ImageIcon splashScreenImage = new ImageIcon("resources/Images/asciiSplashScreen.png");
-        JLabel image = new JLabel(splashScreenImage);
+        System.out.println(pathStartImages + "asciiSplashScreen.png");
+        URL splashScreenImage = cl.getResource(pathStartImages + "asciiSplashScreen.png");
+//        ImageIcon splashScreenImage = new ImageIcon(pathStartImages + "asciiSplashScreen");
+//        ImageInputStream mapImage = ImageIO.createImageInputStream(splashScreenImage);
+//        BufferedImage bufferedImage = ImageIO.read(mapImage);
+        JLabel image = new JLabel((Icon) ImageIO.read(splashScreenImage));
 
         window.getContentPane().add(image);
         window.setBounds(500, 150, 300, 200);

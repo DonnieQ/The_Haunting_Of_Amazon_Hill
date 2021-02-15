@@ -11,12 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 import static com.intelligents.haunting.CombatEngine.runCombat;
 
 public class Game implements java.io.Serializable {
-    private World world = new World();
+    private final String resourcePath;
+    private final ClassLoader cl;
+    private World world;
     private List<Ghost> ghosts = new ArrayList<>();
     private List<MiniGhost> miniGhosts = new ArrayList<>();
     private final SaveGame SaveGame = new SaveGame();
@@ -27,27 +31,44 @@ public class Game implements java.io.Serializable {
     private HauntingJFrame jFrame;
     SaveGame save = new SaveGame();
     private final transient PrintFiles p = new PrintFiles();
-    private final MusicPlayer mp = new MusicPlayer("resources/Sounds/Haunted Mansion.wav");
-    private final MusicPlayer soundEffect = new MusicPlayer("resources/Sounds/page-flip-4.wav");
-    private final MusicPlayer walkEffect = new MusicPlayer("resources/Sounds/footsteps-4.wav");
-    private final MusicPlayer keyboardEffect = new MusicPlayer("resources/Sounds/fast-pace-typing.wav");
-    private final MusicPlayer paperFalling = new MusicPlayer("resources/Sounds/paper flutter (2).wav");
+    private MusicPlayer mp;
+    private MusicPlayer soundEffect;
+    private MusicPlayer walkEffect;
+    private MusicPlayer keyboardEffect;
+    private MusicPlayer paperFalling;
     private int guessCounter = 0;
     boolean isGameRunning = true;
     String moveGuide = "To move type: Go North, Go East, Go South, or Go West";
-    String currentRoom = world.getCurrentRoom().getRoomTitle();
-    private String currentLoc = ConsoleColors.BLUE_BOLD + "Your location is " + currentRoom + ConsoleColors.RESET;
+    String currentRoom;
+    private String currentLoc;
     private boolean isSound = true;
     int attemptCount = 0;
 
-    public Game(HauntingJFrame jFrame) throws IOException {
+
+    public Game(HauntingJFrame jFrame, String pathStartSounds, String pathStartResources, ClassLoader classLoader
+            , PrintFiles printer) throws IOException {
         //populates the main ghost list and sets a random ghost for the current game session
+        resourcePath = pathStartResources;
+        cl = classLoader;
+        world = new World(cl,resourcePath);
+        player = Player.getInstance();
+        currentRoom = world.getCurrentRoom().getRoomTitle();
+        currentLoc = ConsoleColors.BLUE_BOLD + "Your location is " + currentRoom + ConsoleColors.RESET;
+        setMusic(pathStartSounds);
         populateGhostList();
         populateMiniGhostList();
         setCurrentGhost(getRandomGhost());
         assignRandomEvidenceToMap();
         assignRandomMiniGhostToMap();
         this.jFrame = jFrame;
+    }
+
+    private void setMusic(String pathStart){
+        mp = new MusicPlayer(pathStart + "Haunted Mansion.wav",cl);
+        soundEffect = new MusicPlayer(pathStart + "page-flip-4.wav", cl);
+        walkEffect = new MusicPlayer(pathStart + "footsteps-4.wav", cl);
+        keyboardEffect = new MusicPlayer(pathStart + "fast-pace-typing.wav",cl );
+        paperFalling = new MusicPlayer(pathStart + "paper flutter (2).wav",cl );
     }
 
     public void intro(String[] gameType) throws IOException {
@@ -81,8 +102,6 @@ public class Game implements java.io.Serializable {
 
     void createPlayer(String[] nameInput) {
         updateCurrentRoom();
-
-        player = Player.getInstance();
 
         player.setName(nameInput[0]);
 
@@ -139,7 +158,7 @@ public class Game implements java.io.Serializable {
                 case "?":
                 case "help":
                     jFrame.textDisplayGameWindow.setForeground(Color.PINK);
-                    quickNarrateFormatted(Files.readString(Paths.get("resources/Rules"), StandardCharsets.UTF_8));
+                    quickNarrateFormatted(Files.readString(Paths.get(resourcePath + "Rules"), StandardCharsets.UTF_8));
                     break;
                 case "open":
                     openMap();
@@ -206,8 +225,10 @@ public class Game implements java.io.Serializable {
 //                    break;
 
             }
-        } catch (ArrayIndexOutOfBoundsException | IOException e) {
+        } catch (ArrayIndexOutOfBoundsException | FileNotFoundException e) {
             narrateNoNewLine("Make sure to add a verb e.g. 'move', 'go', 'open', 'read' then a noun e.g. 'north', 'map', 'journal'.\n");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -319,7 +340,6 @@ public class Game implements java.io.Serializable {
                     simpleOutputInlineSetting(runCombat(fightChoice, this));
                     break;
             }
-
         }
     }
 
@@ -379,11 +399,11 @@ public class Game implements java.io.Serializable {
     }
 
     void populateGhostList() {
-        this.setGhosts(XMLParser.populateGhosts(XMLParser.readXML("Ghosts"), "ghost"));
+        this.setGhosts(XMLParser.populateGhosts(XMLParser.readXML(resourcePath + "Ghosts",cl ), "ghost"));
     }
 
     void populateMiniGhostList() {
-        this.setMiniGhosts(XMLParser.populateMiniGhosts(XMLParser.readXML("Ghosts"), "minighost"));
+        this.setMiniGhosts(XMLParser.populateMiniGhosts(XMLParser.readXML(resourcePath + "Ghosts",cl ), "minighost"));
     }
 
     void printGhosts() {
@@ -592,9 +612,7 @@ public class Game implements java.io.Serializable {
 
     // Used to add narration by appending to the GUI without removing any currently displayed text
     public void narrateNoNewLine(String input) {
-        int seconds = 1;
-        int numChars = input.toCharArray().length;
-        long sleepTime = (long) seconds * 1000 / numChars;
+
         if (isSound) {
             keyboardEffect.playSoundEffect();
         }
@@ -613,11 +631,7 @@ public class Game implements java.io.Serializable {
 
     // Removes all prior text presented in GUI and displays new room narration
     private void narrateRooms(String input) {
-        int seconds = 1;
-        int numChars = input.toCharArray().length;
-        long sleepTime = (long) seconds * 4000 / numChars;
-        System.out.print(ConsoleColors.RED_BRIGHT);
-//        try {
+
         if (isSound) {
             paperFalling.playSoundEffect();
         }
